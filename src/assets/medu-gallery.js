@@ -125,31 +125,3 @@
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
   else init();
 })();
-
-/* ── language switch (NL / EN) ─────────────────────────────────────────────
- * Sets <html data-lang>; CSS shows the matching [lang] content. Persisted. */
-(function () {
-  "use strict";
-  var KEY = "medu-lang";
-  var saved = "nl";
-  try { saved = localStorage.getItem(KEY) || "nl"; } catch (e) {}
-  function apply(lang) {
-    document.documentElement.setAttribute("data-lang", lang);
-    try { localStorage.setItem(KEY, lang); } catch (e) {}
-    var t = document.documentElement.getAttribute("data-title-" + lang);
-    if (t) document.title = t;
-    document.querySelectorAll("[data-lang-btn]").forEach(function (b) {
-      b.setAttribute("aria-pressed", String(b.getAttribute("data-lang-btn") === lang));
-    });
-  }
-  // set ASAP to limit flash
-  document.documentElement.setAttribute("data-lang", saved);
-  function wire() {
-    apply(saved);
-    document.querySelectorAll("[data-lang-btn]").forEach(function (b) {
-      b.addEventListener("click", function () { apply(b.getAttribute("data-lang-btn")); });
-    });
-  }
-  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", wire);
-  else wire();
-})();

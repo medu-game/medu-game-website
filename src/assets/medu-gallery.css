@@ -23,21 +23,17 @@
 @media(max-width:700px){.footer-band{padding:var(--space-12) var(--space-6);}}
 
 /* ── language switch (NL / EN) ───────────────────────────────────────────── */
-/* Both languages live in the HTML; the inactive one is hidden. Default = NL. */
-[lang="en"]{display:none;}
-html[data-lang="en"] [lang="en"]{display:inline;}
-html[data-lang="en"] [lang="nl"]{display:none;}
 .lang-switch{display:inline-flex; align-items:center; gap:2px; padding:3px; border-radius:var(--radius-pill); background:var(--surface-warm); box-shadow:inset 0 0 0 1px var(--border-soft);}
-.lang-switch button{
+.lang-switch a, .lang-switch button{
   font-family:var(--font-body); font-weight:600; font-size:var(--text-xs);
   letter-spacing:0.04em; padding:6px 12px; border:0; border-radius:var(--radius-pill);
-  background:transparent; color:var(--muted); cursor:pointer;
+  background:transparent; color:var(--muted); cursor:pointer; text-decoration:none;
   transition:background var(--motion-fast) var(--ease), color var(--motion-fast) var(--ease);
 }
-.lang-switch button:hover{color:var(--blue-dark);}
-.lang-switch button[aria-pressed="true"]{background:var(--blue-dark); color:var(--pink-light);}
+.lang-switch a:hover, .lang-switch button:hover{color:var(--blue-dark);}
+.lang-switch a[aria-current="page"]{background:var(--blue-dark); color:var(--pink-light);}
 /* EN hero title is longer — shrink a touch so it keeps to 3 lines */
-html[data-lang="en"] .hero-title{font-size:clamp(38px,4.9vw,66px);}
+html[lang="en"] .hero-title{font-size:clamp(38px,4.9vw,66px);}
 /* keep the hero visual the same size in both languages (NL's long title squeezes
    its column to ~314px; cap so EN doesn't balloon) */
 .hero-visual{width:100%; max-width:314px; margin-left:auto;}
