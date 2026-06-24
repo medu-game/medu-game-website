@@ -4,9 +4,6 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Medu.game | platform voor opleiders in de zorg</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=MuseoModerno:wght@500;600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/medu-fonts.css">
 <link rel="stylesheet" href="/assets/medu.css?v=8">
 <style>
@@ -24,7 +21,10 @@
 
 /* hero */
 .hero{position:relative; overflow:hidden; padding-top:80px;}
-.hero-grid{display:grid; grid-template-columns:1.15fr .85fr; gap:var(--space-12); align-items:center;}
+/* Fixed visual column (= its 314px max-width) so the layout is identical in
+   every language — content-driven fr tracks made the EN hero narrower, wrapping
+   the stats and shifting the image. */
+.hero-grid{display:grid; grid-template-columns:minmax(0,1fr) 314px; gap:var(--space-12); align-items:center;}
 .hero-title{font-family:var(--font-display); font-weight:500; font-size:var(--text-4xl); letter-spacing:var(--tracking-display); line-height:1.04;}
 .hero-lede{margin-top:var(--space-6); font-size:var(--text-xl); color:var(--fg-2); font-weight:300; max-width:46ch;}
 .hero-cta{margin-top:var(--space-8); display:flex; gap:var(--space-3); flex-wrap:wrap;}
@@ -197,7 +197,7 @@ footer.site{padding:var(--space-12) 0; color:var(--meta); font-size:var(--text-s
           <path d="M-40 470 V520 a30 30 0 0 0 60 0 V420 a30 30 0 0 1 60 0 V520 a30 30 0 0 0 60 0 V420 a30 30 0 0 1 60 0 V520 a30 30 0 0 0 60 0 V420 a30 30 0 0 1 60 0 V520 a30 30 0 0 0 60 0 V470"/>
         </g>
       </svg>
-      <img class="hero-char" src="/assets/char-cardio.png" alt="Medu.game cardioloog" data-alt-en="Medu.game cardiologist" />
+      <img class="hero-char" src="/assets/char-cardio.webp" alt="Medu.game cardioloog" data-alt-en="Medu.game cardiologist" />
       <div class="hero-cap">
         <span class="badge badge-blue">live · immersive 3D</span>
         <p><span lang="nl">Tour door het virtuele ziekenhuis</span><span lang="en">Tour the virtual hospital</span></p>
@@ -484,7 +484,7 @@ footer.site{padding:var(--space-12) 0; color:var(--meta); font-size:var(--text-s
           <path d="M20 30 V120 a22 22 0 0 0 44 0 V60 a22 22 0 0 1 44 0 V120 a22 22 0 0 0 44 0 V60 a22 22 0 0 1 44 0 V120"/>
         </g>
       </svg>
-      <img class="cta-char" src="/assets/char-expert.png" alt="Medu.game expert die je uitnodigt voor een demo" data-alt-en="Medu.game expert inviting you for a demo" />
+      <img class="cta-char" src="/assets/char-expert.webp" alt="Medu.game expert die je uitnodigt voor een demo" data-alt-en="Medu.game expert inviting you for a demo" />
       <div class="cta-content">
         <h2><span lang="nl">Klaar om Medu<span class="dot">.</span>game te zien werken?</span><span lang="en">Ready to see Medu<span class="dot">.</span>game in action?</span></h2>
         <p><span lang="nl">De snelste manier om het platform te begrijpen is een korte demo, we laten een echte casus zien en denken mee over jullie opleidingsdoelen en leerlijnen.</span><span lang="en">The fastest way to understand the platform is a short demo, we'll show a real case and think along about your training goals and learning paths.</span></p>
