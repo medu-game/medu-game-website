@@ -1,7 +1,7 @@
 // build.js — zero-dependency static multilingual generator
 import { readFileSync, writeFileSync, mkdirSync, cpSync, readdirSync, existsSync, rmSync } from 'node:fs';
 import { dirname, join } from 'node:path';
-import { LANGS, outputPath, switchHref, urlPath, canonical, rewriteLinks } from './lib/urls.mjs';
+import { LANGS, outputPath, switchHref, canonical, rewriteLinks } from './lib/urls.mjs';
 import { unwrapLang } from './lib/spans.mjs';
 import { parseMeta, applyHead } from './lib/head.mjs';
 import { buildSitemap } from './lib/sitemap.mjs';
