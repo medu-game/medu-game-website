@@ -71,6 +71,14 @@ function main() {
       assert(html.includes(`rel="canonical" href="${canonical(relPath, code)}"`), `${relPath} [${code}]: bad/missing canonical`);
       assert((html.match(/rel="alternate" hreflang=/g) || []).length === 3, `${relPath} [${code}]: expected 3 hreflang links`);
 
+      // Guard: no untranslated Dutch in EN alt/aria-label values
+      if (code === 'en') {
+        const DUTCH = /\b(beeld|tijdens|speel|bekijk|sluiten|vorige|volgende|weergave|redeneren|ziekenhuis|spoedopvang|herbruikbare|bouwblokken|samenstellen|apparaat|uitnodigt|onwel|geleiding|borstkas|behandeltafel|behandelkamer|ademhaling|bewustzijn|beademing|vaattoegang|geworden|beoordeling|elektroden)\b/i;
+        for (const m of html.matchAll(/(?:alt|aria-label)="([^"]*)"/g)) {
+          assert(!DUTCH.test(m[1]), `${relPath} [en]: untranslated Dutch in attribute: "${m[1]}"`);
+        }
+      }
+
       write(join(DIST, outputPath(relPath, code)), html);
     }
   }

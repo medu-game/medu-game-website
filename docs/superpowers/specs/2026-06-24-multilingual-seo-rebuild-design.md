@@ -146,12 +146,13 @@ Manual: serve `dist/`, confirm each URL shows one language, the switch jumps to 
 
 ## Follow-ups (post-merge)
 
-- **Translate `alt` / `aria-label` text for EN pages.** The dual-span mechanism handles visible
-  text only; image `alt` and `aria-label` attributes currently render in Dutch on the EN output
-  (~60 strings). Extend the authoring convention to per-language attributes (e.g.
-  `data-alt-nl`/`data-alt-en`) resolved by `applyHead`/the generator, author the EN values, and add
-  a build assertion that flags Dutch text on EN output so it can't regress. Surfaced by the final
-  whole-branch review; matters for EN image SEO and accessibility.
+- ~~**Translate `alt` / `aria-label` text for EN pages.**~~ **DONE.** Implemented via
+  `data-<attr>-en` override attributes (placed immediately after the base attr); `lib/attrs.mjs`
+  (`applyLangAttrs`) resolves them at build time — EN swaps in the override, both langs strip the
+  data attr. All five source pages have English overrides authored. Lightbox control labels
+  (`close`/`previous`/`next`) localize from `document.documentElement.lang` in `medu-gallery.js`.
+  A `build.js` assertion scans every EN page's `alt`/`aria-label` values against a curated
+  Dutch-token list and fails the build on regression.
 - **Generalize the hardcoded language regexes** (`(nl|en)` in `lib/spans.mjs`; `en/` skip in
   `rewriteLinks`) so adding a language is truly a single `LANGS` edit.
 

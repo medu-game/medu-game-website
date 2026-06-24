@@ -78,11 +78,20 @@ then author the matching `lang="<code>"` spans throughout the sources. Two regex
 the current languages and must be updated too: the `(nl|en)` match in `lib/spans.mjs` and the
 `en/` skip in `rewriteLinks` (`lib/urls.mjs`).
 
-**Known limitation (follow-up): `alt`/`aria-label` text is NL-only.** The dual-span mechanism
-covers visible text but not attribute values, so image `alt` and `aria-label` strings render in
-Dutch on the EN pages too. Tracked as a follow-up — translate by extending the authoring
-convention to per-language attributes (e.g. `data-alt-nl`/`data-alt-en` resolved at build time).
-See the design doc's Follow-ups section.
+**`alt`/`aria-label` override convention** — The dual-span mechanism covers visible text, not
+attribute values. For image `alt` and `aria-label` strings, author the NL text in the base
+attribute and add an English override as `data-<attr>-en` placed immediately after the base
+attribute:
+```html
+<img alt="beeld uit Medu.game" data-alt-en="still from Medu.game" />
+<button aria-label="sluiten" data-aria-label-en="close">
+```
+`lib/attrs.mjs` (`applyLangAttrs`) resolves this at build time: for EN, it swaps in the override
+value; for both languages, it strips the `data-*-en` attribute from the output. Lightbox control
+labels (`close`, `previous`, `next`) are localized from `document.documentElement.lang` in
+`medu-gallery.js`. A build assertion in `build.js` scans every EN page's `alt`/`aria-label`
+values against a curated Dutch-token list and fails the build if an untranslated Dutch string
+is found, so this cannot regress silently.
 
 ## Design system / tokens
 
