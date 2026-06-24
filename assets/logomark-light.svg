@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 280" width="240" height="280">
+  <g fill="none" stroke-width="32" stroke-linecap="round">
+    
+    <g stroke="#FFC8C7">
+      <path d="M30 145 V230"></path>
+      <path d="M85 145 V230"></path>
+      <path d="M155 145 V230"></path>
+      <path d="M210 145 V230"></path>
+      <path d="M30 230 a27.5 27.5 0 0 0 55 0"></path>
+      <path d="M155 230 a27.5 27.5 0 0 0 55 0"></path>
+    </g>
+    
+    <g stroke="#FFFFFF">
+      <path d="M30 65 V145"></path>
+      <path d="M85 65 V145"></path>
+      <path d="M155 65 V145"></path>
+      <path d="M210 65 V145"></path>
+      <path d="M30 65 a27.5 27.5 0 0 1 55 0"></path>
+      <path d="M155 65 a27.5 27.5 0 0 1 55 0"></path>
+      <path d="M85 145 a35 35 0 0 0 70 0"></path>
+    </g>
+  </g>
+</svg>

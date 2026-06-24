@@ -1,0 +1,211 @@
+/* ─────────────────────────────────────────────────────────────────────────
+ * medu.game — media add-on: screenshot gallery, lightbox & click-to-play video.
+ * Depends on the design tokens defined in medu.css / the page <style> block.
+ * ───────────────────────────────────────────────────────────────────────── */
+
+/* ── site footer (dark rounded band, learn.medu.game style) ──────────────── */
+.site-footer{padding:0 0 var(--space-12);}
+.footer-band{background:var(--blue-dark); color:var(--pink-light); border-radius:var(--radius-lg); padding:40px;}
+.footer-top{display:flex; justify-content:space-between; gap:var(--space-12); flex-wrap:wrap;}
+.footer-logo-img{height:50px; width:auto; display:block;}
+.footer-name{font-family:var(--font-display); font-weight:600; color:var(--pink); font-size:var(--text-xl); margin-top:var(--space-6);}
+.footer-tagline{color:rgba(255,224,224,.8); margin-top:var(--space-2); max-width:46ch;}
+.footer-loc-label{font-size:var(--text-lg); color:#fff; font-weight:600;}
+.footer-loc p{color:rgba(255,224,224,.8); margin-top:var(--space-2);}
+.footer-divider{border:0; border-top:1px solid rgba(255,224,224,.18); margin:var(--space-12) 0 var(--space-8);}
+.footer-bottom{display:flex; justify-content:space-between; align-items:center; gap:var(--space-6); flex-wrap:wrap;}
+.footer-contacts{display:flex; gap:var(--space-8); flex-wrap:wrap; font-size:var(--text-sm);}
+.footer-contacts a{display:inline-flex; align-items:center; gap:8px; color:rgba(255,224,224,.85); transition:color var(--motion-fast) var(--ease);}
+.footer-contacts a:hover{color:#fff;}
+.footer-contacts svg{flex:0 0 auto; opacity:.8;}
+.footer-linkedin{display:grid; place-items:center; width:38px; height:38px; border-radius:var(--radius-md); background:rgba(255,224,224,.12); color:var(--pink-light); transition:background var(--motion-fast) var(--ease), color var(--motion-fast) var(--ease);}
+.footer-linkedin:hover{background:rgba(255,224,224,.22); color:#fff;}
+@media(max-width:700px){.footer-band{padding:var(--space-12) var(--space-6);}}
+
+/* ── language switch (NL / EN) ───────────────────────────────────────────── */
+/* Both languages live in the HTML; the inactive one is hidden. Default = NL. */
+[lang="en"]{display:none;}
+html[data-lang="en"] [lang="en"]{display:inline;}
+html[data-lang="en"] [lang="nl"]{display:none;}
+.lang-switch{display:inline-flex; align-items:center; gap:2px; padding:3px; border-radius:var(--radius-pill); background:var(--surface-warm); box-shadow:inset 0 0 0 1px var(--border-soft);}
+.lang-switch button{
+  font-family:var(--font-body); font-weight:600; font-size:var(--text-xs);
+  letter-spacing:0.04em; padding:6px 12px; border:0; border-radius:var(--radius-pill);
+  background:transparent; color:var(--muted); cursor:pointer;
+  transition:background var(--motion-fast) var(--ease), color var(--motion-fast) var(--ease);
+}
+.lang-switch button:hover{color:var(--blue-dark);}
+.lang-switch button[aria-pressed="true"]{background:var(--blue-dark); color:var(--pink-light);}
+/* EN hero title is longer — shrink a touch so it keeps to 3 lines */
+html[data-lang="en"] .hero-title{font-size:clamp(38px,4.9vw,66px);}
+/* keep the hero visual the same size in both languages (NL's long title squeezes
+   its column to ~314px; cap so EN doesn't balloon) */
+.hero-visual{width:100%; max-width:314px; margin-left:auto;}
+@media(max-width:900px){.hero-visual{max-width:none; margin-left:0;}}
+
+/* ── click-to-play video embed ──────────────────────────────────────────── */
+.video-embed{
+  position:relative; display:block; width:100%;
+  aspect-ratio:16/9; /* overridden inline per clip when needed */
+  border-radius:var(--radius-lg); overflow:hidden;
+  background:var(--blue-dark); box-shadow:var(--elev-lg);
+  cursor:pointer; border:0; padding:0; margin:0;
+}
+.video-embed img.video-embed-poster{
+  width:100%; height:100%; object-fit:cover; display:block;
+  transition:transform var(--motion-base) var(--ease), filter var(--motion-base) var(--ease);
+}
+.video-embed:hover img.video-embed-poster{transform:scale(1.03); filter:brightness(.92);}
+.video-embed .video-embed-play{
+  position:absolute; inset:0; margin:auto;
+  width:76px; height:76px; border-radius:var(--radius-pill); border:0;
+  background:rgba(255,224,224,.92); color:var(--blue-dark);
+  display:grid; place-items:center; cursor:pointer;
+  box-shadow:var(--elev-lg);
+  transition:transform var(--motion-fast) var(--ease), background var(--motion-fast) var(--ease);
+}
+.video-embed:hover .video-embed-play{transform:scale(1.08); background:var(--pink-light);}
+.video-embed .video-embed-play svg{margin-left:4px;}
+.video-embed .video-embed-label{
+  position:absolute; left:var(--space-5); bottom:var(--space-5); z-index:2;
+  display:inline-flex; align-items:center; gap:8px;
+  padding:7px 14px; border-radius:var(--radius-pill);
+  background:rgba(0,0,72,.55); backdrop-filter:blur(6px);
+  color:var(--pink-light); font-weight:600; font-size:var(--text-xs);
+}
+.video-embed video{position:absolute; inset:0; width:100%; height:100%; object-fit:contain; background:#000; display:block; z-index:3;}
+.video-embed.is-playing{cursor:default;}
+.video-embed.is-playing img.video-embed-poster,
+.video-embed.is-playing .video-embed-play,
+.video-embed.is-playing .video-embed-label{display:none;}
+
+/* video caption under an embed */
+.media-caption{margin-top:var(--space-3); font-size:var(--text-sm); color:var(--muted);}
+
+/* ── screenshot gallery grid ────────────────────────────────────────────── */
+.gallery-grid{
+  display:grid; grid-template-columns:repeat(3,1fr); gap:var(--space-4);
+}
+@media(max-width:900px){.gallery-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:560px){.gallery-grid{grid-template-columns:1fr;}}
+.gallery-item{
+  position:relative; display:block; width:100%; aspect-ratio:16/9;
+  border:0; padding:0; margin:0; cursor:pointer; overflow:hidden;
+  border-radius:var(--radius-md); background:var(--blue-dark);
+  box-shadow:var(--elev-raised);
+  transition:transform var(--motion-base) var(--ease), box-shadow var(--motion-base) var(--ease);
+}
+.gallery-item img{width:100%; height:100%; object-fit:cover; display:block;
+  transition:transform var(--motion-base) var(--ease);}
+.gallery-item:hover{transform:translateY(-2px); box-shadow:var(--elev-lg);}
+.gallery-item:hover img{transform:scale(1.05);}
+.gallery-item::after{
+  content:""; position:absolute; inset:0; border-radius:inherit;
+  box-shadow:inset 0 0 0 1px var(--border-soft); pointer-events:none;
+}
+.gallery-item:focus-visible{outline:none; box-shadow:var(--elev-lg),0 0 0 3px var(--pink);}
+
+/* ── platform device showcase (overview) ────────────────────────────────── */
+.device-showcase{display:block; width:100%; height:auto; border-radius:var(--radius-lg);}
+
+/* ── centered FAQ (overview) ─────────────────────────────────────────────── */
+#faq .section-head{margin-left:auto; margin-right:auto; text-align:center;}
+#faq .faq{margin-left:auto; margin-right:auto;}
+
+/* ── leerlijn: theorie → simulatie → praktijk ───────────────────────────── */
+.leerlijn{display:grid; grid-template-columns:1fr auto 1fr auto 1fr; gap:var(--space-4); align-items:stretch;}
+.ll-step{background:var(--surface); border-radius:var(--radius-lg); padding:var(--space-8); box-shadow:var(--elev-raised); display:flex; flex-direction:column;}
+.ll-step h3{font-size:var(--text-lg); margin:var(--space-3) 0 var(--space-2);}
+.ll-step p{color:var(--muted); font-size:var(--text-sm);}
+.ll-num{display:inline-grid; place-items:center; width:32px; height:32px; border-radius:var(--radius-pill); background:var(--pink-light); color:var(--blue-dark); font-weight:600; font-size:var(--text-sm);}
+.ll-step-accent{background:var(--blue-dark); box-shadow:var(--elev-lg);}
+.ll-step-accent h3{color:#fff;}
+.ll-step-accent p{color:rgba(255,224,224,.82);}
+.ll-badge{align-self:flex-start; display:inline-flex; align-items:center; padding:6px 12px; border-radius:var(--radius-pill); background:var(--pink); color:var(--blue-dark); font-weight:600; font-size:var(--text-xs); letter-spacing:0.02em;}
+.ll-badge .dot{color:inherit;}
+.ll-arrow{align-self:center; color:var(--meta); display:grid; place-items:center;}
+@media(max-width:900px){
+  .leerlijn{grid-template-columns:1fr;}
+  .ll-arrow{transform:rotate(90deg); justify-self:center;}
+}
+
+/* ── content builder shot inside the dark platform band ──────────────────── */
+.platform-builder{position:relative; z-index:2; margin-top:var(--space-12);}
+.platform-builder img{display:block; width:100%; height:auto; border-radius:var(--radius-lg); box-shadow:var(--elev-lg);}
+.platform-builder-cap{margin-top:var(--space-4); font-size:var(--text-sm); color:rgba(255,224,224,.8); max-width:70ch;}
+
+/* ── closing CTA with brand character (overview) ────────────────────────── */
+.cta.cta-split{
+  display:grid; grid-template-columns:280px 1fr; gap:var(--space-12);
+  align-items:end; text-align:left;
+  padding-top:var(--space-14); padding-bottom:0;
+}
+.cta-split .cta-char{
+  align-self:end; width:100%; max-width:300px; height:auto;
+  display:block; position:relative; z-index:2; pointer-events:none;
+}
+.cta-split .cta-content{position:relative; z-index:2; align-self:center; padding-bottom:var(--space-20);}
+.cta-split .cta-content .row{justify-content:flex-start;}
+@media(max-width:760px){
+  .cta.cta-split{grid-template-columns:1fr; text-align:center; padding:64px var(--space-6) 0; gap:var(--space-6);}
+  .cta-split .cta-char{max-width:200px; margin:0 auto;}
+  .cta-split .cta-content{padding-bottom:var(--space-14);}
+  .cta-split .cta-content .row{justify-content:center;}
+}
+
+/* ── lightbox overlay (built by medu-gallery.js) ────────────────────────── */
+.lightbox{
+  position:fixed; inset:0; z-index:200;
+  display:flex; align-items:center; justify-content:center;
+  padding:max(24px,4vh) max(24px,4vw);
+  background:rgba(0,0,72,.92); backdrop-filter:blur(8px);
+  opacity:0; visibility:hidden;
+  transition:opacity var(--motion-base) var(--ease), visibility var(--motion-base) var(--ease);
+}
+.lightbox.is-open{opacity:1; visibility:visible;}
+.lightbox-figure{
+  margin:0; max-width:100%; max-height:100%;
+  display:flex; flex-direction:column; align-items:center; gap:var(--space-4);
+  transform:scale(.96); transition:transform var(--motion-base) var(--ease);
+}
+.lightbox.is-open .lightbox-figure{transform:scale(1);}
+.lightbox-img{
+  max-width:100%; max-height:82vh; border-radius:var(--radius-md);
+  box-shadow:var(--elev-lg); display:block; object-fit:contain; background:#000;
+}
+.lightbox-caption{
+  color:var(--pink-light); font-size:var(--text-sm); text-align:center;
+  max-width:60ch; min-height:1.2em;
+}
+.lightbox-btn{
+  position:absolute; top:50%; transform:translateY(-50%);
+  width:52px; height:52px; border-radius:var(--radius-pill); border:0; cursor:pointer;
+  background:rgba(255,224,224,.14); color:var(--pink-light);
+  display:grid; place-items:center;
+  transition:background var(--motion-fast) var(--ease), transform var(--motion-fast) var(--ease);
+}
+.lightbox-btn:hover{background:rgba(255,224,224,.28);}
+.lightbox-prev{left:max(12px,2vw);}
+.lightbox-next{right:max(12px,2vw);}
+.lightbox-prev:hover{transform:translateY(-50%) translateX(-2px);}
+.lightbox-next:hover{transform:translateY(-50%) translateX(2px);}
+.lightbox-close{
+  position:absolute; top:max(16px,2.5vh); right:max(16px,2vw);
+  width:46px; height:46px; border-radius:var(--radius-pill); border:0; cursor:pointer;
+  background:rgba(255,224,224,.14); color:var(--pink-light);
+  display:grid; place-items:center;
+  transition:background var(--motion-fast) var(--ease), transform var(--motion-fast) var(--ease);
+}
+.lightbox-close:hover{background:rgba(255,224,224,.28); transform:rotate(90deg);}
+.lightbox-count{
+  position:absolute; top:max(20px,2.5vh); left:max(16px,2vw);
+  color:rgba(255,224,224,.7); font-size:var(--text-sm); font-family:var(--font-mono);
+}
+@media(max-width:560px){
+  .lightbox-btn{width:42px; height:42px;}
+  .lightbox-img{max-height:72vh;}
+}
+@media(prefers-reduced-motion:reduce){
+  .video-embed img.video-embed-poster,.gallery-item,.gallery-item img,
+  .lightbox,.lightbox-figure,.lightbox-btn,.lightbox-close{transition:none;}
+}

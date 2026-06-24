@@ -1,0 +1,21 @@
+/* ─────────────────────────────────────────────────────────────────────────
+ * medu.game — self-hosted Fieldwork Geo (the brand body face).
+ * MuseoModerno (display) keeps loading from Google Fonts in each page <head>.
+ * url() is resolved relative to THIS file, so it works from both the root
+ * overview page and the module pages under modules/.
+ * ───────────────────────────────────────────────────────────────────────── */
+@font-face{
+  font-family:"Fieldwork Geo";
+  src:url("fonts/Fieldwork-Geo-Light.woff2") format("woff2");
+  font-weight:300; font-style:normal; font-display:swap;
+}
+@font-face{
+  font-family:"Fieldwork Geo";
+  src:url("fonts/Fieldwork-Geo-Regular.woff2") format("woff2");
+  font-weight:400; font-style:normal; font-display:swap;
+}
+@font-face{
+  font-family:"Fieldwork Geo";
+  src:url("fonts/Fieldwork-Geo-Demibold.woff2") format("woff2");
+  font-weight:600; font-style:normal; font-display:swap;
+}

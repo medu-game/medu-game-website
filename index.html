@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="nl" data-title-nl="Medu.game | platform voor opleiders in de zorg" data-title-en="Medu.game | the learning platform for healthcare educators">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Medu.game | platform voor opleiders in de zorg</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=MuseoModerno:wght@500;600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/medu-fonts.css">
+<style>
+/* ── tokens (verbatim from design-systems/medu-game/tokens.css) ───────── */
+:root{
+  --bg:#FBF9F7; --surface:#FFFFFF; --surface-warm:#FFF4F4;
+  --fg:#000048; --fg-2:rgba(0,0,72,.8); --muted:rgba(0,0,72,.6); --meta:rgba(0,0,72,.4);
+  --border:rgba(0,0,72,.1); --border-soft:rgba(0,0,72,.05);
+  --accent:#141484; --accent-on:#FFE0E0; --accent-hover:#0A0A66; --accent-active:#000048;
+  --pink-light:#FFE0E0; --pink:#FFC8C7; --blue:#141484; --blue-dark:#000048;
+  --font-display:"MuseoModerno","Quicksand",system-ui,sans-serif;
+  --font-body:"Fieldwork Geo","Outfit","Nunito",system-ui,sans-serif;
+  --font-mono:ui-monospace,"SF Mono",Menlo,monospace;
+  --text-xs:12px; --text-sm:14px; --text-base:16px; --text-lg:18px; --text-xl:22px;
+  --text-2xl:clamp(28px,3vw,40px); --text-3xl:clamp(36px,4.4vw,56px); --text-4xl:clamp(44px,6vw,80px);
+  --leading-body:1.55; --leading-tight:1.15; --tracking-display:-0.01em;
+  --space-1:4px; --space-2:8px; --space-3:12px; --space-4:16px; --space-5:20px;
+  --space-6:24px; --space-8:32px; --space-12:48px;
+  --section-y:120px;
+  --radius-sm:6px; --radius-md:12px; --radius-lg:20px; --radius-pill:999px;
+  --elev-raised:0 2px 8px rgba(0,0,72,.08),0 12px 32px rgba(0,0,72,.06);
+  --elev-lg:0 12px 40px rgba(0,0,72,.12),0 2px 6px rgba(0,0,72,.06);
+  --focus-ring:0 0 0 2px #000048,0 0 0 6px #FFE0E0;
+  --motion-fast:140ms; --motion-base:240ms; --ease:cubic-bezier(0.22,1,0.36,1);
+  --container:1240px; --gutter:64px;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0; background:var(--bg); color:var(--fg);
+  font-family:var(--font-body); font-weight:300; font-size:var(--text-base);
+  line-height:var(--leading-body); -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:var(--container); margin:0 auto; padding:0 var(--gutter);}
+h1,h2,h3,h4{font-family:var(--font-body); font-weight:600; line-height:var(--leading-tight); margin:0; letter-spacing:-0.01em;}
+p{margin:0;}
+a{color:inherit; text-decoration:none;}
+.dot{color:var(--pink);}
+
+/* eyebrow */
+.eyebrow{
+  display:inline-flex; align-items:center; gap:var(--space-2);
+  font-weight:600; font-size:var(--text-xs); letter-spacing:0.14em; text-transform:uppercase;
+  color:var(--muted);
+}
+.eyebrow .pulse{width:8px; height:8px; border-radius:var(--radius-pill); background:var(--pink); box-shadow:0 0 0 4px rgba(255,200,199,.3);}
+
+/* buttons (pill, non-negotiable) */
+.btn{
+  display:inline-flex; align-items:center; gap:var(--space-2);
+  font-family:var(--font-body); font-weight:600; font-size:var(--text-sm);
+  padding:13px 24px; border-radius:var(--radius-pill); border:0; cursor:pointer;
+  transition:transform var(--motion-fast) var(--ease), background var(--motion-fast) var(--ease);
+}
+.btn:hover{transform:translateY(-1px);}
+.btn-primary{background:var(--blue-dark); color:var(--pink-light);}
+.btn-primary:hover{background:var(--blue);}
+.btn-secondary{background:var(--pink); color:var(--blue-dark);}
+.btn-secondary:hover{background:var(--pink-light);}
+.btn-ghost{background:transparent; color:var(--blue-dark); box-shadow:inset 0 0 0 1.5px var(--blue-dark);}
+.btn-ghost:hover{background:var(--blue-dark); color:var(--pink-light);}
+
+/* badge */
+.badge{
+  display:inline-flex; align-items:center; gap:6px; padding:6px 12px;
+  border-radius:var(--radius-pill); font-weight:600; font-size:var(--text-xs);
+  letter-spacing:0.04em;
+}
+.badge-pink{background:var(--pink-light); color:var(--blue-dark);}
+.badge-blue{background:var(--blue-dark); color:var(--pink-light);}
+.badge-outline{box-shadow:inset 0 0 0 1px var(--border); color:var(--muted);}
+
+/* topbar */
+.topbar{position:sticky; top:0; z-index:50; background:rgba(251,249,247,.85); backdrop-filter:blur(10px); border-bottom:1px solid var(--border-soft);}
+.topbar-inner{display:flex; align-items:center; justify-content:space-between; height:72px;}
+.brand{display:flex; align-items:center; gap:10px; font-family:var(--font-display); font-weight:500; font-size:22px; color:var(--blue-dark);}
+.brand svg{display:block;}
+.topnav{display:flex; gap:var(--space-6); font-size:var(--text-sm); font-weight:400; color:var(--muted);}
+.topnav a{transition:color var(--motion-fast) var(--ease);}
+.topnav a:hover{color:var(--blue-dark);}
+@media(max-width:900px){.topnav{display:none;}}
+
+/* section rhythm */
+section{padding:var(--section-y) 0;}
+.section-head{max-width:760px; margin-bottom:var(--space-12);}
+.section-head .eyebrow{margin-bottom:var(--space-4);}
+.section-title{font-size:var(--text-2xl);}
+.section-lede{margin-top:var(--space-4); font-size:var(--text-lg); color:var(--muted); font-weight:300;}
+
+/* hero */
+.hero{position:relative; overflow:hidden; padding-top:80px;}
+.hero-grid{display:grid; grid-template-columns:1.15fr .85fr; gap:var(--space-12); align-items:center;}
+.hero-title{font-family:var(--font-display); font-weight:500; font-size:var(--text-4xl); letter-spacing:var(--tracking-display); line-height:1.04;}
+.hero-lede{margin-top:var(--space-6); font-size:var(--text-xl); color:var(--fg-2); font-weight:300; max-width:46ch;}
+.hero-cta{margin-top:var(--space-8); display:flex; gap:var(--space-3); flex-wrap:wrap;}
+.hero-stats{margin-top:var(--space-12); display:flex; gap:var(--space-8); flex-wrap:wrap;}
+.hero-stats .k{font-family:var(--font-display); font-weight:600; font-size:34px; color:var(--blue-dark);}
+.hero-stats .v{font-size:var(--text-sm); color:var(--muted);}
+.hero-visual{position:relative; aspect-ratio:4/5; border-radius:var(--radius-lg); background:var(--pink-light); overflow:hidden; box-shadow:var(--elev-lg);}
+.hero-visual .ribbon{position:absolute; inset:0;}
+.hero-char{position:absolute; right:-3%; bottom:0; height:104%; width:auto; z-index:2; pointer-events:none;}
+.hero-cap{position:absolute; left:var(--space-6); bottom:var(--space-6); z-index:3; max-width:62%;}
+.hero-cap p{margin-top:10px; color:var(--blue-dark); font-weight:600; font-size:var(--text-sm);}
+@media(max-width:900px){.hero-grid{grid-template-columns:1fr;} .hero-visual{aspect-ratio:16/12;} .hero-char{height:106%; right:-6%;}}
+
+/* loops motif */
+.loops{position:absolute; pointer-events:none;}
+
+/* what-is split */
+.split{display:grid; grid-template-columns:1fr 1fr; gap:var(--space-12); align-items:center;}
+@media(max-width:900px){.split{grid-template-columns:1fr;}}
+.steplist{list-style:none; padding:0; margin:var(--space-6) 0 0; display:grid; gap:var(--space-4);}
+.steplist li{display:flex; gap:var(--space-4); align-items:flex-start;}
+.steplist .num{flex:0 0 auto; width:32px; height:32px; border-radius:var(--radius-pill); background:var(--pink-light); color:var(--blue-dark); display:grid; place-items:center; font-weight:600; font-size:var(--text-sm);}
+.steplist .txt{padding-top:4px; color:var(--fg-2);}
+.steplist .txt b{font-weight:600; color:var(--fg);}
+.media-3d{aspect-ratio:5/4; border-radius:var(--radius-lg); background:linear-gradient(0deg,var(--blue-dark),var(--blue-dark)); position:relative; overflow:hidden; box-shadow:var(--elev-raised); display:grid; place-items:center;}
+.media-3d .label{position:relative; z-index:2; color:var(--pink-light); font-family:var(--font-display); font-weight:500; font-size:var(--text-xl); text-align:center; padding:0 var(--space-8);}
+
+/* benefit cards */
+.cards-3{display:grid; grid-template-columns:repeat(3,1fr); gap:var(--space-6);}
+@media(max-width:900px){.cards-3{grid-template-columns:1fr;}}
+.card{background:var(--surface); border-radius:var(--radius-lg); padding:var(--space-8); box-shadow:var(--elev-raised); transition:transform var(--motion-base) var(--ease), box-shadow var(--motion-base) var(--ease);}
+.card:hover{transform:translateY(-2px); box-shadow:var(--elev-lg);}
+.card .ico{width:48px; height:48px; border-radius:var(--radius-pill); background:var(--blue-dark); display:grid; place-items:center; margin-bottom:var(--space-5);}
+.card h3{font-size:var(--text-xl); margin-bottom:var(--space-3);}
+.card p{color:var(--muted);}
+.card .stat{margin-top:var(--space-5); font-family:var(--font-display); font-weight:600; font-size:28px; color:var(--blue);}
+
+/* modules */
+.modules-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:var(--space-6);}
+@media(max-width:900px){.modules-grid{grid-template-columns:1fr;}}
+.module-card{background:var(--surface); border-radius:var(--radius-lg); padding:var(--space-8); box-shadow:var(--elev-raised); display:flex; flex-direction:column; transition:transform var(--motion-base) var(--ease), box-shadow var(--motion-base) var(--ease);}
+.module-card:hover{transform:translateY(-2px); box-shadow:var(--elev-lg);}
+.module-card .thumb{display:block; margin:calc(-1 * var(--space-8)) calc(-1 * var(--space-8)) var(--space-6); aspect-ratio:16/9; overflow:hidden; border-radius:var(--radius-lg) var(--radius-lg) 0 0; background:var(--blue-dark); cursor:pointer;}
+.module-card .thumb img{width:100%; height:100%; object-fit:cover; display:block; transition:transform var(--motion-base) var(--ease);}
+.module-card a.thumb:hover img{transform:scale(1.04);}
+.module-card .top{display:flex; align-items:center; justify-content:space-between; gap:var(--space-3); margin-bottom:var(--space-4);}
+.module-card h3{font-size:var(--text-xl);}
+.module-card .desc{color:var(--muted); font-size:var(--text-sm);}
+.tag-row{display:flex; flex-wrap:wrap; gap:8px; margin-top:var(--space-5);}
+.tag{font-size:var(--text-xs); font-weight:600; padding:5px 11px; border-radius:var(--radius-pill); background:var(--surface-warm); color:var(--fg-2);}
+.module-meta{margin-top:var(--space-5); padding-top:var(--space-4); border-top:1px solid var(--border); display:flex; flex-wrap:wrap; gap:var(--space-2) var(--space-5); font-size:var(--text-xs); color:var(--muted);}
+.module-meta b{font-weight:600; color:var(--fg);}
+.modules-note{margin-top:var(--space-8); text-align:center; color:var(--muted); font-size:var(--text-sm);}
+.module-link{margin-top:var(--space-5); font-weight:600; font-size:var(--text-sm); color:var(--accent); align-self:flex-start;}
+.module-link:hover{text-decoration:underline; text-underline-offset:3px;}
+.module-card h3 a{transition:color var(--motion-fast) var(--ease);}
+.module-card h3 a:hover{color:var(--accent); text-decoration:underline; text-underline-offset:3px;}
+
+/* feature grid (on dark) */
+.dark-band{background:var(--blue-dark); color:var(--pink-light); border-radius:var(--radius-lg); padding:var(--section-y) var(--gutter); position:relative; overflow:hidden;}
+.dark-band .eyebrow{color:rgba(255,224,224,.7);}
+.dark-band .section-title{color:#fff;}
+.dark-band .section-lede{color:rgba(255,224,224,.8);}
+.features{display:grid; grid-template-columns:repeat(2,1fr); gap:var(--space-8) var(--space-12); margin-top:var(--space-12);}
+@media(max-width:900px){.features{grid-template-columns:1fr;} .dark-band{padding:var(--section-y-phone,56px) var(--space-6);}}
+.feature{display:flex; gap:var(--space-5); align-items:flex-start;}
+.feature .fico{flex:0 0 auto; width:44px; height:44px; border-radius:var(--radius-md); box-shadow:inset 0 0 0 1px rgba(255,255,255,.18); display:grid; place-items:center;}
+.feature h4{color:#fff; font-size:var(--text-lg); margin-bottom:6px;}
+.feature p{color:rgba(255,224,224,.78); font-size:var(--text-sm); font-weight:300;}
+
+/* audience */
+.aud{display:grid; grid-template-columns:repeat(3,1fr); gap:var(--space-6);}
+@media(max-width:900px){.aud{grid-template-columns:1fr;}}
+.aud-card{background:var(--surface-warm); border-radius:var(--radius-lg); padding:var(--space-8); border:1px solid var(--border-soft);}
+.aud-card h3{font-size:var(--text-lg); margin-bottom:var(--space-3);}
+.aud-card ul{margin:var(--space-4) 0 0; padding:0; list-style:none; display:grid; gap:var(--space-2);}
+.aud-card li{font-size:var(--text-sm); color:var(--fg-2); display:flex; gap:8px; align-items:flex-start;}
+.aud-card li::before{content:""; flex:0 0 auto; width:6px; height:6px; margin-top:8px; border-radius:var(--radius-pill); background:var(--pink);}
+
+/* proof / testimonials */
+.quotes{display:grid; grid-template-columns:repeat(2,1fr); gap:var(--space-6);}
+@media(max-width:900px){.quotes{grid-template-columns:1fr;}}
+.quote{background:var(--surface); border-radius:var(--radius-lg); padding:var(--space-8); box-shadow:var(--elev-raised);}
+.quote.dark{background:var(--blue-dark); color:#fff;}
+.quote p{font-size:var(--text-lg); line-height:1.4; font-weight:400;}
+.quote.dark p{color:var(--pink-light);}
+.quote .who{margin-top:var(--space-5); display:flex; align-items:center; gap:12px; font-size:var(--text-sm); color:var(--fg-2); font-weight:600;}
+.quote.dark .who{color:rgba(255,224,224,.85);}
+.quote .who .avatar{width:46px; height:46px; border-radius:var(--radius-pill); object-fit:cover; flex:0 0 auto;}
+.quote .who span{display:block; font-weight:400; color:var(--meta); margin-top:2px;}
+.quote.dark .who span{color:rgba(255,224,224,.55);}
+.logos{margin-top:var(--space-12); display:flex; flex-wrap:wrap; gap:var(--space-3); align-items:center;}
+.logos .lbl{font-size:var(--text-xs); letter-spacing:0.14em; text-transform:uppercase; color:var(--meta); margin-right:var(--space-3);}
+
+/* usp */
+.usp{display:grid; grid-template-columns:repeat(2,1fr); gap:var(--space-5);}
+@media(max-width:700px){.usp{grid-template-columns:1fr;}}
+.usp-item{display:flex; gap:var(--space-4); align-items:flex-start; padding:var(--space-5) 0; border-top:1px solid var(--border);}
+.usp-item .chk{flex:0 0 auto; width:28px; height:28px; border-radius:var(--radius-pill); background:var(--pink-light); display:grid; place-items:center;}
+.usp-item h4{font-size:var(--text-base); margin-bottom:4px;}
+.usp-item p{font-size:var(--text-sm); color:var(--muted);}
+
+/* faq */
+.faq{display:grid; gap:var(--space-3); max-width:860px;}
+details{background:var(--surface); border-radius:var(--radius-md); box-shadow:var(--elev-raised); overflow:hidden;}
+summary{list-style:none; cursor:pointer; padding:var(--space-5) var(--space-6); font-weight:600; font-size:var(--text-base); display:flex; justify-content:space-between; align-items:center; gap:var(--space-4);}
+summary::-webkit-details-marker{display:none;}
+summary .plus{flex:0 0 auto; width:24px; height:24px; border-radius:var(--radius-pill); background:var(--pink-light); color:var(--blue-dark); display:grid; place-items:center; font-weight:600; transition:transform var(--motion-base) var(--ease);}
+details[open] summary .plus{transform:rotate(45deg);}
+details .body{padding:0 var(--space-6) var(--space-6); color:var(--muted); font-size:var(--text-sm);}
+
+/* cta footer */
+.cta{position:relative; overflow:hidden; background:var(--pink-light); border-radius:var(--radius-lg); padding:var(--section-y) var(--gutter); text-align:center;}
+.cta h2{font-family:var(--font-display); font-weight:600; font-size:var(--text-3xl); color:var(--blue-dark);}
+.cta p{margin:var(--space-4) auto 0; max-width:48ch; color:var(--fg-2);}
+.cta .row{margin-top:var(--space-8); display:flex; gap:var(--space-3); justify-content:center; flex-wrap:wrap;}
+@media(max-width:700px){.cta{padding:64px var(--space-6);}}
+
+footer.site{padding:var(--space-12) 0; color:var(--meta); font-size:var(--text-sm);}
+.foot-row{display:flex; justify-content:space-between; gap:var(--space-6); flex-wrap:wrap; align-items:center;}
+.foot-links{display:flex; gap:var(--space-6);}
+.foot-links a:hover{color:var(--blue-dark); text-decoration:underline; text-underline-offset:4px;}
+
+.section-num{font-family:var(--font-mono); font-size:var(--text-xs); color:var(--meta); letter-spacing:0.08em;}
+</style>
+<link rel="stylesheet" href="assets/medu-gallery.css?v=8">
+</head>
+<body>
+
+<!-- topbar -->
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <a class="brand" href="#top" aria-label="Medu.game">
+      <img src="assets/logo-oneline.png" alt="Medu.game" style="height:28px; width:auto; display:block;" />
+    </a>
+    <nav class="topnav">
+      <a href="#wat"><span lang="nl">wat het is</span><span lang="en">what it is</span></a>
+      <a href="#platform"><span lang="nl">het platform</span><span lang="en">the platform</span></a>
+      <a href="#modules">modules</a>
+      <a href="#bewijs"><span lang="nl">bewijs</span><span lang="en">proof</span></a>
+      <a href="#faq">faq</a>
+    </nav>
+    <div style="display:flex; align-items:center; gap:var(--space-4);">
+      <div class="lang-switch" role="group" aria-label="taal / language">
+        <button type="button" data-lang-btn="nl" aria-pressed="true">NL</button>
+        <button type="button" data-lang-btn="en" aria-pressed="false">EN</button>
+      </div>
+      <a class="btn btn-primary" href="#contact"><span lang="nl">plan een demo</span><span lang="en">book a demo</span></a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- hero -->
+<section class="hero" id="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow"><span class="pulse"></span><span lang="nl">platform overview · voor opleiders &amp; l&amp;d in de zorg</span><span lang="en">platform overview · for educators &amp; l&amp;d in healthcare</span></span>
+      <h1 class="hero-title" style="margin-top:var(--space-5)"><span lang="nl">Hét digitale<br/>leerplatform voor<br/>zorgprofessionals</span><span lang="en">The digital<br/>learning platform<br/>for healthcare</span><span class="dot">.</span></h1>
+      <p class="hero-lede"><span lang="nl">Medu.game brengt serious games, simulaties en casuïstiek samen in één platform. Zorgprofessionals oefenen klinisch redeneren in een immersieve 3D-omgeving, in de browser op je computer of laptop, of op telefoon en tablet, tussen de diensten door.</span><span lang="en">Medu.game brings serious games, simulations and case-based learning together in one platform. Healthcare professionals practise clinical reasoning in an immersive 3D environment, in the browser on a computer or laptop, or as an app on phone and tablet, between shifts.</span></p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="#contact"><span lang="nl">plan een demo</span><span lang="en">book a demo</span></a>
+        <a class="btn btn-ghost" href="#wat"><span lang="nl">bekijk hoe het werkt</span><span lang="en">see how it works</span></a>
+      </div>
+      <div class="hero-stats">
+        <div><div class="k"><span lang="nl">overal</span><span lang="en">anywhere</span></div><div class="v"><span lang="nl">browser, telefoon &amp; tablet</span><span lang="en">browser, phone &amp; tablet</span></div></div>
+        <div><div class="k">4</div><div class="v"><span lang="nl">klinische modules · speelklaar</span><span lang="en">clinical modules · ready to play</span></div></div>
+        <div><div class="k">2018</div><div class="v"><span lang="nl">opgericht · game-based learning</span><span lang="en">founded · game-based learning</span></div></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <svg class="ribbon" viewBox="0 0 480 600" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <g fill="none" stroke="#000048" stroke-width="30" stroke-linecap="round" stroke-linejoin="round" opacity="0.9">
+          <path d="M-40 300 V400 a55 55 0 0 0 110 0 V200 a55 55 0 0 1 110 0 V400 a55 55 0 0 0 110 0 V200 a55 55 0 0 1 110 0 V400 a55 55 0 0 0 110 0 V300"/>
+        </g>
+        <g fill="none" stroke="rgba(0,0,72,.16)" stroke-width="14" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M-40 470 V520 a30 30 0 0 0 60 0 V420 a30 30 0 0 1 60 0 V520 a30 30 0 0 0 60 0 V420 a30 30 0 0 1 60 0 V520 a30 30 0 0 0 60 0 V420 a30 30 0 0 1 60 0 V520 a30 30 0 0 0 60 0 V470"/>
+        </g>
+      </svg>
+      <img class="hero-char" src="assets/char-cardio.png" alt="Medu.game cardioloog" />
+      <div class="hero-cap">
+        <span class="badge badge-blue">live · immersive 3D</span>
+        <p><span lang="nl">Tour door het virtuele ziekenhuis</span><span lang="en">Tour the virtual hospital</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- wat is het -->
+<section id="wat">
+  <div class="wrap split">
+    <div>
+      <div class="section-num"><span lang="nl">01 · wat het is</span><span lang="en">01 · what it is</span></div>
+      <h2 class="section-title" style="margin-top:var(--space-3)"><span lang="nl">Game-based learning, gebouwd voor de zorg.</span><span lang="en">Game-based learning, built for healthcare.</span></h2>
+      <p class="section-lede"><span lang="nl">Game-based learning gebruikt de kracht van games om kennis, competenties en vaardigheden te oefenen. Niet omdat het leuk moet zijn, maar omdat mensen onthouden wat ze dóen.</span><span lang="en">Game-based learning uses the power of games to practise knowledge, competencies and skills. Not because it has to be fun, but because people remember what they do.</span></p>
+      <ul class="steplist">
+        <li><span class="num">1</span><span class="txt"><span lang="nl">Je speelt een <b>realistische casus</b> met personages en een verhaallijn, geen klaslokaal, wel context.</span><span lang="en">You play a <b>realistic case</b> with characters and a storyline, no classroom, real context.</span></span></li>
+        <li><span class="num">2</span><span class="txt"><span lang="nl">Je neemt <b>beslissingen</b>, rondt opdrachten af en past direct toe wat je leert in een veilige simulatie.</span><span lang="en">You make <b>decisions</b>, complete tasks and immediately apply what you learn in a safe simulation.</span></span></li>
+        <li><span class="num">3</span><span class="txt"><span lang="nl">Je krijgt na elke stap <b>directe feedback</b> op je handelen, zo verankert kennis in de praktijk.</span><span lang="en">After every step you get <b>direct feedback</b> on your actions, so knowledge sticks in practice.</span></span></li>
+      </ul>
+    </div>
+    <button class="video-embed" data-src="assets/wat/abcde-intro.webm" data-src-mp4="assets/wat/abcde-intro.mp4" data-poster="assets/wat/abcde-intro-poster.webp" aria-label="speel de Medu.game intro-video af" style="aspect-ratio:16/9;">
+      <img class="video-embed-poster" src="assets/wat/abcde-intro-poster.webp" alt="beeld uit Medu.game, klinisch redeneren in een 3D-spoedopvang" />
+      <span class="video-embed-label"><span class="pulse" style="width:8px;height:8px;border-radius:999px;background:var(--pink);box-shadow:0 0 0 4px rgba(255,200,199,.3);"></span><span lang="nl">bekijk in actie · 2:53</span><span lang="en">watch it in action · 2:53</span></span>
+      <span class="video-embed-play"><svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
+    </button>
+  </div>
+</section>
+
+<!-- waarom het werkt -->
+<section id="waarom" style="background:var(--surface-warm);">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow"><span lang="nl">02 · waarom het werkt</span><span lang="en">02 · why it works</span></span>
+      <h2 class="section-title"><span lang="nl">Leren door te doen blijft hangen.</span><span lang="en">Learning by doing sticks.</span></h2>
+      <p class="section-lede"><span lang="nl">Boeken en e-learning leggen een onmisbare basis, maar het blijft droge kost. De generatie van nu leert beter met interactieve content: game-based learning verhoogt betrokkenheid, retentie en directe toepasbaarheid, precies waar verplichte nascholing vaak op vastloopt.</span><span lang="en">Books and e-learning lay an essential foundation, but it stays dry material. Today's generation learns better with interactive content: game-based learning boosts engagement, retention and real-world transfer, exactly where mandatory training tends to stall.</span></p>
+    </div>
+    <div class="cards-3">
+      <div class="card">
+        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FFE0E0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 10-12h-7z"/></svg></div>
+        <h3><span lang="nl">Meer betrokkenheid</span><span lang="en">More engagement</span></h3>
+        <p><span lang="nl">Interactieve casussen houden de aandacht vast en motiveren om door te leren, niet één keer, maar telkens opnieuw.</span><span lang="en">Interactive cases hold attention and motivate people to keep learning, not once, but again and again.</span></p>
+      </div>
+      <div class="card">
+        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FFE0E0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12c.7.7 1 1.3 1 2h6c0-.7.3-1.3 1-2a7 7 0 0 0-4-12z"/></svg></div>
+        <h3><span lang="nl">Betere kennisretentie</span><span lang="en">Better knowledge retention</span></h3>
+        <p><span lang="nl">Mensen onthouden tot 90% van wat ze actief doen, tegenover 10% van wat ze lezen. Simulatie zet kennis om in kunde.</span><span lang="en">People remember up to 90% of what they actively do, versus 10% of what they read. Simulation turns knowledge into skill.</span></p>
+        <div class="stat">90%</div>
+      </div>
+      <div class="card">
+        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FFE0E0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+        <h3><span lang="nl">Direct relevant</span><span lang="en">Immediately relevant</span></h3>
+        <p><span lang="nl">Content is getoetst aan de praktijk en samen met experts gebouwd, zodat wat je oefent direct toepasbaar is op de werkvloer.</span><span lang="en">Content is validated against practice and built together with experts, so what you train is directly applicable on the job.</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- het platform -->
+<section id="platform">
+  <div class="wrap">
+    <div class="dark-band">
+      <svg class="loops" style="right:-40px; top:-40px; width:280px; height:340px; opacity:.5" viewBox="0 0 280 340" aria-hidden="true">
+        <g fill="none" stroke="#FFC8C7" stroke-width="22" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 320 V120 a22 22 0 0 1 44 0 V300 a22 22 0 0 0 44 0 V120 a22 22 0 0 1 44 0 V300"/>
+        </g>
+      </svg>
+      <div style="position:relative; z-index:2; max-width:760px;">
+        <span class="eyebrow"><span lang="nl">03 · het platform</span><span lang="en">03 · the platform</span></span>
+        <h2 class="section-title" style="margin-top:var(--space-4)"><span lang="nl">Één stabiel platform. Wij bouwden het, jullie hebben het.</span><span lang="en">One stable platform. We built it, you own it.</span></h2>
+        <p class="section-lede"><span lang="nl">Bouw snel content op een bewezen, feature-rijk platform met kant-en-klare bouwblokken, of laat ons samen met jullie experts scenario's en simulaties maken.</span><span lang="en">Build content quickly on a proven, feature-rich platform with ready-made building blocks, or let us create scenarios and simulations together with your experts.</span></p>
+      </div>
+      <div class="features">
+        <div class="feature">
+          <div class="fico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FFE0E0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+          <div><h4><span lang="nl">Overal beschikbaar</span><span lang="en">Available everywhere</span></h4><p><span lang="nl">Speel in de browser op je computer of laptop, waar de meeste mensen spelen, én als app op telefoon en tablet. Je voortgang wordt overal bewaard.</span><span lang="en">Play in the browser on a computer or laptop, where most people play, and as an app on phone and tablet. Your progress is saved everywhere.</span></p></div>
+        </div>
+        <div class="feature">
+          <div class="fico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FFE0E0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 3 8l9 5 9-5-9-5zM3 16l9 5 9-5M3 12l9 5 9-5"/></svg></div>
+          <div><h4><span lang="nl">Immersief 3D</span><span lang="en">Immersive 3D</span></h4><p><span lang="nl">Realistische 3D-omgevingen en animaties maken de stof memorabel, een virtueel ziekenhuis om veilig in te oefenen.</span><span lang="en">Realistic 3D environments and animations make the material memorable, a virtual hospital to practise in safely.</span></p></div>
+        </div>
+        <div class="feature">
+          <div class="fico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FFE0E0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c3 2.5 9 2.5 12 0v-5"/></svg></div>
+          <div><h4><span lang="nl">Ons leerplatform, optioneel</span><span lang="en">Our learning platform, optional</span></h4><p><span lang="nl">Geen eigen LMS? Speel de modules in ons leerplatform, met theorie ernaast als e-learning. Inclusief accountbeheer, single sign-on, gasttoegang en analytics.</span><span lang="en">No LMS of your own? Run the modules in our learning platform, with theory alongside as e-learning. Includes account management, single sign-on, guest access and analytics.</span></p></div>
+        </div>
+        <div class="feature">
+          <div class="fico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FFE0E0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></div>
+          <div><h4><span lang="nl">Of in jullie eigen LMS</span><span lang="en">Or in your own LMS</span></h4><p><span lang="nl">Liever in je bestaande leeromgeving? Koppelingen met de top-3 LMS-systemen voor naadloze voortgangsrapportage.</span><span lang="en">Prefer your existing learning environment? Integrations with the top-3 LMS platforms for seamless progress reporting.</span></p></div>
+        </div>
+        <div class="feature">
+          <div class="fico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FFE0E0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="8" height="8" rx="2"/><rect x="13" y="3" width="8" height="8" rx="2"/><rect x="3" y="13" width="8" height="8" rx="2"/><rect x="13" y="13" width="8" height="8" rx="2"/></svg></div>
+          <div><h4><span lang="nl">Content-bouwblokken</span><span lang="en">Content building blocks</span></h4><p><span lang="nl">Stel snel nieuwe cases samen met herbruikbare bouwblokken, samen met vakexperts, getoetst aan actuele richtlijnen.</span><span lang="en">Assemble new cases quickly from reusable building blocks, together with subject-matter experts, validated against current guidelines.</span></p></div>
+        </div>      </div>
+      <div class="platform-builder">
+        <img src="assets/platform/builder.webp" alt="de content-builder van Medu.game, scenario's samenstellen uit herbruikbare bouwblokken" loading="lazy" />
+        <p class="platform-builder-cap"><span lang="nl">De visuele content-builder: scenario's, dialogen en beslismomenten samengesteld uit herbruikbare bouwblokken, samen met jullie vakexperts, getoetst aan actuele richtlijnen.</span><span lang="en">The visual content builder: scenarios, dialogues and decision points assembled from reusable building blocks, together with your subject-matter experts, validated against current guidelines.</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- het platform in actie -->
+<section id="platform-demo">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow"><span lang="nl">03b · het platform in actie</span><span lang="en">03b · the platform in action</span></span>
+      <h2 class="section-title"><span lang="nl">Draait overal waar jullie leren.</span><span lang="en">Runs wherever you learn.</span></h2>
+      <p class="section-lede"><span lang="nl">In de browser op je computer of laptop, en als app op telefoon en tablet, dezelfde klinische scenario's op elk apparaat, met voortgang die overal meereist. Ingebed in jullie eigen leeromgeving via een iframe of LMS-koppeling.</span><span lang="en">In the browser on a computer or laptop, and as an app on phone and tablet, the same clinical scenarios on every device, with progress that travels with you. Embedded in your own learning environment via an iframe or LMS integration.</span></p>
+    </div>
+    <img class="device-showcase" src="assets/platform/device-showcase.webp" alt="Medu.game op laptop, tablet en telefoon, dezelfde klinische scenario's op elk apparaat" loading="lazy" />
+  </div>
+</section>
+
+<!-- modules -->
+<section id="modules">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow"><span lang="nl">04 · de modules</span><span lang="en">04 · the modules</span></span>
+      <h2 class="section-title"><span lang="nl">Echte klinische content, klaar om te spelen.</span><span lang="en">Real clinical content, ready to play.</span></h2>
+      <p class="section-lede"><span lang="nl">Elke module is opgebouwd uit realistische scenario's met eigen leerdoelen, directe feedback en een score. Zo oefen je het protocol veilig, tijd- en plaatsonafhankelijk.</span><span lang="en">Each module is built from realistic scenarios with their own learning objectives, instant feedback and a score. So you practise the protocol safely, anytime, anywhere.</span></p>
+    </div>
+    <div class="modules-grid">
+
+      <div class="module-card">
+        <a class="thumb" href="modules/reanimatie-aed.html"><img src="assets/modules/reanimatie.png" alt="beeld uit de reanimatie &amp; aed-module" loading="lazy" /></a>
+        <div class="top"><h3><a href="modules/reanimatie-aed.html">Reanimatie &amp; AED</a></h3><span class="badge badge-blue">bls</span></div>
+        <p class="desc"><span lang="nl">Oefen de protocollen rondom basic life support en het gebruik van de AED in realistische scenario's, van een man die onwel wordt in een kantoorlobby tot reanimatie bij een kind. Veilig, leuk en met directe feedback.</span><span lang="en">Practise the protocols around basic life support and AED use in realistic scenarios, from a man collapsing in an office lobby to resuscitating a child. Safe, engaging and with instant feedback.</span></p>
+        <div class="tag-row">
+          <span class="tag"><span lang="nl">bewustzijn</span><span lang="en">responsiveness</span></span><span class="tag"><span lang="nl">luchtweg</span><span lang="en">airway</span></span><span class="tag"><span lang="nl">ademhaling</span><span lang="en">breathing</span></span><span class="tag"><span lang="nl">compressies · tempo &amp; diepte</span><span lang="en">compressions · rate &amp; depth</span></span><span class="tag">aed</span>
+        </div>
+        <div class="module-meta"><span><b>3</b> <span lang="nl">scenario's</span><span lang="en">scenarios</span></span><span><b>±1 <span lang="nl">uur</span><span lang="en">hour</span></b> <span lang="nl">content</span><span lang="en">of content</span></span><span><span lang="nl">volwassenen &amp; kinderen</span><span lang="en">adults &amp; children</span></span><span><span lang="nl">voor bhv, ehbo &amp; vakbekwame professionals</span><span lang="en">for first responders, first aiders &amp; qualified professionals</span></span></div>
+        <a class="module-link" href="modules/reanimatie-aed.html"><span lang="nl">bekijk module →</span><span lang="en">view module →</span></a>
+      </div>
+
+      <div class="module-card">
+        <a class="thumb" href="modules/abcde.html"><img src="assets/modules/abcde.png" alt="beeld uit de abcde-module" loading="lazy" /></a>
+        <div class="top"><h3><a href="modules/abcde.html">ABCDE</a></h3><span class="badge badge-blue"><span lang="nl">acute zorg</span><span lang="en">acute care</span></span></div>
+        <p class="desc"><span lang="nl">Beoordeel acute patiënten systematisch via de ABCDE-structuur, herken levensbedreigende situaties, prioriteer interventies in een drukke spoedsetting en werk samen onder tijdsdruk. Directe feedback op elke beslissing.</span><span lang="en">Assess acutely ill patients systematically using the ABCDE structure, recognise life-threatening situations, prioritise interventions in a busy emergency setting and collaborate under time pressure. Instant feedback on every decision.</span></p>
+        <div class="tag-row">
+          <span class="tag">airway</span><span class="tag">breathing</span><span class="tag">circulation</span><span class="tag">disability</span><span class="tag">exposure</span>
+        </div>
+        <div class="module-meta"><span><b>4</b> <span lang="nl">scenario's</span><span lang="en">scenarios</span></span><span><span lang="nl">+ 1 tutorial</span><span lang="en">+ 1 tutorial</span></span><span><span lang="nl">debriefing per scenario</span><span lang="en">debriefing per scenario</span></span></div>
+        <a class="module-link" href="modules/abcde.html"><span lang="nl">bekijk module →</span><span lang="en">view module →</span></a>
+      </div>
+
+      <div class="module-card">
+        <a class="thumb" href="modules/ecg.html"><img src="assets/modules/ecg.jpg" alt="beeld uit de ecg-module" loading="lazy" /></a>
+        <div class="top"><h3><a href="modules/ecg.html">ECG</a></h3><span class="badge badge-blue"><span lang="nl">cardiologie</span><span lang="en">cardiology</span></span></div>
+        <p class="desc"><span lang="nl">Van de fysieke handeling tot de klinische conclusie: plaats de 10 elektroden correct en lees het 12-afleidingen-ECG systematisch via de 7+2 methode, van ritme en geleidingstijden tot diagnose en vervolgactie.</span><span lang="en">From the physical procedure to the clinical conclusion: place the 10 electrodes correctly and read the 12-lead ECG systematically using the 7+2 method, from rhythm and conduction times to diagnosis and next steps.</span></p>
+        <div class="tag-row">
+          <span class="tag"><span lang="nl">10 elektroden</span><span lang="en">10 electrodes</span></span><span class="tag"><span lang="nl">7+2 methode</span><span lang="en">7+2 method</span></span><span class="tag"><span lang="nl">ritme &amp; geleiding</span><span lang="en">rhythm &amp; conduction</span></span><span class="tag"><span lang="nl">diagnose</span><span lang="en">diagnosis</span></span>
+        </div>
+        <div class="module-meta"><span><b>6</b> <span lang="nl">scenario's</span><span lang="en">scenarios</span></span><span><b>~15 min</b> <span lang="nl">elk</span><span lang="en">each</span></span><span><span lang="nl">van handeling tot conclusie</span><span lang="en">from procedure to conclusion</span></span></div>
+        <a class="module-link" href="modules/ecg.html"><span lang="nl">bekijk module →</span><span lang="en">view module →</span></a>
+      </div>
+
+      <div class="module-card">
+        <a class="thumb" href="modules/als.html"><img src="assets/modules/als.webp" alt="beeld uit de ALS-module" loading="lazy" /></a>
+        <div class="top"><h3><a href="modules/als.html">ALS</a></h3><span class="badge badge-blue"><span lang="nl">gevorderd</span><span lang="en">advanced</span></span></div>
+        <p class="desc"><span lang="nl">Één volledig code blue-scenario (~20 min): het ALS-algoritme met ritme-analyse en tijdige medicatie, de 4 h's &amp; 4 t's, plus het leiden van het reanimatieteam met closed-loop communicatie.</span><span lang="en">One full code blue scenario (~20 min): the ALS algorithm with rhythm analysis and timely medication, the 4 H's &amp; 4 T's, plus leading the resuscitation team with closed-loop communication.</span></p>
+        <div class="tag-row">
+          <span class="tag"><span lang="nl">ALS-algoritme</span><span lang="en">ALS algorithm</span></span><span class="tag"><span lang="nl">ritme-analyse</span><span lang="en">rhythm analysis</span></span><span class="tag">4 h's &amp; 4 t's</span><span class="tag"><span lang="nl">defibrillatie</span><span lang="en">defibrillation</span></span><span class="tag"><span lang="nl">closed-loop communicatie</span><span lang="en">closed-loop communication</span></span>
+        </div>
+        <div class="module-meta"><span><b>1</b> <span lang="nl">scenario</span><span lang="en">scenario</span></span><span><b>~20 min</b></span><span><span lang="nl">gevorderd niveau</span><span lang="en">advanced level</span></span></div>
+        <a class="module-link" href="modules/als.html"><span lang="nl">bekijk module →</span><span lang="en">view module →</span></a>
+      </div>
+
+    </div>
+    <p class="modules-note"><span lang="nl">In ontwikkeling: o.a. intubatie en TIVA (anesthesie), samen met vakexperts gebouwd en getoetst aan actuele richtlijnen.</span><span lang="en">In development: incl. intubation and TIVA (anaesthesia), built with subject-matter experts and validated against current guidelines.</span></p>
+  </div>
+</section>
+
+<!-- de leerlijn -->
+<section id="leerlijn">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow"><span lang="nl">04b · de leerlijn</span><span lang="en">04b · the learning path</span></span>
+      <h2 class="section-title"><span lang="nl">De brug tussen theorie en praktijk.</span><span lang="en">The bridge between theory and practice.</span></h2>
+      <p class="section-lede"><span lang="nl">Uit ervaring weten we waar onze modules het sterkst werken: tussen de theorie en de praktijkdag in. Wie eerst veilig de simulatie speelt, stapt zelfverzekerder en beter voorbereid de praktijk in, en weet al wat er straks van hem wordt verwacht.</span><span lang="en">From experience we know where our modules work best: between the theory and the hands-on training day. Those who play the simulation safely first step into practice more confident and better prepared, already knowing what will be expected of them.</span></p>
+    </div>
+    <div class="leerlijn">
+      <div class="ll-step">
+        <span class="ll-num">1</span>
+        <h3><span lang="nl">Theorie</span><span lang="en">Theory</span></h3>
+        <p><span lang="nl">Boek of e-learning, de kennisbasis. Nodig, maar passief en snel weggezakt.</span><span lang="en">Book or e-learning, the knowledge base. Necessary, but passive and quickly forgotten.</span></p>
+      </div>
+      <div class="ll-arrow" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></div>
+      <div class="ll-step ll-step-accent">
+        <span class="ll-badge">Medu<span class="dot">.</span>game</span>
+        <h3><span lang="nl">Virtuele simulatie</span><span lang="en">Virtual simulation</span></h3>
+        <p><span lang="nl">Pas de theorie veilig toe in realistische scenario's. Oefen zo vaak als nodig en ervaar precies wat er in de praktijk van je verwacht wordt.</span><span lang="en">Apply the theory safely in realistic scenarios. Practise as often as needed and experience exactly what will be expected of you in practice.</span></p>
+      </div>
+      <div class="ll-arrow" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></div>
+      <div class="ll-step">
+        <span class="ll-num">3</span>
+        <h3><span lang="nl">De praktijkdag</span><span lang="en">The hands-on day</span></h3>
+        <p><span lang="nl">Cursisten komen voorbereid en zelfverzekerd binnen, meer tijd voor verdieping, minder voor de basis.</span><span lang="en">Participants arrive prepared and confident, more time for depth, less for the basics.</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- bewijs -->
+<section id="bewijs">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow"><span lang="nl">05 · bewijs</span><span lang="en">05 · proof</span></span>
+      <h2 class="section-title"><span lang="nl">Vertrouwd door artsen, intensivisten en beroepsverenigingen.</span><span lang="en">Trusted by physicians, intensivists and professional associations.</span></h2>
+    </div>
+    <div class="quotes">
+      <div class="quote dark">
+        <p>"Serious games serve an educational purpose and use simulation and gamification to achieve it. You can safely practice different patient cases, you learn interactively and effectively, and you do not have to go to an on-site training."</p>
+        <div class="who"><img class="avatar" src="assets/testimonials/beldman.png" alt="tanja beldman" loading="lazy" /><div>Tanja Beldman<span><span lang="nl">anesthesioloog · Tergooi MC</span><span lang="en">anaesthesiologist · Tergooi MC</span></span></div></div>
+      </div>
+      <div class="quote">
+        <p>"In training, tutoring and teaching specific skills, serious gaming can play an important role."</p>
+        <div class="who"><img class="avatar" src="assets/testimonials/gommers.png" alt="dr. diederik gommers" loading="lazy" /><div>Dr. Diederik Gommers<span><span lang="nl">ic-arts · Erasmus MC</span><span lang="en">ICU physician · Erasmus MC</span></span></div></div>
+      </div>
+      <div class="quote">
+        <p>"Serious games give us the opportunity for knowledge transfer to take place in a fun and interactive manner."</p>
+        <div class="who"><img class="avatar" src="assets/testimonials/strauch.png" alt="dr. u. strauch" loading="lazy" /><div>Dr. U. Strauch<span><span lang="nl">voorzitter NVIC</span><span lang="en">chair, NVIC</span></span></div></div>
+      </div>
+      <div class="quote">
+        <p>"With simulations, you can practice situations in the icu that are infrequent in daily practice."</p>
+        <div class="who"><img class="avatar" src="assets/testimonials/schroten.png" alt="dr. n.f. schroten" loading="lazy" /><div>Dr. N.F. Schroten<span><span lang="nl">internist-intensivist · Gelre Ziekenhuizen</span><span lang="en">internist-intensivist · Gelre Ziekenhuizen</span></span></div></div>
+      </div>
+      <div class="quote dark">
+        <p><span lang="nl">"Met deze game stappen studenten vol enthousiasme in de rol van arts: ze nemen een ECG af bij een virtuele patiënt, beoordelen het stap voor stap en trainen spelenderwijs het klinisch redeneren. Een game naar ons hart!"</span><span lang="en">"With this game, students step enthusiastically into the role of physician: they record an ECG on a virtual patient, assess it step by step and train clinical reasoning through play. A game after our own heart!"</span></p>
+        <div class="who"><img class="avatar" src="assets/testimonials/bindraban.png" alt="dr. navin r. bindraban" loading="lazy" /><div>Dr. Navin R. Bindraban<span><span lang="nl">cardioloog &amp; onderwijscoördinator · Amsterdam UMC Hartcentrum</span><span lang="en">cardiologist &amp; education coordinator · Amsterdam UMC Heart Centre</span></span></div></div>
+      </div>
+    </div>
+    <div class="logos">
+      <span class="lbl"><span lang="nl">samengewerkt met</span><span lang="en">worked with</span></span>
+      <span class="badge badge-outline">nvic</span>
+      <span class="badge badge-outline">nva</span>
+      <span class="badge badge-outline">umcg</span>
+      <span class="badge badge-outline">mumc</span>
+      <span class="badge badge-outline">amsterdam umc</span>
+      <span class="badge badge-outline">gelre ziekenhuizen</span>
+      <span class="badge badge-outline">tergooi mc</span>
+    </div>
+  </div>
+</section>
+
+<!-- usp -->
+<section id="usp" style="background:var(--surface-warm);">
+  <div class="wrap split" style="align-items:start;">
+    <div>
+      <span class="eyebrow"><span lang="nl">06 · waarom medu</span><span lang="en">06 · why medu</span></span>
+      <h2 class="section-title" style="margin-top:var(--space-4)"><span lang="nl">Wat ons onderscheidt.</span><span lang="en">What sets us apart.</span></h2>
+      <p class="section-lede"><span lang="nl">Er zijn meer game-based learning-aanbieders. Medu.game is de zorg-specifieke keuze: gebouwd mét de beroepsgroep, immersief én mobiel, en klaar om in jullie leeromgeving te landen.</span><span lang="en">There are more game-based learning providers. Medu.game is the healthcare-specific choice: built with the profession, immersive and mobile, and ready to land in your learning environment.</span></p>
+    </div>
+    <div class="usp">
+      <div class="usp-item"><span class="chk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#000048" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><div><h4><span lang="nl">Zorg-specifiek</span><span lang="en">Healthcare-specific</span></h4><p><span lang="nl">Geen generieke skills-tool, content en casuïstiek voor de medische praktijk.</span><span lang="en">Not a generic skills tool, content and cases for medical practice.</span></p></div></div>
+      <div class="usp-item"><span class="chk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#000048" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><div><h4><span lang="nl">Immersief én mobiel</span><span lang="en">Immersive and mobile</span></h4><p><span lang="nl">Realistische 3D-simulatie in een app, leren waar en wanneer het past.</span><span lang="en">Realistic 3D simulation in an app, learn wherever and whenever it fits.</span></p></div></div>
+      <div class="usp-item"><span class="chk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#000048" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><div><h4><span lang="nl">Co-creatie met experts</span><span lang="en">Co-creation with experts</span></h4><p><span lang="nl">Scenario's gebouwd samen met de beroepsgroep, getoetst aan richtlijnen.</span><span lang="en">Scenarios built together with the profession, validated against guidelines.</span></p></div></div>
+      <div class="usp-item"><span class="chk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#000048" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><div><h4><span lang="nl">Integreert in je LMS</span><span lang="en">Integrates with your LMS</span></h4><p><span lang="nl">Koppeling met de top-3 LMS-systemen voor voortgang en rapportage.</span><span lang="en">Integration with the top-3 LMS platforms for progress and reporting.</span></p></div></div>
+      <div class="usp-item"><span class="chk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#000048" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><div><h4><span lang="nl">Meertalig & bewezen</span><span lang="en">Multilingual & proven</span></h4><p><span lang="nl">Actief in meerdere landen, beschikbaar in het nederlands, engels en braziliaans-portugees, en nieuwe talen zijn eenvoudig toe te voegen.</span><span lang="en">Active in several countries, available in Dutch, English and Brazilian Portuguese, and new languages are easy to add.</span></p></div></div>    </div>
+  </div>
+</section>
+
+<!-- faq -->
+<section id="faq">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow"><span lang="nl">07 · veelgestelde vragen</span><span lang="en">07 · frequently asked questions</span></span>
+      <h2 class="section-title"><span lang="nl">Wat opleiders meestal eerst willen weten.</span><span lang="en">What educators usually want to know first.</span></h2>
+    </div>
+    <div class="faq">
+      <details open><summary><span lang="nl">Op welke apparaten werkt Medu.game?</span><span lang="en">Which devices does Medu.game run on?</span><span class="plus">+</span></summary><div class="body"><span lang="nl">Je speelt Medu.game in de browser op je computer of laptop, waar de meeste mensen spelen, én als app op telefoon en tablet. Je voortgang wordt overal bewaard, dus je gaat verder waar je gebleven was.</span><span lang="en">You play Medu.game in the browser on a computer or laptop, where most people play, and as an app on phone and tablet. Your progress is saved everywhere, so you continue where you left off.</span></div></details>
+      <details><summary><span lang="nl">Hoe wordt de content gemaakt?</span><span lang="en">How is the content created?</span><span class="plus">+</span></summary><div class="body"><span lang="nl">Cases worden samengesteld uit herbruikbare bouwblokken in het platform, samen met vakexperts en getoetst aan actuele richtlijnen. Zo is nieuwe content snel te bouwen en blijft kwaliteit geborgd.</span><span lang="en">Cases are assembled from reusable building blocks in the platform, together with subject-matter experts and validated against current guidelines. This makes new content quick to build while quality stays assured.</span></div></details>
+      <details><summary><span lang="nl">Integreert het met ons LMS?</span><span lang="en">Does it integrate with our LMS?</span><span class="plus">+</span></summary><div class="body"><span lang="nl">Ja. Er zijn kant-en-klare koppelingen met de top-3 LMS-systemen voor voortgangsrapportage, plus single sign-on en gebruikersanalytics.</span><span lang="en">Yes. There are ready-made integrations with the top-3 LMS platforms for progress reporting, plus single sign-on and user analytics.</span></div></details>
+      <details><summary><span lang="nl">In welke talen is het beschikbaar?</span><span lang="en">Which languages is it available in?</span><span class="plus">+</span></summary><div class="body"><span lang="nl">Nederlands, engels en braziliaans-portugees (pt-br). Medu.game wordt in meerdere landen gebruikt. Nieuwe talen zijn eenvoudig toe te voegen.</span><span lang="en">Dutch, English and Brazilian Portuguese (pt-BR). Medu.game is used in several countries, and new languages are easy to add.</span></div></details>      <details><summary><span lang="nl">Hoe meten we het resultaat?</span><span lang="en">How do we measure results?</span><span class="plus">+</span></summary><div class="body"><span lang="nl">Via gebruikersanalytics en LMS-rapportage zie je deelname, voortgang en prestaties, meetbaar opleiden voor HR en de organisatie.</span><span lang="en">Through user analytics and LMS reporting you see participation, progress and performance, measurable training for HR and the organisation.</span></div></details>
+    </div>
+  </div>
+</section>
+
+<!-- cta -->
+<section id="contact">
+  <div class="wrap">
+    <div class="cta cta-split">
+      <svg class="loops" style="right:-30px; top:-30px; width:220px; height:190px; opacity:.5" viewBox="0 0 240 200" aria-hidden="true">
+        <g fill="none" stroke="#FFC8C7" stroke-width="20" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 30 V120 a22 22 0 0 0 44 0 V60 a22 22 0 0 1 44 0 V120 a22 22 0 0 0 44 0 V60 a22 22 0 0 1 44 0 V120"/>
+        </g>
+      </svg>
+      <img class="cta-char" src="assets/char-expert.png" alt="Medu.game expert die je uitnodigt voor een demo" />
+      <div class="cta-content">
+        <h2><span lang="nl">Klaar om Medu<span class="dot">.</span>game te zien werken?</span><span lang="en">Ready to see Medu<span class="dot">.</span>game in action?</span></h2>
+        <p><span lang="nl">De snelste manier om het platform te begrijpen is een korte demo, we laten een echte casus zien en denken mee over jullie opleidingsdoelen en leerlijnen.</span><span lang="en">The fastest way to understand the platform is a short demo, we'll show a real case and think along about your training goals and learning paths.</span></p>
+        <div class="row">
+          <a class="btn btn-primary" href="https://www.medu.game" target="_blank" rel="noopener"><span lang="nl">plan een demo</span><span lang="en">book a demo</span></a>
+          <a class="btn btn-secondary" href="https://www.medu.game" target="_blank" rel="noopener"><span lang="nl">bezoek Medu.game</span><span lang="en">visit Medu.game</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-band">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <img class="footer-logo-img" src="assets/footer-logo.png" alt="Medu.game" />
+          <h3 class="footer-name">Medu.game</h3>
+          <p class="footer-tagline"><span lang="nl">Virtuele scenario's spelen, echte skills verbeteren.</span><span lang="en">Play virtual scenarios, improve real skills.</span></p>
+        </div>
+        <div class="footer-loc">
+          <span class="footer-loc-label"><span lang="nl">Locatie</span><span lang="en">Location</span></span>
+          <p>Groningen<br/><span lang="nl">Nederland</span><span lang="en">The Netherlands</span></p>
+        </div>
+      </div>
+      <hr class="footer-divider" />
+      <div class="footer-bottom">
+        <div class="footer-contacts">
+          <a href="https://www.medu.game" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 0 20a15.3 15.3 0 0 1 0-20"/></svg>Medu.game</a>
+          <a href="mailto:aad.lievaart@medu.game"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>aad.lievaart@medu.game</a>
+        </div>
+        <a class="footer-linkedin" href="https://www.linkedin.com/company/medu-game" target="_blank" rel="noopener" aria-label="LinkedIn"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.1c.5-.95 1.8-1.95 3.7-1.95 4 0 4.7 2.6 4.7 6V21h-4v-5.3c0-1.3 0-2.9-1.8-2.9s-2 1.4-2 2.8V21H9z"/></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/medu-gallery.js?v=8" defer></script>
+</body>
+</html>
