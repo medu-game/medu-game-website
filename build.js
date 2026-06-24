@@ -5,6 +5,7 @@ import { LANGS, outputPath, switchHref, canonical, rewriteLinks } from './lib/ur
 import { unwrapLang } from './lib/spans.mjs';
 import { parseMeta, applyHead } from './lib/head.mjs';
 import { buildSitemap } from './lib/sitemap.mjs';
+import { applyLangAttrs } from './lib/attrs.mjs';
 
 const SRC = 'src';
 const DIST = 'dist';
@@ -57,6 +58,7 @@ function main() {
 
     for (const { code } of LANGS) {
       let html = unwrapLang(raw, code);
+      html = applyLangAttrs(html, code);     // NEW
       html = rewriteLinks(html, code);
       html = html.replace('<!--LANG-SWITCH-->', langSwitch(relPath, code));
       html = applyHead(html, { lang: code, relPath, meta });
@@ -64,6 +66,7 @@ function main() {
       // per-output assertions
       const other = code === 'nl' ? 'en' : 'nl';
       assert(!new RegExp(`\\blang="${other}"`).test(html), `${relPath} [${code}]: leftover lang="${other}" span`);
+      assert(!/data-(alt|aria-label)-en=/.test(html), `${relPath} [${code}]: leftover data-*-en override attr`);
       assert(!/data-lang|data-title-|data-desc-|data-og-image/.test(html), `${relPath} [${code}]: leftover data-* attr`);
       assert(html.includes(`rel="canonical" href="${canonical(relPath, code)}"`), `${relPath} [${code}]: bad/missing canonical`);
       assert((html.match(/rel="alternate" hreflang=/g) || []).length === 3, `${relPath} [${code}]: expected 3 hreflang links`);
