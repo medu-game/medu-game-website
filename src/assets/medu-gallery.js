@@ -47,6 +47,10 @@
   }
 
   /* ── 2. gallery + lightbox ───────────────────────────────────────────── */
+  var L = document.documentElement.lang === "en"
+    ? { close: "close", prev: "previous", next: "next", dialog: "screenshot viewer" }
+    : { close: "sluiten", prev: "vorige", next: "volgende", dialog: "screenshot-weergave" };
+
   var lb, lbImg, lbCaption, lbCount, current = [], index = 0;
 
   function buildLightbox() {
@@ -54,14 +58,14 @@
     lb.className = "lightbox";
     lb.setAttribute("role", "dialog");
     lb.setAttribute("aria-modal", "true");
-    lb.setAttribute("aria-label", "screenshot-weergave");
+    lb.setAttribute("aria-label", L.dialog);
     lb.innerHTML =
       '<span class="lightbox-count" aria-hidden="true"></span>' +
-      '<button class="lightbox-close" aria-label="sluiten">' +
+      '<button class="lightbox-close" aria-label="' + L.close + '">' +
         '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>' +
-      '<button class="lightbox-btn lightbox-prev" aria-label="vorige">' +
+      '<button class="lightbox-btn lightbox-prev" aria-label="' + L.prev + '">' +
         '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button>' +
-      '<button class="lightbox-btn lightbox-next" aria-label="volgende">' +
+      '<button class="lightbox-btn lightbox-next" aria-label="' + L.next + '">' +
         '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>' +
       '<figure class="lightbox-figure">' +
         '<img class="lightbox-img" alt="" />' +
