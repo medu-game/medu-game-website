@@ -129,3 +129,35 @@
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
   else init();
 })();
+
+/* ── mobile nav (hamburger) ────────────────────────────────────────────────
+ * Toggles the .topnav dropdown on small screens via a .nav-open class on <html>.
+ * No-op on pages without a .nav-toggle (e.g. module pages use a back-link). */
+(function () {
+  "use strict";
+  function wire() {
+    var toggle = document.querySelector(".nav-toggle");
+    var nav = document.querySelector(".topnav");
+    if (!toggle || !nav) return;
+    var root = document.documentElement;
+    function set(open) {
+      root.classList.toggle("nav-open", open);
+      toggle.setAttribute("aria-expanded", String(open));
+    }
+    toggle.addEventListener("click", function (e) {
+      e.stopPropagation();
+      set(!root.classList.contains("nav-open"));
+    });
+    nav.addEventListener("click", function (e) {
+      if (e.target.closest("a")) set(false);
+    });
+    document.addEventListener("click", function (e) {
+      if (root.classList.contains("nav-open") && !e.target.closest(".topnav") && !e.target.closest(".nav-toggle")) set(false);
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") set(false);
+    });
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", wire);
+  else wire();
+})();
