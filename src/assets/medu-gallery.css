@@ -32,8 +32,6 @@
 }
 .lang-switch a:hover, .lang-switch button:hover{color:var(--blue-dark);}
 .lang-switch a[aria-current="page"]{background:var(--blue-dark); color:var(--pink-light);}
-/* EN hero title is longer — shrink a touch so it keeps to 3 lines */
-html[lang="en"] .hero-title{font-size:clamp(38px,4.9vw,66px);}
 /* keep the hero visual the same size in both languages (NL's long title squeezes
    its column to ~314px; cap so EN doesn't balloon) */
 .hero-visual{width:100%; max-width:314px; margin-left:auto;}
