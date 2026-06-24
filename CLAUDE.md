@@ -34,8 +34,20 @@ The script updates `src/index.html` and all `src/modules/*.html` in one go.
 Do not edit files in `dist/` directly — they are overwritten on every build.
 
 Hosted on GitHub Pages (`medu-game/medu-game-website`). Pushing to `master` triggers
-`.github/workflows/deploy.yml`, which runs `npm run build` and deploys `dist/` to GitHub Pages.
-Custom domain is set via `src/CNAME`.
+`.github/workflows/deploy.yml`, which deploys `dist/` to GitHub Pages.
+Settings → Pages → Source must be **"GitHub Actions"**.
+
+**Production vs preview builds:**
+
+- **Production (default):** `node build.js` (or `npm run build` without env vars) → apex domain
+  `https://medu.game`, no base path, canonical URLs under `medu.game`, includes `dist/CNAME`.
+- **Preview (github.io subpath):** set `SITE_ORIGIN=https://medu-game.github.io` and
+  `BASE_PATH=/medu-game-website` → paths prefixed with `/medu-game-website/`, canonical
+  `https://medu-game.github.io/medu-game-website/…`, noindex meta tag, no CNAME.
+
+The **GitHub Action currently builds the preview** so `https://medu-game.github.io/medu-game-website/`
+works. To launch on the apex domain: remove the two env vars from the `npm run build` step in
+`deploy.yml` and set the custom domain in repo Settings → Pages.
 
 ## Bilingual (NL/EN) — how it works
 
