@@ -144,6 +144,17 @@ Manual: serve `dist/`, confirm each URL shows one language, the switch jumps to 
 - Clean URLs without `.html` (keep `.html`; static host, no rewrites).
 - JSON-LD structured data — worthwhile follow-up (Organization sitewide, Course/Product per module) but not required for this rebuild; track separately.
 
+## Follow-ups (post-merge)
+
+- **Translate `alt` / `aria-label` text for EN pages.** The dual-span mechanism handles visible
+  text only; image `alt` and `aria-label` attributes currently render in Dutch on the EN output
+  (~60 strings). Extend the authoring convention to per-language attributes (e.g.
+  `data-alt-nl`/`data-alt-en`) resolved by `applyHead`/the generator, author the EN values, and add
+  a build assertion that flags Dutch text on EN output so it can't regress. Surfaced by the final
+  whole-branch review; matters for EN image SEO and accessibility.
+- **Generalize the hardcoded language regexes** (`(nl|en)` in `lib/spans.mjs`; `en/` skip in
+  `rewriteLinks`) so adding a language is truly a single `LANGS` edit.
+
 ## Open items to confirm during review
 
 1. Meta-description drafts (§3) — wording.

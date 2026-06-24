@@ -74,7 +74,15 @@ the NL and EN versions of that page. There is no client-side JS language toggle.
 Do not use relative paths for inter-page links.
 
 **Adding a language** — add an entry to `LANGS` in `lib/urls.mjs` with `{ code, prefix, locale }`,
-then author the matching `lang="<code>"` spans throughout the sources.
+then author the matching `lang="<code>"` spans throughout the sources. Two regexes still hardcode
+the current languages and must be updated too: the `(nl|en)` match in `lib/spans.mjs` and the
+`en/` skip in `rewriteLinks` (`lib/urls.mjs`).
+
+**Known limitation (follow-up): `alt`/`aria-label` text is NL-only.** The dual-span mechanism
+covers visible text but not attribute values, so image `alt` and `aria-label` strings render in
+Dutch on the EN pages too. Tracked as a follow-up — translate by extending the authoring
+convention to per-language attributes (e.g. `data-alt-nl`/`data-alt-en` resolved at build time).
+See the design doc's Follow-ups section.
 
 ## Design system / tokens
 
