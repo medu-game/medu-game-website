@@ -11,7 +11,7 @@ set -euo pipefail
 cd "$(dirname "$0")"
 
 shopt -s nullglob
-files=(index.html modules/*.html)
+files=(src/index.html src/modules/*.html)
 if [ ${#files[@]} -eq 0 ]; then
   echo "No HTML files found." >&2
   exit 1
