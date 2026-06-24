@@ -8,92 +8,19 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:wght@500;600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/medu-fonts.css">
+<link rel="stylesheet" href="assets/medu.css?v=8">
 <style>
-/* ── tokens (verbatim from design-systems/medu-game/tokens.css) ───────── */
-:root{
-  --bg:#FBF9F7; --surface:#FFFFFF; --surface-warm:#FFF4F4;
-  --fg:#000048; --fg-2:rgba(0,0,72,.8); --muted:rgba(0,0,72,.6); --meta:rgba(0,0,72,.4);
-  --border:rgba(0,0,72,.1); --border-soft:rgba(0,0,72,.05);
-  --accent:#141484; --accent-on:#FFE0E0; --accent-hover:#0A0A66; --accent-active:#000048;
-  --pink-light:#FFE0E0; --pink:#FFC8C7; --blue:#141484; --blue-dark:#000048;
-  --font-display:"MuseoModerno","Quicksand",system-ui,sans-serif;
-  --font-body:"Fieldwork Geo","Outfit","Nunito",system-ui,sans-serif;
-  --font-mono:ui-monospace,"SF Mono",Menlo,monospace;
-  --text-xs:12px; --text-sm:14px; --text-base:16px; --text-lg:18px; --text-xl:22px;
-  --text-2xl:clamp(28px,3vw,40px); --text-3xl:clamp(36px,4.4vw,56px); --text-4xl:clamp(44px,6vw,80px);
-  --leading-body:1.55; --leading-tight:1.15; --tracking-display:-0.01em;
-  --space-1:4px; --space-2:8px; --space-3:12px; --space-4:16px; --space-5:20px;
-  --space-6:24px; --space-8:32px; --space-12:48px;
-  --section-y:120px;
-  --radius-sm:6px; --radius-md:12px; --radius-lg:20px; --radius-pill:999px;
-  --elev-raised:0 2px 8px rgba(0,0,72,.08),0 12px 32px rgba(0,0,72,.06);
-  --elev-lg:0 12px 40px rgba(0,0,72,.12),0 2px 6px rgba(0,0,72,.06);
-  --focus-ring:0 0 0 2px #000048,0 0 0 6px #FFE0E0;
-  --motion-fast:140ms; --motion-base:240ms; --ease:cubic-bezier(0.22,1,0.36,1);
-  --container:1240px; --gutter:64px;
-}
-*{box-sizing:border-box;}
-html{scroll-behavior:smooth;}
-body{
-  margin:0; background:var(--bg); color:var(--fg);
-  font-family:var(--font-body); font-weight:300; font-size:var(--text-base);
-  line-height:var(--leading-body); -webkit-font-smoothing:antialiased;
-}
-.wrap{max-width:var(--container); margin:0 auto; padding:0 var(--gutter);}
-h1,h2,h3,h4{font-family:var(--font-body); font-weight:600; line-height:var(--leading-tight); margin:0; letter-spacing:-0.01em;}
-p{margin:0;}
-a{color:inherit; text-decoration:none;}
-.dot{color:var(--pink);}
+/* Design tokens, base reset, and the shared primitives below (eyebrow,
+   buttons, badges, topbar base, section rhythm, .section-num, .loops) come
+   from assets/medu.css — the single source of truth shared with the module
+   pages. Only overview-page-specific styles live inline here. */
 
-/* eyebrow */
-.eyebrow{
-  display:inline-flex; align-items:center; gap:var(--space-2);
-  font-weight:600; font-size:var(--text-xs); letter-spacing:0.14em; text-transform:uppercase;
-  color:var(--muted);
-}
-.eyebrow .pulse{width:8px; height:8px; border-radius:var(--radius-pill); background:var(--pink); box-shadow:0 0 0 4px rgba(255,200,199,.3);}
-
-/* buttons (pill, non-negotiable) */
-.btn{
-  display:inline-flex; align-items:center; gap:var(--space-2);
-  font-family:var(--font-body); font-weight:600; font-size:var(--text-sm);
-  padding:13px 24px; border-radius:var(--radius-pill); border:0; cursor:pointer;
-  transition:transform var(--motion-fast) var(--ease), background var(--motion-fast) var(--ease);
-}
-.btn:hover{transform:translateY(-1px);}
-.btn-primary{background:var(--blue-dark); color:var(--pink-light);}
-.btn-primary:hover{background:var(--blue);}
-.btn-secondary{background:var(--pink); color:var(--blue-dark);}
-.btn-secondary:hover{background:var(--pink-light);}
-.btn-ghost{background:transparent; color:var(--blue-dark); box-shadow:inset 0 0 0 1.5px var(--blue-dark);}
-.btn-ghost:hover{background:var(--blue-dark); color:var(--pink-light);}
-
-/* badge */
-.badge{
-  display:inline-flex; align-items:center; gap:6px; padding:6px 12px;
-  border-radius:var(--radius-pill); font-weight:600; font-size:var(--text-xs);
-  letter-spacing:0.04em;
-}
-.badge-pink{background:var(--pink-light); color:var(--blue-dark);}
-.badge-blue{background:var(--blue-dark); color:var(--pink-light);}
-.badge-outline{box-shadow:inset 0 0 0 1px var(--border); color:var(--muted);}
-
-/* topbar */
-.topbar{position:sticky; top:0; z-index:50; background:rgba(251,249,247,.85); backdrop-filter:blur(10px); border-bottom:1px solid var(--border-soft);}
-.topbar-inner{display:flex; align-items:center; justify-content:space-between; height:72px;}
-.brand{display:flex; align-items:center; gap:10px; font-family:var(--font-display); font-weight:500; font-size:22px; color:var(--blue-dark);}
-.brand svg{display:block;}
+/* topbar base (.topbar/.topbar-inner/.brand) is in medu.css; only the
+   overview-page primary nav is specific to this page. */
 .topnav{display:flex; gap:var(--space-6); font-size:var(--text-sm); font-weight:400; color:var(--muted);}
 .topnav a{transition:color var(--motion-fast) var(--ease);}
 .topnav a:hover{color:var(--blue-dark);}
 @media(max-width:900px){.topnav{display:none;}}
-
-/* section rhythm */
-section{padding:var(--section-y) 0;}
-.section-head{max-width:760px; margin-bottom:var(--space-12);}
-.section-head .eyebrow{margin-bottom:var(--space-4);}
-.section-title{font-size:var(--text-2xl);}
-.section-lede{margin-top:var(--space-4); font-size:var(--text-lg); color:var(--muted); font-weight:300;}
 
 /* hero */
 .hero{position:relative; overflow:hidden; padding-top:80px;}
@@ -110,9 +37,6 @@ section{padding:var(--section-y) 0;}
 .hero-cap{position:absolute; left:var(--space-6); bottom:var(--space-6); z-index:3; max-width:62%;}
 .hero-cap p{margin-top:10px; color:var(--blue-dark); font-weight:600; font-size:var(--text-sm);}
 @media(max-width:900px){.hero-grid{grid-template-columns:1fr;} .hero-visual{aspect-ratio:16/12;} .hero-char{height:106%; right:-6%;}}
-
-/* loops motif */
-.loops{position:absolute; pointer-events:none;}
 
 /* what-is split */
 .split{display:grid; grid-template-columns:1fr 1fr; gap:var(--space-12); align-items:center;}
@@ -220,8 +144,6 @@ footer.site{padding:var(--space-12) 0; color:var(--meta); font-size:var(--text-s
 .foot-row{display:flex; justify-content:space-between; gap:var(--space-6); flex-wrap:wrap; align-items:center;}
 .foot-links{display:flex; gap:var(--space-6);}
 .foot-links a:hover{color:var(--blue-dark); text-decoration:underline; text-underline-offset:4px;}
-
-.section-num{font-family:var(--font-mono); font-size:var(--text-xs); color:var(--meta); letter-spacing:0.08em;}
 </style>
 <link rel="stylesheet" href="assets/medu-gallery.css?v=8">
 </head>
