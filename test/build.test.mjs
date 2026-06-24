@@ -29,3 +29,22 @@ test('full build produces single-language pages with SEO', () => {
   assert.match(nl, /href="\/en\/"/);
   assert.match(en, /href="\/"/);
 });
+
+test('preview build prefixes base, noindexes, and omits CNAME', () => {
+  execFileSync('node', ['build.js'], {
+    stdio: 'inherit',
+    env: { ...process.env, SITE_ORIGIN: 'https://medu-game.github.io', BASE_PATH: '/medu-game-website' },
+  });
+  const en = readFileSync('dist/en/index.html', 'utf8');
+  assert.match(en, /href="\/medu-game-website\/"/);              // lang switch to NL home
+  assert.match(en, /src="\/medu-game-website\/assets\//);        // assets prefixed
+  assert.match(en, /rel="canonical" href="https:\/\/medu-game\.github\.io\/medu-game-website\/en\/"/);
+  assert.match(en, /name="robots" content="noindex"/);
+  assert.ok(!existsSync('dist/CNAME'));
+  assert.match(readFileSync('dist/sitemap.xml', 'utf8'), /https:\/\/medu-game\.github\.io\/medu-game-website\/sitemap\.xml|<loc>https:\/\/medu-game\.github\.io\/medu-game-website\//);
+});
+
+test('zzz restore production dist', () => {
+  execFileSync('node', ['build.js'], { stdio: 'inherit' });
+  assert.match(readFileSync('dist/index.html', 'utf8'), /rel="canonical" href="https:\/\/medu\.game\/"/);
+});

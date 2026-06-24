@@ -1,7 +1,8 @@
 // build.js — zero-dependency static multilingual generator
 import { readFileSync, writeFileSync, mkdirSync, cpSync, readdirSync, existsSync, rmSync } from 'node:fs';
 import { dirname, join } from 'node:path';
-import { LANGS, outputPath, switchHref, canonical, rewriteLinks } from './lib/urls.mjs';
+import { LANGS, outputPath, switchHref, canonical, rewriteLinks, SITE, BASE, IS_PREVIEW } from './lib/urls.mjs';
+import { applyBasePath } from './lib/basepath.mjs';
 import { unwrapLang } from './lib/spans.mjs';
 import { parseMeta, applyHead } from './lib/head.mjs';
 import { buildSitemap } from './lib/sitemap.mjs';
@@ -42,10 +43,12 @@ function main() {
   rmSync(DIST, { recursive: true, force: true });
   mkdirSync(DIST, { recursive: true });
 
-  // static files
+  // assets verbatim
   cpSync(join(SRC, 'assets'), join(DIST, 'assets'), { recursive: true });
-  if (existsSync(join(SRC, 'robots.txt'))) cpSync(join(SRC, 'robots.txt'), join(DIST, 'robots.txt'));
-  if (existsSync(join(SRC, 'CNAME'))) cpSync(join(SRC, 'CNAME'), join(DIST, 'CNAME'));
+  // robots.txt generated with the env-aware sitemap URL
+  write(join(DIST, 'robots.txt'), `User-agent: *\nAllow: /\n\nSitemap: ${SITE}${BASE}/sitemap.xml\n`);
+  // CNAME only for the production (apex) build — never on the preview subpath
+  if (!IS_PREVIEW && existsSync(join(SRC, 'CNAME'))) cpSync(join(SRC, 'CNAME'), join(DIST, 'CNAME'));
 
   const pages = pageList();
 
@@ -70,6 +73,12 @@ function main() {
       assert(!/data-lang|data-title-|data-desc-|data-og-image/.test(html), `${relPath} [${code}]: leftover data-* attr`);
       assert(html.includes(`rel="canonical" href="${canonical(relPath, code)}"`), `${relPath} [${code}]: bad/missing canonical`);
       assert((html.match(/rel="alternate" hreflang=/g) || []).length === 3, `${relPath} [${code}]: expected 3 hreflang links`);
+
+      html = applyBasePath(html, BASE);
+      if (IS_PREVIEW) {
+        assert(!/(href|src)="\/assets\//.test(html), `${relPath} [${code}]: un-prefixed /assets path under preview base`);
+        assert(/name="robots" content="noindex"/.test(html), `${relPath} [${code}]: missing noindex on preview`);
+      }
 
       // Guard: no untranslated Dutch in EN alt/aria-label values
       if (code === 'en') {
