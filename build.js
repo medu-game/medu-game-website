@@ -19,7 +19,7 @@ const NAV = `<nav class="topnav" id="topnav">
       <a href="/#wat"><span lang="nl">wat het is</span><span lang="en">what it is</span></a>
       <a href="/#platform"><span lang="nl">het platform</span><span lang="en">the platform</span></a>
       <div class="has-sub">
-        <a class="sub-trigger" href="/#modules">modules <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></a>
+        <button type="button" class="sub-trigger" aria-haspopup="true" aria-expanded="false">modules <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button>
         <div class="submenu">
           <a href="/modules/reanimatie-aed.html"><span lang="nl">Reanimatie &amp; AED</span><span lang="en">Resuscitation &amp; AED</span></a>
           <a href="/modules/abcde.html">ABCDE</a>

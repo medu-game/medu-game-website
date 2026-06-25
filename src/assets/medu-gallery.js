@@ -130,33 +130,70 @@
   else init();
 })();
 
-/* ── mobile nav (hamburger) ────────────────────────────────────────────────
- * Toggles the .topnav dropdown on small screens via a .nav-open class on <html>.
- * No-op on any page that has no .nav-toggle / .topnav. */
+/* ── nav (mobile hamburger + desktop "modules" submenu) ─────────────────────
+ * Mobile: a .nav-open class on <html> toggles the full-screen .topnav dropdown.
+ * Desktop submenu: an .is-open class on .has-sub is the single source of truth
+ * (hover on mouse devices, focus for keyboard, click for touch) — deliberately
+ * NOT CSS :hover/:focus-within, which leaves a "sticky" open menu after a click
+ * on Windows/Edge. No-op on pages without a .nav-toggle / .has-sub. */
 (function () {
   "use strict";
   function wire() {
+    var root = document.documentElement;
+
+    /* mobile hamburger */
     var toggle = document.querySelector(".nav-toggle");
     var nav = document.querySelector(".topnav");
-    if (!toggle || !nav) return;
-    var root = document.documentElement;
-    function set(open) {
-      root.classList.toggle("nav-open", open);
-      toggle.setAttribute("aria-expanded", String(open));
+    if (toggle && nav) {
+      var setMenu = function (open) {
+        root.classList.toggle("nav-open", open);
+        toggle.setAttribute("aria-expanded", String(open));
+      };
+      toggle.addEventListener("click", function (e) {
+        e.stopPropagation();
+        setMenu(!root.classList.contains("nav-open"));
+      });
+      nav.addEventListener("click", function (e) { if (e.target.closest("a")) setMenu(false); });
+      document.addEventListener("click", function (e) {
+        if (root.classList.contains("nav-open") && !e.target.closest(".topnav") && !e.target.closest(".nav-toggle")) setMenu(false);
+      });
+      document.addEventListener("keydown", function (e) { if (e.key === "Escape") setMenu(false); });
     }
-    toggle.addEventListener("click", function (e) {
-      e.stopPropagation();
-      set(!root.classList.contains("nav-open"));
+
+    /* desktop submenu(s) */
+    var groups = document.querySelectorAll(".topnav .has-sub");
+    if (!groups.length) return;
+    var canHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+    function closeGroups(except) {
+      groups.forEach(function (g) {
+        if (g === except) return;
+        g.classList.remove("is-open");
+        var b = g.querySelector(".sub-trigger");
+        if (b) b.setAttribute("aria-expanded", "false");
+      });
+    }
+    function setGroup(group, open) {
+      group.classList.toggle("is-open", open);
+      var b = group.querySelector(".sub-trigger");
+      if (b) b.setAttribute("aria-expanded", String(open));
+      if (open) closeGroups(group);
+    }
+    groups.forEach(function (group) {
+      var btn = group.querySelector(".sub-trigger");
+      if (canHover) {
+        group.addEventListener("mouseenter", function () { setGroup(group, true); });
+        group.addEventListener("mouseleave", function () { setGroup(group, false); });
+      }
+      group.addEventListener("focusin", function () { setGroup(group, true); });
+      group.addEventListener("focusout", function (e) { if (!group.contains(e.relatedTarget)) setGroup(group, false); });
+      if (btn) btn.addEventListener("click", function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        if (!canHover) setGroup(group, !group.classList.contains("is-open"));
+      });
     });
-    nav.addEventListener("click", function (e) {
-      if (e.target.closest("a")) set(false);
-    });
-    document.addEventListener("click", function (e) {
-      if (root.classList.contains("nav-open") && !e.target.closest(".topnav") && !e.target.closest(".nav-toggle")) set(false);
-    });
-    document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape") set(false);
-    });
+    document.addEventListener("click", function () { closeGroups(); });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeGroups(); });
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", wire);
   else wire();

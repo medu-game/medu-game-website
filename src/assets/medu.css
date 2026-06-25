@@ -65,14 +65,14 @@ a{color:inherit; text-decoration:none;}
 .topnav a{color:inherit; transition:color var(--motion-fast) var(--ease);}
 .topnav > a:hover, .topnav .sub-trigger:hover{color:var(--blue-dark);}
 .topnav .has-sub{position:relative;}
-.topnav .sub-trigger{display:inline-flex; align-items:center; gap:4px; cursor:pointer;}
+.topnav .sub-trigger{display:inline-flex; align-items:center; gap:4px; cursor:pointer; background:none; border:0; padding:0; margin:0; font:inherit; color:inherit;}
 .topnav .chev{transition:transform var(--motion-fast) var(--ease);}
 .topnav .submenu{position:absolute; top:calc(100% + 12px); left:50%; transform:translateX(-50%) translateY(6px);
   min-width:210px; background:var(--surface); border-radius:var(--radius-md); box-shadow:var(--elev-lg);
   padding:var(--space-2); display:flex; flex-direction:column; z-index:60;
   opacity:0; pointer-events:none; transition:opacity var(--motion-fast) var(--ease), transform var(--motion-fast) var(--ease);}
-.topnav .has-sub:hover .submenu, .topnav .has-sub:focus-within .submenu{opacity:1; pointer-events:auto; transform:translateX(-50%) translateY(0);}
-.topnav .has-sub:hover .chev{transform:rotate(180deg);}
+.topnav .has-sub.is-open .submenu{opacity:1; pointer-events:auto; transform:translateX(-50%) translateY(0);}
+.topnav .has-sub.is-open .chev{transform:rotate(180deg);}
 .topnav .submenu a{padding:9px 12px; border-radius:var(--radius-sm); font-size:var(--text-sm); color:var(--fg-2); white-space:nowrap;}
 .topnav .submenu a:hover{background:var(--surface-warm); color:var(--blue-dark);}
 
@@ -90,7 +90,7 @@ html.nav-open .nav-toggle .ico-x{display:block;}
     opacity:0; transform:translateY(-8px); pointer-events:none;
     transition:opacity var(--motion-fast) var(--ease), transform var(--motion-fast) var(--ease);}
   html.nav-open .topnav{opacity:1; transform:none; pointer-events:auto;}
-  .topnav > a, .topnav .sub-trigger{padding:var(--space-4) 0; font-size:var(--text-lg); color:var(--fg-2); border-top:1px solid var(--border-soft);}
+  .topnav > a, .topnav .sub-trigger{padding:var(--space-4) 0; font-size:var(--text-lg); color:var(--fg-2); border-top:1px solid var(--border-soft); width:100%; justify-content:flex-start; text-align:left;}
   .topnav .has-sub{position:static;}
   .topnav .chev{display:none;}
   .topnav .submenu{position:static; opacity:1; pointer-events:auto; transform:none; box-shadow:none; background:transparent; border-radius:0; padding:0; min-width:0;}
