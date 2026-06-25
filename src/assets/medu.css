@@ -58,8 +58,45 @@ a{color:inherit; text-decoration:none;}
 .topbar{position:sticky; top:0; z-index:50; background:rgba(251,249,247,.85); backdrop-filter:blur(10px); border-bottom:1px solid var(--border-soft);}
 .topbar-inner{display:flex; align-items:center; justify-content:space-between; height:72px; gap:var(--space-6);}
 .brand{display:flex; align-items:center;}
-.back-link{font-size:var(--text-sm); font-weight:400; color:var(--muted); transition:color var(--motion-fast) var(--ease);}
-.back-link:hover{color:var(--blue-dark);}
+.topbar-actions{display:flex; align-items:center; gap:var(--space-4);}
+
+/* shared primary nav (generator-injected at <!--NAV-->) + mobile hamburger */
+.topnav{display:flex; align-items:center; gap:var(--space-6); font-size:var(--text-sm); font-weight:400; color:var(--muted);}
+.topnav a{color:inherit; transition:color var(--motion-fast) var(--ease);}
+.topnav > a:hover, .topnav .sub-trigger:hover{color:var(--blue-dark);}
+.topnav .has-sub{position:relative;}
+.topnav .sub-trigger{display:inline-flex; align-items:center; gap:4px; cursor:pointer;}
+.topnav .chev{transition:transform var(--motion-fast) var(--ease);}
+.topnav .submenu{position:absolute; top:calc(100% + 12px); left:50%; transform:translateX(-50%) translateY(6px);
+  min-width:210px; background:var(--surface); border-radius:var(--radius-md); box-shadow:var(--elev-lg);
+  padding:var(--space-2); display:flex; flex-direction:column; z-index:60;
+  opacity:0; pointer-events:none; transition:opacity var(--motion-fast) var(--ease), transform var(--motion-fast) var(--ease);}
+.topnav .has-sub:hover .submenu, .topnav .has-sub:focus-within .submenu{opacity:1; pointer-events:auto; transform:translateX(-50%) translateY(0);}
+.topnav .has-sub:hover .chev{transform:rotate(180deg);}
+.topnav .submenu a{padding:9px 12px; border-radius:var(--radius-sm); font-size:var(--text-sm); color:var(--fg-2); white-space:nowrap;}
+.topnav .submenu a:hover{background:var(--surface-warm); color:var(--blue-dark);}
+
+.nav-toggle{display:none; align-items:center; justify-content:center; width:42px; height:42px; padding:0; border:0; border-radius:var(--radius-pill); background:transparent; color:var(--blue-dark); cursor:pointer;}
+.nav-toggle:hover{background:var(--surface-warm);}
+.nav-toggle .ico-x{display:none;}
+html.nav-open .nav-toggle .ico-bars{display:none;}
+html.nav-open .nav-toggle .ico-x{display:block;}
+
+@media(max-width:900px){
+  .nav-toggle{display:inline-flex;}
+  .topnav{display:flex; flex-direction:column; align-items:stretch; gap:0; position:fixed; left:0; right:0; top:72px; z-index:45;
+    background:var(--bg); border-bottom:1px solid var(--border); box-shadow:var(--elev-raised);
+    padding:var(--space-2) var(--gutter) var(--space-5); max-height:calc(100vh - 72px); overflow-y:auto;
+    opacity:0; transform:translateY(-8px); pointer-events:none;
+    transition:opacity var(--motion-fast) var(--ease), transform var(--motion-fast) var(--ease);}
+  html.nav-open .topnav{opacity:1; transform:none; pointer-events:auto;}
+  .topnav > a, .topnav .sub-trigger{padding:var(--space-4) 0; font-size:var(--text-lg); color:var(--fg-2); border-top:1px solid var(--border-soft);}
+  .topnav .has-sub{position:static;}
+  .topnav .chev{display:none;}
+  .topnav .submenu{position:static; opacity:1; pointer-events:auto; transform:none; box-shadow:none; background:transparent; border-radius:0; padding:0; min-width:0;}
+  .topnav .submenu a{padding:var(--space-3) 0 var(--space-3) var(--space-5); font-size:var(--text-base); color:var(--muted); border-top:1px solid var(--border-soft); border-radius:0; white-space:normal;}
+}
+@media(max-width:700px){.topnav{padding-left:var(--space-6); padding-right:var(--space-6);}}
 /* phones: drop the topbar demo CTA so the bar fits (the hero keeps its CTA) */
 @media(max-width:600px){.topbar .btn-primary{display:none;}}
 

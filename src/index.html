@@ -5,34 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Medu.game | platform voor opleiders in de zorg</title>
 <link rel="stylesheet" href="/assets/medu-fonts.css">
-<link rel="stylesheet" href="/assets/medu.css?v=9">
+<link rel="stylesheet" href="/assets/medu.css?v=10">
 <style>
 /* Design tokens, base reset, and the shared primitives below (eyebrow,
    buttons, badges, topbar base, section rhythm, .section-num, .loops) come
    from /assets/medu.css — the single source of truth shared with the module
    pages. Only overview-page-specific styles live inline here. */
 
-/* topbar base (.topbar/.topbar-inner/.brand) is in medu.css; only the
-   overview-page primary nav is specific to this page. */
-.topnav{display:flex; gap:var(--space-6); font-size:var(--text-sm); font-weight:400; color:var(--muted);}
-.topnav a{transition:color var(--motion-fast) var(--ease);}
-.topnav a:hover{color:var(--blue-dark);}
-.nav-toggle{display:none; align-items:center; justify-content:center; width:42px; height:42px; padding:0; border:0; border-radius:var(--radius-pill); background:transparent; color:var(--blue-dark); cursor:pointer;}
-.nav-toggle:hover{background:var(--surface-warm);}
-.nav-toggle .ico-x{display:none;}
-html.nav-open .nav-toggle .ico-bars{display:none;}
-html.nav-open .nav-toggle .ico-x{display:block;}
-@media(max-width:900px){
-  .nav-toggle{display:inline-flex;}
-  .topnav{display:flex; flex-direction:column; gap:0; position:fixed; left:0; right:0; top:72px; z-index:45;
-    background:var(--bg); border-bottom:1px solid var(--border); box-shadow:var(--elev-raised);
-    padding:var(--space-2) var(--gutter) var(--space-5);
-    opacity:0; transform:translateY(-8px); pointer-events:none;
-    transition:opacity var(--motion-fast) var(--ease), transform var(--motion-fast) var(--ease);}
-  .topnav a{padding:var(--space-4) 0; font-size:var(--text-lg); color:var(--fg-2); border-top:1px solid var(--border-soft);}
-  html.nav-open .topnav{opacity:1; transform:none; pointer-events:auto;}
-}
-@media(max-width:700px){.topnav{padding-left:var(--space-6); padding-right:var(--space-6);}}
+/* topbar + primary nav (incl. mobile hamburger + modules submenu) are shared in /assets/medu.css */
 
 /* hero */
 .hero{position:relative; overflow:hidden; padding-top:80px;}
@@ -160,7 +140,7 @@ footer.site{padding:var(--space-12) 0; color:var(--meta); font-size:var(--text-s
 .foot-links{display:flex; gap:var(--space-6);}
 .foot-links a:hover{color:var(--blue-dark); text-decoration:underline; text-underline-offset:4px;}
 </style>
-<link rel="stylesheet" href="/assets/medu-gallery.css?v=9">
+<link rel="stylesheet" href="/assets/medu-gallery.css?v=10">
 </head>
 <body>
 
@@ -170,14 +150,8 @@ footer.site{padding:var(--space-12) 0; color:var(--meta); font-size:var(--text-s
     <a class="brand" href="#top" aria-label="Medu.game">
       <img src="/assets/logo-oneline.png" alt="Medu.game" style="height:28px; width:auto; display:block;" />
     </a>
-    <nav class="topnav" id="topnav">
-      <a href="#wat"><span lang="nl">wat het is</span><span lang="en">what it is</span></a>
-      <a href="#platform"><span lang="nl">het platform</span><span lang="en">the platform</span></a>
-      <a href="#modules">modules</a>
-      <a href="#bewijs"><span lang="nl">bewijs</span><span lang="en">proof</span></a>
-      <a href="#faq">faq</a>
-    </nav>
-    <div style="display:flex; align-items:center; gap:var(--space-4);">
+    <!--NAV-->
+    <div class="topbar-actions">
       <!--LANG-SWITCH-->
       <a class="btn btn-primary" href="mailto:aad.lievaart@medu.game?subject=Demo%20Medu.game"><span lang="nl">plan een demo</span><span lang="en">book a demo</span></a>
       <button class="nav-toggle" type="button" aria-label="menu" aria-expanded="false" aria-controls="topnav">
@@ -542,6 +516,6 @@ footer.site{padding:var(--space-12) 0; color:var(--meta); font-size:var(--text-s
   </div>
 </footer>
 
-<script src="/assets/medu-gallery.js?v=9" defer></script>
+<script src="/assets/medu-gallery.js?v=10" defer></script>
 </body>
 </html>

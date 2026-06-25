@@ -11,6 +11,26 @@ import { applyLangAttrs } from './lib/attrs.mjs';
 const SRC = 'src';
 const DIST = 'dist';
 
+// Shared primary nav, injected at the <!--NAV--> marker in every page's topbar.
+// Root-absolute hrefs (/#section, /modules/*.html) are language-prefixed by
+// rewriteLinks for EN and base-prefixed by applyBasePath; bilingual <span lang>
+// labels are resolved by unwrapLang. Single source of truth for the menu.
+const NAV = `<nav class="topnav" id="topnav">
+      <a href="/#wat"><span lang="nl">wat het is</span><span lang="en">what it is</span></a>
+      <a href="/#platform"><span lang="nl">het platform</span><span lang="en">the platform</span></a>
+      <div class="has-sub">
+        <a class="sub-trigger" href="/#modules">modules <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></a>
+        <div class="submenu">
+          <a href="/modules/reanimatie-aed.html"><span lang="nl">Reanimatie &amp; AED</span><span lang="en">Resuscitation &amp; AED</span></a>
+          <a href="/modules/abcde.html">ABCDE</a>
+          <a href="/modules/ecg.html">ECG</a>
+          <a href="/modules/als.html">ALS</a>
+        </div>
+      </div>
+      <a href="/#bewijs"><span lang="nl">bewijs</span><span lang="en">proof</span></a>
+      <a href="/#faq">faq</a>
+    </nav>`;
+
 function pageList() {
   const pages = ['index.html'];
   for (const f of readdirSync(join(SRC, 'modules'))) {
@@ -59,8 +79,10 @@ function main() {
     assert(meta.ogImage, `${relPath}: missing data-og-image`);
     assert(existsSync(join(SRC, meta.ogImage.replace(/^\//, ''))), `${relPath}: og-image not found: ${meta.ogImage}`);
 
+    const withNav = raw.replace('<!--NAV-->', NAV);
+
     for (const { code } of LANGS) {
-      let html = unwrapLang(raw, code);
+      let html = unwrapLang(withNav, code);
       html = applyLangAttrs(html, code);     // NEW
       html = rewriteLinks(html, code);
       html = html.replace('<!--LANG-SWITCH-->', langSwitch(relPath, code));

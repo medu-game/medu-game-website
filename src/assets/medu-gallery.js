@@ -132,7 +132,7 @@
 
 /* ── mobile nav (hamburger) ────────────────────────────────────────────────
  * Toggles the .topnav dropdown on small screens via a .nav-open class on <html>.
- * No-op on pages without a .nav-toggle (e.g. module pages use a back-link). */
+ * No-op on any page that has no .nav-toggle / .topnav. */
 (function () {
   "use strict";
   function wire() {
