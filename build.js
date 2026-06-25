@@ -7,6 +7,7 @@ import { unwrapLang } from './lib/spans.mjs';
 import { parseMeta, applyHead } from './lib/head.mjs';
 import { buildSitemap } from './lib/sitemap.mjs';
 import { applyLangAttrs } from './lib/attrs.mjs';
+import { buildSchema } from './lib/schema.mjs';
 
 const SRC = 'src';
 const DIST = 'dist';
@@ -87,8 +88,13 @@ function main() {
       html = rewriteLinks(html, code);
       html = html.replace('<!--LANG-SWITCH-->', langSwitch(relPath, code));
       html = applyHead(html, { lang: code, relPath, meta });
+      html = html.replace('</head>', `${buildSchema({ relPath, lang: code, meta })}\n</head>`);
 
       // per-output assertions
+      const ld = /<script type="application\/ld\+json">([\s\S]*?)<\/script>/.exec(html);
+      assert(ld, `${relPath} [${code}]: missing JSON-LD`);
+      try { JSON.parse(ld[1].replace(/\\u003c/g, '<')); }
+      catch (e) { assert(false, `${relPath} [${code}]: invalid JSON-LD (${e.message})`); }
       const other = code === 'nl' ? 'en' : 'nl';
       assert(!new RegExp(`\\blang="${other}"`).test(html), `${relPath} [${code}]: leftover lang="${other}" span`);
       assert(!/data-(alt|aria-label)-en=/.test(html), `${relPath} [${code}]: leftover data-*-en override attr`);
