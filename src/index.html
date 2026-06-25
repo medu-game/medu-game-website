@@ -110,6 +110,11 @@
 .quote.dark .who span{color:rgba(255,224,224,.55);}
 .logos{margin-top:var(--space-12); display:flex; flex-wrap:wrap; gap:var(--space-3); align-items:center;}
 .logos .lbl{font-size:var(--text-xs); letter-spacing:0.14em; text-transform:uppercase; color:var(--meta); margin-right:var(--space-3);}
+/* slim proof strip directly under the hero (above the fold) */
+.trust-strip{background:var(--surface-warm); border-bottom:1px solid var(--border);}
+.trust-strip .wrap{padding-top:var(--space-5); padding-bottom:var(--space-5);}
+.trust-inner{display:flex; flex-wrap:wrap; gap:var(--space-3); align-items:center; justify-content:center;}
+.trust-inner .lbl{font-size:var(--text-xs); letter-spacing:0.14em; text-transform:uppercase; color:var(--meta);}
 
 /* usp */
 .usp{display:grid; grid-template-columns:repeat(2,1fr); gap:var(--space-5);}
@@ -153,7 +158,7 @@ footer.site{padding:var(--space-12) 0; color:var(--meta); font-size:var(--text-s
     <!--NAV-->
     <div class="topbar-actions">
       <!--LANG-SWITCH-->
-      <a class="btn btn-primary" href="mailto:aad.lievaart@medu.game?subject=Demo%20Medu.game"><span lang="nl">plan een demo</span><span lang="en">book a demo</span></a>
+      <a class="btn btn-primary" href="mailto:aad.lievaart@medu.game?subject=Demo%20Medu.game"><span lang="nl">plan een demo (15 min)</span><span lang="en">book a demo (15 min)</span></a>
       <button class="nav-toggle" type="button" aria-label="menu" aria-expanded="false" aria-controls="topnav">
         <svg class="ico-bars" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
         <svg class="ico-x" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
@@ -172,7 +177,7 @@ footer.site{padding:var(--space-12) 0; color:var(--meta); font-size:var(--text-s
       <h1 class="hero-title" style="margin-top:var(--space-5)"><span lang="nl">Hét digitale<br/>leerplatform voor<br/>zorgprofessionals</span><span lang="en">The digital<br/>learning platform<br/>for healthcare</span><span class="dot">.</span></h1>
       <p class="hero-lede"><span lang="nl">Medu.game brengt serious games, simulaties en casuïstiek samen in één platform. Zorgprofessionals oefenen klinisch redeneren in een immersieve 3D-omgeving, in de browser of als app, tussen de diensten door.</span><span lang="en">Medu.game brings serious games, simulations and case-based learning together in one platform. Healthcare professionals practise clinical reasoning in an immersive 3D environment, in the browser or as an app, between shifts.</span></p>
       <div class="hero-cta">
-        <a class="btn btn-primary" href="mailto:aad.lievaart@medu.game?subject=Demo%20Medu.game"><span lang="nl">plan een demo</span><span lang="en">book a demo</span></a>
+        <a class="btn btn-primary" href="mailto:aad.lievaart@medu.game?subject=Demo%20Medu.game"><span lang="nl">plan een demo (15 min)</span><span lang="en">book a demo (15 min)</span></a>
         <a class="btn btn-ghost" href="#wat"><span lang="nl">bekijk hoe het werkt</span><span lang="en">see how it works</span></a>
       </div>
       <div class="hero-stats">
@@ -195,6 +200,21 @@ footer.site{padding:var(--space-12) 0; color:var(--meta); font-size:var(--text-s
         <span class="badge badge-blue">live · immersive 3D</span>
         <p><span lang="nl">Tour door het virtuele ziekenhuis</span><span lang="en">Tour the virtual hospital</span></p>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- proof strip (boven de vouw) -->
+<section class="trust-strip" aria-label="samengewerkt met">
+  <div class="wrap">
+    <div class="trust-inner">
+      <span class="lbl"><span lang="nl">samengewerkt met</span><span lang="en">worked with</span></span>
+      <span class="badge badge-outline">nvic</span>
+      <span class="badge badge-outline">amsterdam umc</span>
+      <span class="badge badge-outline">umcg</span>
+      <span class="badge badge-outline">gelre ziekenhuizen</span>
+      <span class="badge badge-outline">tergooi mc</span>
+      <span class="badge badge-outline">nva</span>
     </div>
   </div>
 </section>
@@ -463,6 +483,7 @@ footer.site{padding:var(--space-12) 0; color:var(--meta); font-size:var(--text-s
       <details><summary><span lang="nl">Hoe wordt de content gemaakt?</span><span lang="en">How is the content created?</span><span class="plus">+</span></summary><div class="body"><span lang="nl">Cases worden samengesteld uit herbruikbare bouwblokken in het platform, samen met vakexperts en getoetst aan actuele richtlijnen. Zo is nieuwe content snel te bouwen en blijft kwaliteit geborgd.</span><span lang="en">Cases are assembled from reusable building blocks in the platform, together with subject-matter experts and validated against current guidelines. This makes new content quick to build while quality stays assured.</span></div></details>
       <details><summary><span lang="nl">Integreert het met ons LMS?</span><span lang="en">Does it integrate with our LMS?</span><span class="plus">+</span></summary><div class="body"><span lang="nl">Ja. Er zijn kant-en-klare koppelingen met de top-3 LMS-systemen voor voortgangsrapportage, plus single sign-on en gebruikersanalytics.</span><span lang="en">Yes. There are ready-made integrations with the top-3 LMS platforms for progress reporting, plus single sign-on and user analytics.</span></div></details>
       <details><summary><span lang="nl">In welke talen is het beschikbaar?</span><span lang="en">Which languages is it available in?</span><span class="plus">+</span></summary><div class="body"><span lang="nl">Nederlands, engels en braziliaans-portugees (pt-br). Medu.game wordt in meerdere landen gebruikt. Nieuwe talen zijn eenvoudig toe te voegen.</span><span lang="en">Dutch, English and Brazilian Portuguese (pt-BR). Medu.game is used in several countries, and new languages are easy to add.</span></div></details>      <details><summary><span lang="nl">Hoe meten we het resultaat?</span><span lang="en">How do we measure results?</span><span class="plus">+</span></summary><div class="body"><span lang="nl">Via gebruikersanalytics en LMS-rapportage zie je deelname, voortgang en prestaties, meetbaar opleiden voor HR en de organisatie.</span><span lang="en">Through user analytics and LMS reporting you see participation, progress and performance, measurable training for HR and the organisation.</span></div></details>
+      <details><summary><span lang="nl">Wat kost Medu.game?</span><span lang="en">What does Medu.game cost?</span><span class="plus">+</span></summary><div class="body"><span lang="nl">De prijs hangt af van de modules, het aantal gebruikers en of je ons leerplatform of je eigen LMS gebruikt. Plan een demo, dan maken we een voorstel op maat voor jullie situatie.</span><span lang="en">Pricing depends on the modules, the number of users and whether you use our learning platform or your own LMS. Book a demo and we'll put together a proposal tailored to your situation.</span></div></details>
     </div>
   </div>
 </section>
@@ -481,7 +502,7 @@ footer.site{padding:var(--space-12) 0; color:var(--meta); font-size:var(--text-s
         <h2><span lang="nl">Klaar om Medu<span class="dot">.</span>game te zien werken?</span><span lang="en">Ready to see Medu<span class="dot">.</span>game in action?</span></h2>
         <p><span lang="nl">De snelste manier om het platform te begrijpen is een korte demo, we laten een echte casus zien en denken mee over jullie opleidingsdoelen en leerlijnen.</span><span lang="en">The fastest way to understand the platform is a short demo, we'll show a real case and think along about your training goals and learning paths.</span></p>
         <div class="row">
-          <a class="btn btn-primary" href="mailto:aad.lievaart@medu.game?subject=Demo%20Medu.game"><span lang="nl">plan een demo</span><span lang="en">book a demo</span></a>
+          <a class="btn btn-primary" href="mailto:aad.lievaart@medu.game?subject=Demo%20Medu.game"><span lang="nl">plan een demo (15 min)</span><span lang="en">book a demo (15 min)</span></a>
         </div>
       </div>
     </div>
