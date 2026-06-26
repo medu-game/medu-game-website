@@ -1,17 +1,21 @@
 <!DOCTYPE html>
 <html lang="nl"
-  data-title-nl="Medu.game | Team"
-  data-title-en="Medu.game | Team"
-  data-desc-nl="Maak kennis met het team achter Medu.game: een volledig remote bedrijf, ontstaan in Nederland en verspreid over Europa."
-  data-desc-en="Meet the team behind Medu.game: a fully remote company, born in the Netherlands and spread across Europe."
+  data-title-nl="Medu.game | Plan een demo"
+  data-title-en="Medu.game | Book a demo"
+  data-desc-nl="Plan een korte demo van Medu.game. Kies direct een moment dat jou uitkomt; we laten een echte casus zien en denken mee over jullie opleidingsdoelen."
+  data-desc-en="Book a short demo of Medu.game. Pick a time that suits you; we'll show a real case and think along about your training goals."
   data-og-image="/assets/logo-pink.png">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Medu.game | Team</title>
+<title>Medu.game | Plan een demo</title>
 <link rel="stylesheet" href="/assets/medu-fonts.css">
 <link rel="stylesheet" href="/assets/medu.css?v=16">
 <link rel="stylesheet" href="/assets/medu-gallery.css?v=16">
+<style>
+.demo-embed{margin-top:var(--space-8); min-height:640px; width:100%; border-radius:var(--radius-lg); overflow:hidden;}
+.demo-fallback{margin-top:var(--space-6); font-size:var(--text-sm); color:var(--muted);}
+</style>
 </head>
 <body>
 
@@ -36,46 +40,18 @@
 
 <section class="legal-hero">
   <div class="wrap">
-    <span class="eyebrow"><span class="pulse"></span><span lang="nl">het team</span><span lang="en">the team</span></span>
-    <h1 class="legal-title"><span lang="nl">Het team achter Medu<span class="dot">.</span>game</span><span lang="en">The team behind Medu<span class="dot">.</span>game</span></h1>
+    <span class="eyebrow"><span class="pulse"></span><span lang="nl">demo</span><span lang="en">demo</span></span>
+    <h1 class="legal-title"><span lang="nl">Plan een demo</span><span lang="en">Book a demo</span></h1>
+    <p class="section-lede" style="max-width:60ch;"><span lang="nl">Kies hieronder direct een moment dat jou uitkomt (±30 minuten). We laten een echte casus zien en denken mee over jullie opleidingsdoelen en leerlijnen.</span><span lang="en">Pick a time below that suits you (±30 minutes). We'll show a real case and think along about your training goals and learning paths.</span></p>
   </div>
 </section>
 
-<section>
+<section style="padding-top:var(--space-8);">
   <div class="wrap">
-    <p class="section-lede team-intro"><span lang="nl">We zijn een volledig remote bedrijf, ontstaan in Nederland en inmiddels verspreid over heel Europa.</span><span lang="en">We are a fully remote company, born in the Netherlands and today spread across Europe.</span></p>
-    <div class="team-grid">
-      <div class="team-card">
-        <img class="team-photo" src="/assets/team/marcel.webp" alt="Marcel van Wijk" loading="lazy" />
-        <h3>Marcel van Wijk</h3>
-        <p class="role">CEO</p>
-      </div>
-      <div class="team-card">
-        <img class="team-photo" src="/assets/team/tim.webp" alt="Tim Koppers" loading="lazy" />
-        <h3>Tim Koppers</h3>
-        <p class="role">CTO</p>
-      </div>
-      <div class="team-card">
-        <img class="team-photo" src="/assets/team/aad.webp" alt="Aad Lievaart" loading="lazy" />
-        <h3>Aad Lievaart</h3>
-        <p class="role"><span lang="nl">Accountmanager &amp; medeoprichter</span><span lang="en">Account manager &amp; co-founder</span></p>
-      </div>
-      <div class="team-card">
-        <img class="team-photo" src="/assets/team/trinidad.webp" alt="Trinidad" loading="lazy" />
-        <h3>Trinidad</h3>
-        <p class="role"><span lang="nl">Lead developer</span><span lang="en">Lead developer</span></p>
-      </div>
-      <div class="team-card">
-        <img class="team-photo" src="/assets/team/kevin.webp" alt="Kevin Dogge" loading="lazy" />
-        <h3>Kevin Dogge</h3>
-        <p class="role"><span lang="nl">3D-artist</span><span lang="en">3D artist</span></p>
-      </div>
-      <div class="team-card">
-        <img class="team-photo" src="/assets/team/freek.png" alt="Freek Verheijde" loading="lazy" />
-        <h3>Freek Verheijde</h3>
-        <p class="role"><span lang="nl">Case-designer</span><span lang="en">Case designer</span></p>
-      </div>
-    </div>
+    <!-- Cal.com inline embed (EU instance) -->
+    <div class="demo-embed" id="cal-inline-medugame"></div>
+    <p class="demo-fallback"><span lang="nl">Werkt de planner niet? <a href="https://cal.eu/medugame" target="_blank" rel="noopener">Open hem direct in een nieuw tabblad</a> of mail <a href="mailto:aad.lievaart@medu.game?subject=Demo%20Medu.game">aad.lievaart@medu.game</a>.</span><span lang="en">Planner not loading? <a href="https://cal.eu/medugame" target="_blank" rel="noopener">Open it in a new tab</a> or email <a href="mailto:aad.lievaart@medu.game?subject=Demo%20Medu.game">aad.lievaart@medu.game</a>.</span></p>
+    <noscript><p class="demo-fallback"><span lang="nl">Schakel JavaScript in of <a href="https://cal.eu/medugame">plan je demo hier</a>.</span><span lang="en">Enable JavaScript or <a href="https://cal.eu/medugame">book your demo here</a>.</span></p></noscript>
   </div>
 </section>
 
@@ -111,6 +87,17 @@
   </div>
 </footer>
 
+<!-- Cal.com inline embed loader (EU) -->
+<script type="text/javascript">
+  (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if (typeof namespace === "string") { cal.ns[namespace] = cal.ns[namespace] || api; p(cal.ns[namespace], ar); p(cal, ["initNamespace", namespace]); } else p(cal, ar); return; } p(cal, ar); }; })(window, "https://app.cal.eu/embed/embed.js", "init");
+  Cal("init", "medugame", { origin: "https://app.cal.eu" });
+  Cal.ns.medugame("inline", {
+    elementOrSelector: "#cal-inline-medugame",
+    config: { layout: "month_view" },
+    calLink: "medugame/30min",
+  });
+  Cal.ns.medugame("ui", { hideEventTypeDetails: false, layout: "month_view" });
+</script>
 <script src="/assets/medu-gallery.js?v=16" defer></script>
 </body>
 </html>
