@@ -28,12 +28,13 @@ const NAV = `<nav class="topnav" id="topnav">
           <a href="/modules/als.html">ALS</a>
         </div>
       </div>
-      <a href="/#bewijs"><span lang="nl">bewijs</span><span lang="en">proof</span></a>
+      <a href="/#ervaringen"><span lang="nl">ervaringen</span><span lang="en">testimonials</span></a>
       <a href="/#faq">faq</a>
     </nav>`;
 
 function pageList() {
-  const pages = ['index.html'];
+  // top-level pages (index.html + standalone pages like privacy/terms/team)
+  const pages = readdirSync(SRC).filter((f) => f.endsWith('.html'));
   for (const f of readdirSync(join(SRC, 'modules'))) {
     if (f.endsWith('.html')) pages.push(`modules/${f}`);
   }

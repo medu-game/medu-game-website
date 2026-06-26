@@ -186,3 +186,36 @@ footer.site{padding:var(--space-12) 0; color:var(--meta); font-size:var(--text-s
 .foot-links{display:flex; gap:var(--space-6);}
 .foot-links a:hover{color:var(--blue-dark); text-decoration:underline; text-underline-offset:4px;}
 .loops{position:absolute; pointer-events:none;}
+
+/* footer legal links (Privacy / Terms / Team) */
+.footer-legal{display:flex; gap:var(--space-5); flex-wrap:wrap; font-size:var(--text-sm);}
+.footer-legal a{color:rgba(255,224,224,.7); transition:color var(--motion-fast) var(--ease);}
+.footer-legal a:hover{color:#fff; text-decoration:underline; text-underline-offset:3px;}
+
+/* ── standalone pages: legal (privacy/terms) prose ──────────────────────── */
+.legal-hero{padding:96px 0 0;}
+.legal-hero .eyebrow{margin-bottom:var(--space-4);}
+.legal-title{font-family:var(--font-display); font-weight:600; font-size:var(--text-3xl); letter-spacing:var(--tracking-display); color:var(--blue-dark); margin-top:var(--space-3); line-height:1.08;}
+.legal-updated{margin-top:var(--space-4); color:var(--meta); font-size:var(--text-sm);}
+.legal{padding-top:var(--space-12);}
+.legal-body{max-width:820px;}
+.legal-body .intro{font-size:var(--text-lg); color:var(--fg-2);}
+.legal-body h2{font-family:var(--font-display); font-weight:600; font-size:var(--text-xl); color:var(--blue-dark); margin-top:var(--space-12); margin-bottom:var(--space-3);}
+.legal-body h3{font-weight:600; font-size:var(--text-base); color:var(--fg); margin-top:var(--space-8); margin-bottom:var(--space-2);}
+.legal-body p{color:var(--fg-2); margin-top:var(--space-4); max-width:70ch;}
+.legal-body ul{margin:var(--space-4) 0 0; padding-left:1.25em; color:var(--fg-2); max-width:70ch;}
+.legal-body li{margin-top:var(--space-2);}
+.legal-body strong{font-weight:600; color:var(--fg);}
+.legal-body a{color:var(--accent); text-decoration:underline; text-underline-offset:2px;}
+.legal-body a:hover{color:var(--blue-dark);}
+.legal-body .legal-note{margin-top:var(--space-12); padding-top:var(--space-6); border-top:1px solid var(--border); font-size:var(--text-sm); color:var(--muted); font-style:italic;}
+
+/* ── standalone pages: team grid ────────────────────────────────────────── */
+.team-intro{max-width:640px;}
+.team-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:var(--space-8); margin-top:var(--space-12);}
+@media(max-width:900px){.team-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:560px){.team-grid{grid-template-columns:1fr; max-width:320px; margin-inline:auto;}}
+.team-card{text-align:center;}
+.team-photo{width:100%; aspect-ratio:1/1; border-radius:var(--radius-lg); background:var(--pink-light); object-fit:cover; object-position:center top; display:block; box-shadow:var(--elev-raised);}
+.team-card h3{margin-top:var(--space-4); font-size:var(--text-lg);}
+.team-card .role{margin-top:4px; color:var(--muted); font-size:var(--text-sm);}
