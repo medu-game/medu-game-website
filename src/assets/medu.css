@@ -216,6 +216,6 @@ footer.site{padding:var(--space-12) 0; color:var(--meta); font-size:var(--text-s
 @media(max-width:900px){.team-grid{grid-template-columns:repeat(2,1fr);}}
 @media(max-width:560px){.team-grid{grid-template-columns:1fr; max-width:320px; margin-inline:auto;}}
 .team-card{text-align:center;}
-.team-photo{width:100%; aspect-ratio:1/1; border-radius:var(--radius-lg); background:var(--pink-light); object-fit:cover; object-position:center top; display:block; box-shadow:var(--elev-raised);}
+.team-photo{width:100%; aspect-ratio:1/1; border-radius:50%; background:var(--pink-light); object-fit:cover; object-position:center top; display:block; box-shadow:var(--elev-raised);}
 .team-card h3{margin-top:var(--space-4); font-size:var(--text-lg);}
 .team-card .role{margin-top:4px; color:var(--muted); font-size:var(--text-sm);}
