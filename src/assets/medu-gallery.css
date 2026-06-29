@@ -126,7 +126,7 @@
 /* ── content builder shot inside the dark platform band ──────────────────── */
 .platform-builder{position:relative; z-index:2; margin-top:var(--space-12);}
 .platform-builder img{display:block; width:100%; height:auto; border-radius:var(--radius-lg); box-shadow:var(--elev-lg);}
-.platform-builder-cap{margin-top:var(--space-4); font-size:var(--text-sm); color:rgba(255,224,224,.8); max-width:70ch;}
+.platform-builder-cap{margin-top:var(--space-4); font-size:var(--text-sm); color:rgba(255,224,224,.8);}
 
 /* ── closing CTA with brand character (overview) ────────────────────────── */
 .cta.cta-split{

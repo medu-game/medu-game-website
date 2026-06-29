@@ -211,7 +211,6 @@ footer.site{padding:var(--space-12) 0; color:var(--meta); font-size:var(--text-s
 .legal-body .legal-note{margin-top:var(--space-12); padding-top:var(--space-6); border-top:1px solid var(--border); font-size:var(--text-sm); color:var(--muted); font-style:italic;}
 
 /* ── standalone pages: team grid ────────────────────────────────────────── */
-.team-intro{max-width:640px;}
 .team-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:var(--space-8); margin-top:var(--space-12);}
 @media(max-width:900px){.team-grid{grid-template-columns:repeat(2,1fr);}}
 @media(max-width:560px){.team-grid{grid-template-columns:1fr; max-width:320px; margin-inline:auto;}}
