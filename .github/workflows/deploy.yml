@@ -19,13 +19,9 @@ jobs:
         with:
           node-version: 20
       - run: npm test
-      # PREVIEW on the project subpath. To launch on the apex domain, remove the
-      # two env vars below (defaults → https://medu.game, no base path) and set
-      # the custom domain in repo Settings → Pages.
+      # PRODUCTION build → apex domain https://medu.game (no base path,
+      # canonical URLs under medu.game, includes dist/CNAME).
       - run: npm run build
-        env:
-          SITE_ORIGIN: https://medu-game.github.io
-          BASE_PATH: /medu-game-website
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
