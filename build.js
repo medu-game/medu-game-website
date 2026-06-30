@@ -8,6 +8,7 @@ import { parseMeta, applyHead } from './lib/head.mjs';
 import { buildSitemap } from './lib/sitemap.mjs';
 import { applyLangAttrs } from './lib/attrs.mjs';
 import { buildSchema } from './lib/schema.mjs';
+import { imageSize } from './lib/imagesize.mjs';
 
 const SRC = 'src';
 const DIST = 'dist';
@@ -79,7 +80,15 @@ function main() {
     const meta = parseMeta(raw);
     assert(meta.descNl && meta.descEn, `${relPath}: missing data-desc-*`);
     assert(meta.ogImage, `${relPath}: missing data-og-image`);
-    assert(existsSync(join(SRC, meta.ogImage.replace(/^\//, ''))), `${relPath}: og-image not found: ${meta.ogImage}`);
+    // Resolve each OG image to a file and read its real dimensions, so the head
+    // can emit correct og:image:width/height (helps LinkedIn/Facebook render the
+    // card on first scrape). meta.ogImageEn is an optional per-language override.
+    meta.ogDims = {};
+    for (const p of [meta.ogImage, meta.ogImageEn].filter(Boolean)) {
+      const file = join(SRC, p.replace(/^\//, ''));
+      assert(existsSync(file), `${relPath}: og-image not found: ${p}`);
+      meta.ogDims[p] = imageSize(file);
+    }
 
     const withNav = raw.replace('<!--NAV-->', NAV);
 
