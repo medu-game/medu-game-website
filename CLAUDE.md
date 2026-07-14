@@ -21,6 +21,8 @@ Source layout:
 
 `src/privacy.html` en `src/terms.html` zijn de **gepubliceerde** privacyverklaring en algemene voorwaarden van Medu.game — canoniek sinds 2026-07-14 (de oude markdown-versies in de GDPR-map zijn gearchiveerd). Bij het wijzigen van opgesomde **verwerkers/subverwerkers, regio's of bewaartermijnen**: houd deze in lijn met de juridische bron-documenten in de GDPR-map (`…/Work/Medu.game/Company/GDPR/`: `subverwerkers.md`, `register-verwerkingsactiviteiten.md`, `dpa-master.md`). Noem geen partij die niet in `subverwerkers.md` staat. (Voorbeeld 2026-07-14: MailerLite en Power BI verwijderd — niet meer in gebruik.)
 
+De volledige "waar-woont-wat + hoe-wijzig-je-het"-flow staat in `…/Work/Medu.game/Company/GDPR/documentbeheer.md`.
+
 ## Developing
 
 ```
