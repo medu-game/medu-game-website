@@ -241,8 +241,10 @@
     function activate(key) {
       current = key;
       sw.setAttribute("data-active", key);
+      var idx = keys.indexOf(key);
       triggers.forEach(function (t) {
         var on = t.getAttribute("data-switch-to") === key;
+        t.classList.toggle("is-before", keys.indexOf(t.getAttribute("data-switch-to")) < idx);
         t.classList.toggle("is-active", on);
         if (t.getAttribute("role") === "tab") t.setAttribute("aria-selected", String(on));
         else t.setAttribute("aria-pressed", String(on));
