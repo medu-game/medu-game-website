@@ -8,7 +8,7 @@
 <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/Fieldwork-Geo-Light.woff2" crossorigin />
 <title>Medu.game | platform voor opleiders in de zorg</title>
 <link rel="stylesheet" href="/assets/medu-fonts.css">
-<link rel="stylesheet" href="/assets/medu.css?v=22">
+<link rel="stylesheet" href="/assets/medu.css?v=23">
 <style>
 /* Tokens, buttons, section headers, cards, reveal/lift motion, the dark CTA and
    the footer come from /assets/medu.css (shared with the module pages). Only
@@ -48,16 +48,13 @@
 @media(max-width:1000px){.hero-grid{grid-template-columns:1fr; min-height:0; padding-top:56px; padding-bottom:56px;}}
 @media(max-width:560px){.hero-stats{flex-wrap:wrap;} .hero-tabs{grid-template-columns:repeat(2,minmax(0,1fr));} .hero-stats .k{font-size:32px;}}
 
-/* trust marquee */
-.trust{display:flex; align-items:center; gap:40px; height:104px; padding:0 0 0 max(var(--gutter), calc((100vw - var(--container)) / 2 + var(--gutter))); border-bottom:1px solid rgba(0,0,72,.08); overflow:hidden;}
-.trust-lbl{flex:0 0 170px; font-size:var(--text-sm); line-height:1.4; font-weight:400; color:rgba(0,0,72,.62);}
-.trust-track{flex:1 1 auto; min-width:0; overflow:hidden; mask-image:linear-gradient(90deg,transparent,#000 40px,#000 calc(100% - 40px),transparent);}
-.trust-run{display:flex; width:max-content; animation:marquee 36s linear infinite;}
-.trust-run ul{display:flex; margin:0; padding:0; list-style:none;}
-.trust-run li{display:flex; align-items:center; gap:40px; padding-right:40px; font-size:22px; font-weight:600; color:rgba(0,0,72,.5); white-space:nowrap;}
-.trust-run li::after{content:""; display:block; width:22px; height:8px; border-radius:var(--radius-pill); background:var(--pink);}
-@media(max-width:700px){.trust{padding-left:var(--space-6); gap:var(--space-5);} .trust-lbl{flex-basis:110px; font-size:13px;} .trust-run li{font-size:18px; gap:28px; padding-right:28px;}}
-@media(prefers-reduced-motion:reduce){.trust{height:auto; padding-top:var(--space-5); padding-bottom:var(--space-5);} .trust-track{mask-image:none;} .trust-run{width:auto;} .trust-run ul{flex-wrap:wrap; row-gap:var(--space-3);} .trust-run ul[aria-hidden]{display:none;}}
+/* trust row (static: no marquee, nothing moves without the visitor asking) */
+.trust{padding:var(--space-8) 0; border-bottom:1px solid rgba(0,0,72,.08);}
+.trust-inner{display:flex; align-items:center; gap:var(--space-4) 48px;}
+.trust-lbl{flex:0 0 150px; font-size:var(--text-sm); line-height:1.4; font-weight:400; color:rgba(0,0,72,.62);}
+.trust-list{flex:1 1 auto; display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:var(--space-3) var(--space-8); margin:0; padding:0; list-style:none;}
+.trust-list li{font-size:20px; font-weight:600; line-height:1.2; color:rgba(0,0,72,.5); white-space:nowrap;}
+@media(max-width:900px){.trust-inner{flex-direction:column; align-items:flex-start;} .trust-lbl{flex:none;} .trust-list{justify-content:flex-start; gap:var(--space-2) var(--space-6);} .trust-list li{font-size:17px;}}
 
 /* 01 what it is: video + steps on navy */
 .how{display:grid; grid-template-columns:minmax(0,1.25fr) minmax(0,1fr); border-radius:var(--radius-2xl); overflow:hidden; background:var(--blue-dark); box-shadow:0 2px 6px rgba(0,0,72,.08), var(--elev-deep);}
@@ -85,26 +82,26 @@
 .path-head{display:flex; flex-direction:column; gap:20px; max-width:820px;}
 .path{position:relative; margin-top:44px;}
 .path-line{position:absolute; left:40px; right:40px; top:50%; height:2px; background:rgba(0,0,72,.14);}
-.path-dot{position:absolute; top:calc(50% - 7px); left:3%; width:14px; height:14px; border-radius:50%; background:var(--blue-dark); box-shadow:0 0 0 5px rgba(0,0,72,.1); animation:travel 7s cubic-bezier(.45,0,.55,1) infinite alternate;}
+.path-fill{position:absolute; inset:0; background:var(--blue-dark); transform-origin:left;}
+@supports (animation-timeline: view()){.path-fill{animation:grow linear both; animation-timeline:view(); animation-range:entry 30% cover 55%;}}
 .path-steps{position:relative; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:48px; list-style:none; margin:0; padding:0;}
 .path-steps .tcard{min-height:300px;}
 .path-steps .tcard h3{font-size:24px; margin-top:12px;}
 .path-steps .row{display:flex; align-items:center; justify-content:space-between;}
 .path-steps .stepno{font-size:13px; font-weight:600; color:rgba(0,0,72,.5);}
 .path-mid{background:var(--blue-dark); color:#fff; box-shadow:0 24px 56px -16px rgba(0,0,72,.55); transform:translateY(-16px);}
-.path-mid:hover{transform:translateY(-20px);}
 .path-mid h3{color:#fff;}
 .path-mid p{color:rgba(255,255,255,.8);}
 .path-mid .stepno{display:flex; align-items:center; gap:8px; color:var(--pink);}
 .path-mid .pdot{width:7px; height:7px;}
 .brandchip{padding:7px 14px; border-radius:var(--radius-pill); background:var(--pink); color:var(--blue-dark); font-size:13px; font-weight:600;}
-@media(max-width:900px){.path-line,.path-dot{display:none;} .path-steps{grid-template-columns:1fr; gap:var(--space-5);} .path-steps .tcard{min-height:0;} .path-mid,.path-mid:hover{transform:none;}}
+@media(max-width:900px){.path-line{display:none;} .path-steps{grid-template-columns:1fr; gap:var(--space-5);} .path-steps .tcard{min-height:0;} .path-mid{transform:none;}}
 
 /* 04 module explorer (dark) */
 .mx{display:grid; grid-template-columns:400px minmax(0,1fr); gap:32px; align-items:start;}
 .mx-list{display:flex; flex-direction:column; gap:12px;}
 .mx-pick{display:flex; flex-direction:column; gap:8px; width:100%; padding:20px 24px; border-radius:var(--radius-lg); text-align:left; background:rgba(255,255,255,.04); color:#fff; box-shadow:inset 0 0 0 1px rgba(255,255,255,.1); transition:background var(--motion-base) var(--ease), color var(--motion-base) var(--ease), transform var(--motion-fast) var(--ease);}
-.mx-pick:hover{transform:translateX(4px); background:rgba(255,255,255,.08);}
+@media(hover:hover){.mx-pick:hover{transform:translateX(4px); background:rgba(255,255,255,.08);}}
 .mx-pick .r1{display:flex; align-items:center; justify-content:space-between; gap:12px; width:100%;}
 .mx-pick .nm{display:flex; align-items:baseline; gap:14px;}
 .mx-pick .no{font-family:var(--font-display); font-size:15px; font-weight:500; opacity:.6;}
@@ -214,7 +211,7 @@ html:not(.js) .tq[data-switch-panel]{display:flex;}
 .faq .body{margin:0; padding:0 64px 26px 0; font-size:var(--text-base); line-height:1.65; color:rgba(0,0,72,.74); animation:fadeUp 420ms var(--ease) both;}
 @media(max-width:900px){.faq-grid{grid-template-columns:1fr; gap:var(--space-8);} .faq summary{font-size:17px;} .faq .body{padding-right:0;}}
 </style>
-<link rel="stylesheet" href="/assets/medu-gallery.css?v=22">
+<link rel="stylesheet" href="/assets/medu-gallery.css?v=23">
 </head>
 <body>
 
@@ -260,19 +257,19 @@ html:not(.js) .tq[data-switch-panel]{display:flex;}
       <div class="hero-stage">
         <div class="is-active" data-switch-panel="abcde">
           <video muted loop playsinline preload="none" poster="/assets/loops/abcde-loop.webp" data-src="/assets/loops/abcde-loop.mp4" aria-label="gameplay uit de module ABCDE" data-aria-label-en="gameplay from the ABCDE module"></video>
-          <span class="chip-solid"><span class="pdot"></span>gameplay · ABCDE</span>
+          <span class="chip-solid"><span class="pdot pdot-live"></span>gameplay · ABCDE</span>
         </div>
         <div data-switch-panel="reanimatie">
           <video muted loop playsinline preload="none" poster="/assets/loops/reanimatie-aed-loop.webp" data-src="/assets/loops/reanimatie-aed-loop.mp4" aria-label="gameplay uit de module Reanimatie &amp; AED" data-aria-label-en="gameplay from the Resuscitation &amp; AED module"></video>
-          <span class="chip-solid"><span class="pdot"></span>gameplay · <span lang="nl">Reanimatie &amp; AED</span><span lang="en">Resuscitation &amp; AED</span></span>
+          <span class="chip-solid"><span class="pdot pdot-live"></span>gameplay · <span lang="nl">Reanimatie &amp; AED</span><span lang="en">Resuscitation &amp; AED</span></span>
         </div>
         <div data-switch-panel="ecg">
           <video muted loop playsinline preload="none" poster="/assets/loops/ecg-loop.webp" data-src="/assets/loops/ecg-loop.mp4" aria-label="gameplay uit de module ECG" data-aria-label-en="gameplay from the ECG module"></video>
-          <span class="chip-solid"><span class="pdot"></span>gameplay · ECG</span>
+          <span class="chip-solid"><span class="pdot pdot-live"></span>gameplay · ECG</span>
         </div>
         <div data-switch-panel="als">
           <video muted loop playsinline preload="none" poster="/assets/loops/als-loop.webp" data-src="/assets/loops/als-loop.mp4" aria-label="gameplay uit de module ALS" data-aria-label-en="gameplay from the ALS module"></video>
-          <span class="chip-solid"><span class="pdot"></span>gameplay · ALS</span>
+          <span class="chip-solid"><span class="pdot pdot-live"></span>gameplay · ALS</span>
         </div>
       </div>
       <div class="hero-tabs js-only" role="tablist" aria-label="kies een module" data-aria-label-en="choose a module">
@@ -285,14 +282,11 @@ html:not(.js) .tq[data-switch-panel]{display:flex;}
   </div>
 </section>
 
-<!-- trust marquee -->
+<!-- trust row -->
 <section class="trust" aria-label="aanbevolen door" data-aria-label-en="recommended by">
-  <span class="trust-lbl"><span lang="nl">aanbevolen door en gebouwd met</span><span lang="en">recommended by and built with</span></span>
-  <div class="trust-track">
-    <div class="trust-run">
-      <ul><li>NVIC</li><li>NVA</li><li>UMCG</li><li>MUMC+</li><li>Amsterdam UMC</li><li>Gelre ziekenhuizen</li><li>Tergooi MC</li></ul>
-      <ul aria-hidden="true"><li>NVIC</li><li>NVA</li><li>UMCG</li><li>MUMC+</li><li>Amsterdam UMC</li><li>Gelre ziekenhuizen</li><li>Tergooi MC</li></ul>
-    </div>
+  <div class="wrap trust-inner">
+    <span class="trust-lbl"><span lang="nl">aanbevolen door en gebouwd met</span><span lang="en">recommended by and built with</span></span>
+    <ul class="trust-list"><li>NVIC</li><li>NVA</li><li>UMCG</li><li>MUMC+</li><li>Amsterdam UMC</li><li>Gelre ziekenhuizen</li><li>Tergooi MC</li></ul>
   </div>
 </section>
 
@@ -329,9 +323,9 @@ html:not(.js) .tq[data-switch-panel]{display:flex;}
         <a class="textlink" href="/modules/abcde.html"><span lang="nl">bekijk de ABCDE-module</span><span lang="en">view the ABCDE module</span></a>
       </div>
       <div class="shots">
-        <figure class="shot lift"><img src="/assets/modules/gallery/abcde/abcde-01.webp" width="1280" height="720" loading="lazy" alt="ABCDE-module: brede blik op de spoedeisende hulp, patiënt op een bewaakt bed" data-alt-en="ABCDE module: wide view of the emergency department, patient on a monitored bed" /><figcaption><span lang="nl">De spoedopvang, met ABCDE-balk en interventies</span><span lang="en">The emergency department, with the ABCDE bar and interventions</span></figcaption></figure>
-        <figure class="shot lift"><img src="/assets/modules/gallery/abcde/abcde-03.webp" width="1280" height="720" loading="lazy" alt="ABCDE-module: systematische beoordeling van de circulatie" data-alt-en="ABCDE module: systematic assessment of the circulation" /><figcaption><span lang="nl">Systematisch beoordelen, stap voor stap</span><span lang="en">Systematic assessment, step by step</span></figcaption></figure>
-        <figure class="shot lift"><img src="/assets/modules/gallery/abcde/abcde-02.webp" width="1280" height="720" loading="lazy" alt="ABCDE-module: vitale parameters op de monitor" data-alt-en="ABCDE module: vital signs on the monitor" /><figcaption><span lang="nl">Vitale parameters op de monitor</span><span lang="en">Vital signs on the monitor</span></figcaption></figure>
+        <figure class="shot"><img src="/assets/modules/gallery/abcde/abcde-01.webp" width="1280" height="720" loading="lazy" alt="ABCDE-module: brede blik op de spoedeisende hulp, patiënt op een bewaakt bed" data-alt-en="ABCDE module: wide view of the emergency department, patient on a monitored bed" /><figcaption><span lang="nl">De spoedopvang, met ABCDE-balk en interventies</span><span lang="en">The emergency department, with the ABCDE bar and interventions</span></figcaption></figure>
+        <figure class="shot"><img src="/assets/modules/gallery/abcde/abcde-03.webp" width="1280" height="720" loading="lazy" alt="ABCDE-module: systematische beoordeling van de circulatie" data-alt-en="ABCDE module: systematic assessment of the circulation" /><figcaption><span lang="nl">Systematisch beoordelen, stap voor stap</span><span lang="en">Systematic assessment, step by step</span></figcaption></figure>
+        <figure class="shot"><img src="/assets/modules/gallery/abcde/abcde-02.webp" width="1280" height="720" loading="lazy" alt="ABCDE-module: vitale parameters op de monitor" data-alt-en="ABCDE module: vital signs on the monitor" /><figcaption><span lang="nl">Vitale parameters op de monitor</span><span lang="en">Vital signs on the monitor</span></figcaption></figure>
       </div>
     </div>
   </div>
@@ -346,20 +340,19 @@ html:not(.js) .tq[data-switch-panel]{display:flex;}
       <p class="section-lede reveal" style="margin-top:0"><span lang="nl">Uit ervaring in de praktijk en uit onderzoek weten we waar onze modules het sterkst werken: tussen de theorie en de praktijk in. Theorie is goedkoop, maar passief; praktijkuren zijn onmisbaar, maar schaars en duur. Wie eerst veilig de online simulatie speelt, komt bekwamer de praktijk in. Zo benut je die schaarse oefenuren beter en beklijft theorie beter.</span><span lang="en">From hands-on experience and from research, we know where our modules work best: between theory and practice. Theory is cheap, but passive; hands-on practice hours are essential, but scarce and costly. Those who first play the online simulation safely arrive more competent in practice. That way you make better use of those scarce practice hours, and the theory sticks better.</span></p>
     </div>
     <div class="path reveal">
-      <div class="path-line" aria-hidden="true"></div>
-      <span class="path-dot" aria-hidden="true"></span>
+      <div class="path-line" aria-hidden="true"><span class="path-fill"></span></div>
       <ol class="path-steps">
-        <li class="tcard lift">
+        <li class="tcard">
           <div class="row"><span class="icbox"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path class="ic" d="M4 19.5V5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2zM4 19.5A1.5 1.5 0 0 0 5.5 21H19"/></svg></span><span class="stepno"><span lang="nl">stap 1</span><span lang="en">step 1</span></span></div>
           <h3><span lang="nl">Theorie</span><span lang="en">Theory</span></h3>
           <p><span lang="nl">Boek of e-learning, de kennisbasis. Goedkoop en schaalbaar, maar passief en snel weggezakt.</span><span lang="en">Book or e-learning, the knowledge base. Cheap and scalable, but passive and quickly forgotten.</span></p>
         </li>
-        <li class="tcard lift path-mid">
+        <li class="tcard path-mid">
           <div class="row"><span class="brandchip">medu.game</span><span class="stepno"><span class="pdot"></span><span lang="nl">stap 2</span><span lang="en">step 2</span></span></div>
           <h3><span lang="nl">Virtuele simulatie</span><span lang="en">Virtual simulation</span></h3>
           <p><span lang="nl">Pas de theorie veilig toe in realistische scenario's. Overal, zo vaak als nodig, zonder extra kosten per keer, en je ervaart precies wat er in de praktijk van je verwacht wordt.</span><span lang="en">Apply the theory safely in realistic scenarios. Anywhere, as often as needed, at no extra cost per run, and you experience exactly what will be expected of you in practice.</span></p>
         </li>
-        <li class="tcard lift">
+        <li class="tcard">
           <div class="row"><span class="icbox"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path class="ic" d="M3 21h18M5 21V8l7-5 7 5v13M12 9v5M9.5 11.5h5"/></svg></span><span class="stepno"><span lang="nl">stap 3</span><span lang="en">step 3</span></span></div>
           <h3><span lang="nl">De praktijkdag</span><span lang="en">The hands-on day</span></h3>
           <p><span lang="nl">Onmisbaar, maar schaars en duur. Zorgprofessionals komen voorbereid binnen: meer tijd voor verdieping, minder voor de basis.</span><span lang="en">Essential, but scarce and costly. Healthcare professionals arrive prepared: more time for depth, less for the basics.</span></p>
@@ -380,17 +373,17 @@ html:not(.js) .tq[data-switch-panel]{display:flex;}
       <p class="section-lede"><span lang="nl">Boeken en e-learning leggen een onmisbare basis, maar het blijft droge kost. Wat je actief doet, blijft beter hangen: game-based learning verhoogt betrokkenheid, retentie en directe toepasbaarheid, precies waar verplichte nascholing vaak op vastloopt.</span><span lang="en">Books and e-learning lay an essential foundation, but it stays dry material. What you actively do sticks better: game-based learning boosts engagement, retention and real-world transfer, exactly where mandatory training tends to stall.</span></p>
     </div>
     <div class="grid-3 reveal">
-      <div class="tcard lift">
+      <div class="tcard">
         <span class="icbox" style="width:56px;height:56px"><svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><path class="ic" d="M17 2l4 4-4 4M3 11V9a3 3 0 0 1 3-3h15M7 22l-4-4 4-4M21 13v2a3 3 0 0 1-3 3H3"/></svg></span>
         <h3><span lang="nl">Meer betrokkenheid</span><span lang="en">More engagement</span></h3>
         <p><span lang="nl">Interactieve casussen grijpen de aandacht en houden die vast. Zorgprofessionals oefenen uit zichzelf opnieuw, en herhaling is precies wat bekwaamheid bouwt.</span><span lang="en">Interactive cases grab attention and hold it. People come back to practise on their own, and repetition is exactly what builds competence.</span></p>
       </div>
-      <div class="tcard lift">
+      <div class="tcard">
         <span class="icbox" style="width:56px;height:56px"><svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><path class="ic" d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V16h8v-1.3A7 7 0 0 0 12 2z"/></svg></span>
         <h3><span lang="nl">Betere kennisretentie</span><span lang="en">Better knowledge retention</span></h3>
         <p><span lang="nl">Je onthoudt wat je dóet, niet wat je passief doorleest. In de simulatie pas je kennis meteen toe, zo wordt theorie kunde die beklijft.</span><span lang="en">You remember what you do, not what you passively read through. In the simulation you apply knowledge straight away, turning theory into skill that sticks.</span></p>
       </div>
-      <div class="tcard lift">
+      <div class="tcard">
         <span class="icbox" style="width:56px;height:56px"><svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><rect class="ic" x="5" y="4" width="14" height="17" rx="2"/><path class="ic" d="M9 2.5h6v3H9zM9 13.5l2 2 4-4"/></svg></span>
         <h3><span lang="nl">Direct relevant</span><span lang="en">Immediately relevant</span></h3>
         <p><span lang="nl">Elke casus is samen met inhoudelijke experts gebouwd en getoetst aan de richtlijnen. Wat je hier oefent, doe je morgen op de werkvloer.</span><span lang="en">Every case is built together with subject-matter experts and validated against the guidelines. What you practise here, you do on the job tomorrow.</span></p>
@@ -448,7 +441,7 @@ html:not(.js) .tq[data-switch-panel]{display:flex;}
               <li><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path class="ic" style="stroke-width:2.4" d="M5 12.5l4.5 4.5L19 7.5"/></svg><span lang="nl">volwassenen &amp; kinderen</span><span lang="en">adults &amp; children</span></li>
               <li><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path class="ic" style="stroke-width:2.4" d="M5 12.5l4.5 4.5L19 7.5"/></svg><span lang="nl">voor bhv, ehbo &amp; vakbekwame professionals</span><span lang="en">for first responders, first aiders &amp; qualified professionals</span></li>
             </ul>
-            <a class="btn btn-pink" href="/modules/reanimatie-aed.html"><span lang="nl">bekijk de scenario's</span><span lang="en">view the scenarios</span><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path class="ic" d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            <a class="btn btn-pink" href="/modules/reanimatie-aed.html"><span lang="nl">bekijk de scenario's</span><span lang="en">view the scenarios</span><svg class="arr" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path class="ic" d="M5 12h14M13 6l6 6-6 6"/></svg></a>
           </div>
         </article>
 
@@ -466,7 +459,7 @@ html:not(.js) .tq[data-switch-panel]{display:flex;}
               <li><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path class="ic" style="stroke-width:2.4" d="M5 12.5l4.5 4.5L19 7.5"/></svg><span lang="nl">4 scenario's + 1 tutorial</span><span lang="en">4 scenarios + 1 tutorial</span></li>
               <li><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path class="ic" style="stroke-width:2.4" d="M5 12.5l4.5 4.5L19 7.5"/></svg>debriefing per scenario</li>
             </ul>
-            <a class="btn btn-pink" href="/modules/abcde.html"><span lang="nl">bekijk de scenario's</span><span lang="en">view the scenarios</span><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path class="ic" d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            <a class="btn btn-pink" href="/modules/abcde.html"><span lang="nl">bekijk de scenario's</span><span lang="en">view the scenarios</span><svg class="arr" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path class="ic" d="M5 12h14M13 6l6 6-6 6"/></svg></a>
           </div>
         </article>
 
@@ -485,7 +478,7 @@ html:not(.js) .tq[data-switch-panel]{display:flex;}
               <li><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path class="ic" style="stroke-width:2.4" d="M5 12.5l4.5 4.5L19 7.5"/></svg><span lang="nl">~15 min elk</span><span lang="en">~15 min each</span></li>
               <li><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path class="ic" style="stroke-width:2.4" d="M5 12.5l4.5 4.5L19 7.5"/></svg><span lang="nl">van handeling tot conclusie</span><span lang="en">from procedure to conclusion</span></li>
             </ul>
-            <a class="btn btn-pink" href="/modules/ecg.html"><span lang="nl">bekijk de scenario's</span><span lang="en">view the scenarios</span><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path class="ic" d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            <a class="btn btn-pink" href="/modules/ecg.html"><span lang="nl">bekijk de scenario's</span><span lang="en">view the scenarios</span><svg class="arr" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path class="ic" d="M5 12h14M13 6l6 6-6 6"/></svg></a>
           </div>
         </article>
 
@@ -504,7 +497,7 @@ html:not(.js) .tq[data-switch-panel]{display:flex;}
               <li><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path class="ic" style="stroke-width:2.4" d="M5 12.5l4.5 4.5L19 7.5"/></svg>~20 min</li>
               <li><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path class="ic" style="stroke-width:2.4" d="M5 12.5l4.5 4.5L19 7.5"/></svg><span lang="nl">gevorderd niveau</span><span lang="en">advanced level</span></li>
             </ul>
-            <a class="btn btn-pink" href="/modules/als.html"><span lang="nl">bekijk de scenario's</span><span lang="en">view the scenarios</span><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path class="ic" d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            <a class="btn btn-pink" href="/modules/als.html"><span lang="nl">bekijk de scenario's</span><span lang="en">view the scenarios</span><svg class="arr" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path class="ic" d="M5 12h14M13 6l6 6-6 6"/></svg></a>
           </div>
         </article>
       </div>
@@ -542,27 +535,27 @@ html:not(.js) .tq[data-switch-panel]{display:flex;}
       <p><span lang="nl">Bouw zelf snel content op een bewezen platform met kant-en-klare bouwblokken, of laat ons de scenario's en simulaties maken, samen met jullie experts.</span><span lang="en">Build content quickly yourself on a proven platform with ready-made building blocks, or let us create the scenarios and simulations, together with your experts.</span></p>
     </div>
     <div class="feats reveal">
-      <div class="feat lift">
+      <div class="feat">
         <span class="icbox"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path class="ic" d="M3 5h13a1 1 0 0 1 1 1v8H2V6a1 1 0 0 1 1-1zM6 18h7M19 8h3v11h-3z"/></svg></span>
         <h4><span lang="nl">Overal beschikbaar</span><span lang="en">Available everywhere</span></h4>
         <p><span lang="nl">Speel in de browser op je computer of laptop én als app op telefoon en tablet. Je voortgang wordt overal bewaard.</span><span lang="en">Play in the browser on a computer or laptop and as an app on phone and tablet. Your progress is saved everywhere.</span></p>
       </div>
-      <div class="feat lift">
+      <div class="feat">
         <span class="icbox"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path class="ic" d="M12 2l9 5v10l-9 5-9-5V7zM12 12l9-5M12 12v10M12 12L3 7"/></svg></span>
         <h4><span lang="nl">Immersief 3D</span><span lang="en">Immersive 3D</span></h4>
         <p><span lang="nl">Realistische 3D-omgevingen en animaties maken de stof memorabel, een virtueel ziekenhuis om veilig in te oefenen.</span><span lang="en">Realistic 3D environments and animations make the material memorable, a virtual hospital to practise in safely.</span></p>
       </div>
-      <div class="feat lift">
+      <div class="feat">
         <span class="icbox"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path class="ic" d="M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zM3 9h18M9 21V9"/></svg></span>
         <h4><span lang="nl">Ons leerplatform, optioneel</span><span lang="en">Our learning platform, optional</span></h4>
         <p><span lang="nl">Geen eigen LMS? Speel de modules in ons leerplatform, met theorie ernaast als e-learning. Inclusief accountbeheer, SSO, gasttoegang en analytics.</span><span lang="en">No LMS of your own? Run the modules in our learning platform, with theory alongside as e-learning. Includes account management, SSO, guest access and analytics.</span></p>
       </div>
-      <div class="feat lift">
+      <div class="feat">
         <span class="icbox"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path class="ic" d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/></svg></span>
         <h4><span lang="nl">Of in jullie eigen LMS</span><span lang="en">Or in your own LMS</span></h4>
         <p><span lang="nl">Koppelingen met Moodle, Canvas, aNewSpring en andere bekende LMS-systemen voor naadloze voortgangsrapportage.</span><span lang="en">Integrations with Moodle, Canvas, aNewSpring and other well-known LMS platforms for seamless progress reporting.</span></p>
       </div>
-      <div class="feat lift">
+      <div class="feat">
         <span class="icbox"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path class="ic" d="M4 3h6v6H4zM14 3h6v6h-6zM4 15h6v6H4zM14 15h6v6h-6z"/></svg></span>
         <h4><span lang="nl">Content-bouwblokken</span><span lang="en">Content building blocks</span></h4>
         <p><span lang="nl">Stel snel nieuwe cases samen met herbruikbare bouwblokken, samen met inhoudelijke experts, getoetst aan actuele richtlijnen.</span><span lang="en">Assemble new cases quickly from reusable building blocks, together with subject-matter experts, validated against current guidelines.</span></p>
@@ -673,6 +666,6 @@ html:not(.js) .tq[data-switch-panel]{display:flex;}
 
 <!--FOOTER-->
 
-<script src="/assets/medu-gallery.js?v=22" defer></script>
+<script src="/assets/medu-gallery.js?v=23" defer></script>
 </body>
 </html>
