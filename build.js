@@ -33,6 +33,35 @@ const NAV = `<nav class="topnav" id="topnav">
       <a href="/#faq">faq</a>
     </nav>`;
 
+// Shared site footer, injected at the <!--FOOTER--> marker in every page (same
+// resolution rules as NAV). The year is taken at build time.
+const FOOTER = `<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-cols">
+      <div class="footer-col footer-brand">
+        <span class="footer-word">medu<span class="dot">.</span>game</span>
+        <p><span lang="nl">Virtuele scenario's spelen, echte skills verbeteren.</span><span lang="en">Play virtual scenarios, improve real skills.</span></p>
+      </div>
+      <div class="footer-col">
+        <span class="lbl"><span lang="nl">locaties</span><span lang="en">locations</span></span>
+        <span>Groningen</span><span>Nijverdal</span><span>'s-Hertogenbosch</span>
+      </div>
+      <div class="footer-col">
+        <span class="lbl">contact</span>
+        <a href="mailto:aad.lievaart@medu.game">aad.lievaart@medu.game</a>
+        <a href="https://www.linkedin.com/company/medu-game" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 9h3.2v11H4zM5.6 3.5a1.9 1.9 0 1 1 0 3.8 1.9 1.9 0 0 1 0-3.8zM10 9h3v1.6c.6-1 1.8-1.9 3.6-1.9 3 0 3.6 2 3.6 4.6V20H17v-5.6c0-1.4 0-3-1.8-3s-2.1 1.3-2.1 2.9V20H10z"/></svg>LinkedIn</a>
+      </div>
+      <nav class="footer-col" aria-label="meer" data-aria-label-en="more">
+        <span class="lbl"><span lang="nl">meer</span><span lang="en">more</span></span>
+        <a href="/team.html">team</a>
+        <a href="/privacy.html"><span lang="nl">privacybeleid</span><span lang="en">privacy policy</span></a>
+        <a href="/terms.html"><span lang="nl">gebruiksvoorwaarden</span><span lang="en">terms &amp; conditions</span></a>
+      </nav>
+    </div>
+    <div class="footer-base"><span>© ${new Date().getFullYear()} medu.game · <span lang="nl">Nederland</span><span lang="en">The Netherlands</span></span><span>nederlands · english · português (br)</span></div>
+  </div>
+</footer>`;
+
 function pageList() {
   // top-level pages (index.html + standalone pages like privacy/terms/team)
   const pages = readdirSync(SRC).filter((f) => f.endsWith('.html'));
@@ -90,7 +119,7 @@ function main() {
       meta.ogDims[p] = imageSize(file);
     }
 
-    const withNav = raw.replace('<!--NAV-->', NAV);
+    const withNav = raw.replace('<!--NAV-->', NAV).replace('<!--FOOTER-->', FOOTER);
 
     for (const { code } of LANGS) {
       let html = unwrapLang(withNav, code);

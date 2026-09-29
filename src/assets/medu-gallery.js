@@ -2,6 +2,7 @@
  * medu.game — media behaviour
  *   1. click-to-play video embeds  (.video-embed[data-src])
  *   2. screenshot gallery + lightbox (.gallery-grid > .gallery-item)
+ *   3. switchers + count-up (see the block at the end of this file)
  * No dependencies. Progressive enhancement: without JS the posters/links
  * remain visible and the gallery images stay as static thumbnails.
  * ───────────────────────────────────────────────────────────────────────── */
@@ -197,4 +198,127 @@
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", wire);
   else wire();
+})();
+
+/* ── switchers (hero video, module picker, devices, testimonials) ────────────
+ * Markup-driven, no copy in JS (all text stays in the bilingual HTML):
+ *   [data-switch]                  root; gets data-active="<key>"
+ *     [data-switch-auto="ms"]      optional auto-advance until the user picks
+ *   [data-switch-to="<key>"]       trigger (button or link; links are hijacked)
+ *   [data-switch-panel="<key>"]    shown while <key> is active (CSS hides others)
+ *   [data-switch-step="1|-1"]      next / previous
+ *   video[data-src] in a panel     src is set on first show; plays only while the
+ *                                  panel is active, on screen, and motion is allowed
+ * Plus [data-count-to="N"]: counts up once when scrolled into view.
+ * Without JS the first panel stays visible (it carries .is-active in the markup). */
+(function () {
+  "use strict";
+  var root = document.documentElement;
+  root.classList.add("js");
+  var motionOK = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var io = "IntersectionObserver" in window;
+
+  function syncVideo(v) {
+    var panel = v.closest("[data-switch-panel]");
+    var active = !panel || panel.classList.contains("is-active");
+    if (active && !v.getAttribute("src") && v.getAttribute("data-src")) v.src = v.getAttribute("data-src");
+    if (active && motionOK && v._inView !== false) {
+      v.muted = true;
+      var p = v.play();
+      if (p && typeof p.catch === "function") p.catch(function () {});
+    } else if (!v.paused) {
+      v.pause();
+    }
+  }
+
+  function initSwitch(sw) {
+    var triggers = Array.prototype.slice.call(sw.querySelectorAll("[data-switch-to]"));
+    var keys = [];
+    triggers.forEach(function (t) { var k = t.getAttribute("data-switch-to"); if (keys.indexOf(k) < 0) keys.push(k); });
+    if (!keys.length) return;
+    var current = null, timer = null, userPicked = false;
+
+    function activate(key) {
+      current = key;
+      sw.setAttribute("data-active", key);
+      triggers.forEach(function (t) {
+        var on = t.getAttribute("data-switch-to") === key;
+        t.classList.toggle("is-active", on);
+        if (t.getAttribute("role") === "tab") t.setAttribute("aria-selected", String(on));
+        else t.setAttribute("aria-pressed", String(on));
+      });
+      sw.querySelectorAll("[data-switch-panel]").forEach(function (p) {
+        p.classList.toggle("is-active", p.getAttribute("data-switch-panel") === key);
+      });
+      sw.querySelectorAll("video[data-src]").forEach(syncVideo);
+    }
+    function step(dir) { activate(keys[(keys.indexOf(current) + dir + keys.length) % keys.length]); }
+    function stopAuto() { if (timer) { clearInterval(timer); timer = null; } }
+
+    triggers.forEach(function (t) {
+      t.addEventListener("click", function (e) {
+        e.preventDefault();
+        userPicked = true; stopAuto();
+        activate(t.getAttribute("data-switch-to"));
+      });
+    });
+    sw.querySelectorAll("[data-switch-step]").forEach(function (b) {
+      b.addEventListener("click", function () {
+        userPicked = true; stopAuto();
+        step(parseInt(b.getAttribute("data-switch-step"), 10) || 1);
+      });
+    });
+
+    var first = triggers.filter(function (t) { return t.classList.contains("is-active"); })[0];
+    activate(first ? first.getAttribute("data-switch-to") : keys[0]);
+
+    var ms = parseInt(sw.getAttribute("data-switch-auto"), 10);
+    if (ms && motionOK) {
+      var start = function () { if (!userPicked && !timer) timer = setInterval(function () { step(1); }, ms); };
+      start();
+      sw.addEventListener("mouseenter", stopAuto);
+      sw.addEventListener("mouseleave", start);
+      sw.addEventListener("focusin", stopAuto);
+      sw.addEventListener("focusout", function (e) { if (!sw.contains(e.relatedTarget)) start(); });
+    }
+  }
+
+  function initVideosInView() {
+    var vids = document.querySelectorAll("video[data-src]");
+    if (!io) { vids.forEach(syncVideo); return; }
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { en.target._inView = en.isIntersecting; syncVideo(en.target); });
+    }, { threshold: 0.25 });
+    vids.forEach(function (v) { v._inView = false; obs.observe(v); });
+  }
+
+  function initCounters() {
+    var els = document.querySelectorAll("[data-count-to]");
+    if (!els.length || !motionOK || !io) return;
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        obs.unobserve(en.target);
+        var el = en.target, to = parseInt(el.getAttribute("data-count-to"), 10) || 0;
+        var suffix = el.getAttribute("data-count-suffix") || "";
+        var t0 = null, dur = 1200;
+        var tick = function (ts) {
+          if (t0 === null) t0 = ts;
+          var k = Math.min(1, (ts - t0) / dur);
+          el.textContent = Math.round(to * (1 - Math.pow(1 - k, 3))) + suffix;
+          if (k < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+      });
+    }, { threshold: 0.6 });
+    els.forEach(function (el) { obs.observe(el); });
+  }
+
+  function init() {
+    document.querySelectorAll("[data-switch]").forEach(initSwitch);
+    initVideosInView();
+    initCounters();
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
+  else init();
 })();
