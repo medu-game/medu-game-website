@@ -192,7 +192,14 @@ section{padding:var(--section-y) 0;}
 /* ruled columns: three arguments set as editorial columns under a 2px rule,
    instead of three identical floating cards */
 .grid-3.ruled{gap:48px;}
-.ruled > .tcard{padding:28px 0 0; border-radius:0; background:none; box-shadow:none; border-top:2px solid currentColor; gap:12px;}
+.ruled > .tcard{position:relative; padding:30px 0 0; border-radius:0; background:none; box-shadow:none; gap:12px;}
+/* the rule draws itself in once, left to right, as the columns scroll into view */
+.ruled > .tcard::before{content:""; position:absolute; left:0; right:0; top:0; height:2px; background:currentColor; transform-origin:left;}
+@supports (animation-timeline: view()){
+  .ruled > .tcard::before{animation:grow linear both; animation-timeline:view(); animation-range:entry 10% cover 30%;}
+  .ruled > .tcard:nth-child(2)::before{animation-range:entry 20% cover 38%;}
+  .ruled > .tcard:nth-child(3)::before{animation-range:entry 30% cover 46%;}
+}
 .ruled > .tcard .icbox{width:auto; height:auto; background:none; border-radius:0; place-items:start; color:inherit;}
 .ruled > .tcard h3{margin-top:4px;}
 @media(max-width:900px){.grid-3.ruled{gap:40px;}}
@@ -261,6 +268,11 @@ html:not(.js) .js-only{display:none !important;}
   .topbar-actions{gap:var(--space-2);}
   .lang-switch a{height:30px; padding:0 10px;}
 }
+/* very small phones (320px): 16px gutter + smaller logo so the hamburger stays on screen */
+@media(max-width:360px){
+  .wrap{padding:0 var(--space-4);}
+  .topbar .brand img{height:20px !important;}
+}
 
 /* ── module pages (interactive redesign) ──────────────────────────────────
  * Shared by modules/*.html. Interactive pieces (master–detail lists, the
@@ -323,7 +335,7 @@ html:not(.js) .js-only{display:none !important;}
 .band-navy .md-pick:hover{background:rgba(255,255,255,.08);}
 .band-navy .md-pick.is-active{background:var(--pink-light); color:var(--blue-dark); box-shadow:inset 0 0 0 1px var(--pink-light);}
 .band-navy .md-pick:focus-visible{box-shadow:0 0 0 3px var(--pink);}
-@media(max-width:900px){.md{grid-template-columns:1fr;}}
+@media(max-width:900px){.md{grid-template-columns:minmax(0,1fr);}}
 
 /* step highlighter (numbered rows; the active row lifts) */
 .steps{display:flex; flex-direction:column;}
