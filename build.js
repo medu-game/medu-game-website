@@ -127,6 +127,8 @@ function main() {
       html = rewriteLinks(html, code);
       html = html.replace('<!--LANG-SWITCH-->', langSwitch(relPath, code));
       html = applyHead(html, { lang: code, relPath, meta });
+      // set html.js before first paint so JS-only controls don't pop in late
+      html = html.replace('</head>', `<script>document.documentElement.classList.add('js')</script>\n</head>`);
       html = html.replace('</head>', `${buildSchema({ relPath, lang: code, meta })}\n</head>`);
 
       // per-output assertions

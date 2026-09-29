@@ -21,3 +21,9 @@ test('does not touch absolute, mailto, anchor, or protocol-relative urls', () =>
   const h = '<a href="https://medu.game/x">a</a><a href="mailto:x@y.z">b</a><a href="#c">c</a><img src="//cdn/x.png">';
   assert.equal(applyBasePath(h, '/base'), h);
 });
+
+test('prefixes video poster attributes', () => {
+  const out = applyBasePath('<video poster="/assets/p.webp" data-src="/assets/l.mp4"></video>', '/medu-game-website');
+  assert.match(out, /poster="\/medu-game-website\/assets\/p\.webp"/);
+  assert.match(out, /data-src="\/medu-game-website\/assets\/l\.mp4"/);
+});

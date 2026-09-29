@@ -141,8 +141,9 @@
   function syncVideo(v) {
     var panel = v.closest("[data-switch-panel]");
     var active = !panel || panel.classList.contains("is-active");
-    if (active && !v.getAttribute("src") && v.getAttribute("data-src")) v.src = v.getAttribute("data-src");
-    if (active && motionOK && v._inView !== false) {
+    // Only fetch the file when it is about to play: until then the poster shows.
+    if (active && motionOK && v._inView === true) {
+      if (!v.getAttribute("src") && v.getAttribute("data-src")) v.src = v.getAttribute("data-src");
       v.muted = true;
       var p = v.play();
       if (p && typeof p.catch === "function") p.catch(function () {});
@@ -207,7 +208,7 @@
 
   function initVideosInView() {
     var vids = document.querySelectorAll("video[data-src]");
-    if (!io) { vids.forEach(syncVideo); return; }
+    if (!io) { vids.forEach(function (v) { v._inView = true; syncVideo(v); }); return; }
     var obs = new IntersectionObserver(function (entries) {
       entries.forEach(function (en) { en.target._inView = en.isIntersecting; syncVideo(en.target); });
     }, { threshold: 0.25 });
@@ -237,8 +238,8 @@
   }
 
   function init() {
-    document.querySelectorAll("[data-switch]").forEach(initSwitch);
     initVideosInView();
+    document.querySelectorAll("[data-switch]").forEach(initSwitch);
     initCounters();
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
