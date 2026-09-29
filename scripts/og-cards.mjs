@@ -11,7 +11,7 @@ const { chromium } = require('playwright');
 const OUT = fileURLToPath(new URL('../src/assets/og/', import.meta.url));
 const A='http://localhost:8091/assets';
 const cards=[
- ['abcde','modules/abcde.png', {nl:['ABCDE-protocol','Oefen de ABCDE-systematiek voor de acuut zieke patiënt in realistische 3D-scenario\'s.'], en:['ABCDE protocol','Practise the ABCDE approach to the acutely ill patient in realistic 3D scenarios.']}],
+ ['abcde','modules/abcde.png', {nl:['ABCDE-methode','Oefen de ABCDE-methode voor de acuut zieke patiënt in realistische 3D-scenario\'s.'], en:['ABCDE approach','Practise the ABCDE approach to the acutely ill patient in realistic 3D scenarios.']}],
  ['als','modules/als.jpg', {nl:['Advanced Life Support','Speel een volledig code blue-scenario: ALS-algoritme, ritme-analyse en teamleiding.'], en:['Advanced Life Support','Play a full code blue scenario: the ALS algorithm, rhythm analysis and team leadership.']}],
  ['ecg','modules/ecg.jpg', {nl:['ECG-interpretatie','Leer het 12-afleidingen-ECG, van ritme tot diagnose.'], en:['ECG interpretation','Learn the 12-lead ECG, from rhythm to diagnosis.']}],
  ['reanimatie-aed','modules/reanimatie.png', {nl:['Reanimatie & AED','Train basic life support en AED-gebruik, van volwassene tot kind.'], en:['Resuscitation & AED','Train basic life support and AED use, from adult to child.']}],
@@ -27,6 +27,7 @@ body{width:1200px;height:630px;background:#000048;color:#fff;font-family:Geo,san
 .lbl{margin-top:auto;display:inline-flex;align-self:flex-start;padding:8px 16px;border-radius:999px;background:rgba(255,200,199,.16);color:#FFC8C7;font-weight:600;font-size:20px}
 h1{margin-top:22px;font-family:Museo;font-weight:500;font-size:68px;line-height:1.02;letter-spacing:-.01em;text-wrap:balance}
 h1 .dot{color:#FFC8C7}
+h1 .nw{white-space:nowrap}
 p{margin-top:22px;font-size:26px;line-height:1.4;color:rgba(255,255,255,.8);text-wrap:pretty}
 .url{margin-top:auto;padding-top:28px;font-weight:600;font-size:22px;color:#FFC8C7}
 .shot{position:absolute;left:680px;top:0;width:520px;height:630px;border-radius:32px 0 0 32px;overflow:hidden;background:#000030}
@@ -38,7 +39,7 @@ const br=await chromium.launch(process.env.CHROME ? {executablePath:process.env.
 const pg=await br.newPage({viewport:{width:1200,height:630}});
 for (const [slug,img,t] of cards) for (const lang of ['nl','en']) {
   const [title,sub]=t[lang];
-  await pg.goto('http://localhost:8091/robots.txt'); await pg.setContent(tpl(img,title.replace('&','&amp;'),sub, lang==='nl'?'module':'module'),{waitUntil:'load'});
+  await pg.goto('http://localhost:8091/robots.txt'); await pg.setContent(tpl(img,title.replace('&','&amp;').replace(/(\S+-\S+)/g,'<span class="nw">$1</span>'),sub, lang==='nl'?'module':'module'),{waitUntil:'load'});
   await pg.evaluate(()=>document.fonts.ready);
   const out=OUT+'og-'+slug+(lang==='en'?'-en':'')+'.jpg';
   await pg.screenshot({path:out,type:'jpeg',quality:86});

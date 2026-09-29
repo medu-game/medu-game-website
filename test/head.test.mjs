@@ -31,9 +31,9 @@ test('applyHead sets lang, title, strips data-*, injects SEO', () => {
   assert.match(out, /<link rel="canonical" href="https:\/\/medu\.game\/en\/modules\/abcde\.html">/);
   assert.match(out, /hreflang="nl" href="https:\/\/medu\.game\/modules\/abcde\.html"/);
   assert.match(out, /hreflang="en" href="https:\/\/medu\.game\/en\/modules\/abcde\.html"/);
-  assert.match(out, /hreflang="x-default" href="https:\/\/medu\.game\/modules\/abcde\.html"/);
+  assert.match(out, /hreflang="x-default" href="https:\/\/medu\.game\/en\/modules\/abcde\.html"/);
   assert.match(out, /property="og:image" content="https:\/\/medu\.game\/assets\/modules\/abcde\.png"/);
-  assert.match(out, /property="og:locale" content="en_US"/);
+  assert.match(out, /property="og:locale" content="en_GB"/);
   assert.match(out, /name="twitter:card" content="summary_large_image"/);
   assert.match(out, /name="theme-color" content="#000048"/);
 });

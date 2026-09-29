@@ -19,7 +19,7 @@ test('altUrls returns nl, en, x-default', () => {
   assert.deepEqual(altUrls('modules/ecg.html'), {
     nl: 'https://medu.game/modules/ecg.html',
     en: 'https://medu.game/en/modules/ecg.html',
-    xDefault: 'https://medu.game/modules/ecg.html',
+    xDefault: 'https://medu.game/en/modules/ecg.html',
   });
 });
 

@@ -9,7 +9,7 @@ test('sitemap lists every page in every language with alternates', () => {
   assert.match(xml, /<loc>https:\/\/medu\.game\/en\/<\/loc>/);
   assert.match(xml, /<loc>https:\/\/medu\.game\/modules\/abcde\.html<\/loc>/);
   assert.match(xml, /<loc>https:\/\/medu\.game\/en\/modules\/abcde\.html<\/loc>/);
-  assert.match(xml, /<xhtml:link rel="alternate" hreflang="x-default" href="https:\/\/medu\.game\/"\s*\/>/);
+  assert.match(xml, /<xhtml:link rel="alternate" hreflang="x-default" href="https:\/\/medu\.game\/en\/"\s*\/>/);
   // 4 url blocks
   assert.equal((xml.match(/<url>/g) || []).length, 4);
 });
