@@ -7,13 +7,46 @@
 <link rel="stylesheet" href="/assets/medu-fonts.css">
 <link rel="stylesheet" href="/assets/medu.css?v=20">
 <link rel="stylesheet" href="/assets/medu-gallery.css?v=20">
+<style>
+/* Reanimatie-only layout; shared module components live in /assets/medu.css */
+.bls{position:relative;}
+.bls-line{position:absolute; left:60px; right:60px; top:36px; height:2px; background:rgba(0,0,72,.12);}
+.bls-steps{position:relative; display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:20px;}
+.bls-step{display:flex; flex-direction:column; align-items:flex-start; gap:16px; padding:0; border:0; background:transparent; text-align:left; font:inherit; color:var(--blue-dark); cursor:pointer;}
+.bls-step .n{width:72px; height:72px; border-radius:22px; display:grid; place-items:center; font-family:var(--font-display); font-size:26px; font-weight:500; background:var(--pink-light); color:var(--blue-dark); transition:background var(--motion-base) var(--ease), color var(--motion-base) var(--ease), box-shadow var(--motion-base) var(--ease);}
+.bls-step.is-before .n{background:var(--pink);}
+.bls-step.is-active .n{background:var(--blue-dark); color:#fff; box-shadow:0 0 0 8px rgba(0,0,72,.08);}
+.bls-step .tx{display:flex; flex-direction:column; gap:8px;}
+.bls-step .tt{font-size:20px; font-weight:600;}
+.bls-step .dd{font-size:15px; line-height:1.55; color:rgba(0,0,72,.72);}
+.bls-step:focus-visible{outline:none;} .bls-step:focus-visible .n{box-shadow:0 0 0 3px var(--blue-dark);}
+html:not(.js) .bls-step{cursor:default;}
+@media(max-width:900px){.bls-line{display:none;} .bls-steps{grid-template-columns:1fr; gap:var(--space-5);} .bls-step{flex-direction:row; align-items:center;} .bls-step .n{flex:0 0 auto; width:56px; height:56px; border-radius:18px; font-size:22px;}}
+
+.rsc{position:relative; overflow:hidden; min-height:400px; padding:34px; border-radius:26px; background:#fff; color:var(--blue-dark); box-shadow:0 1px 2px rgba(0,0,72,.05), 0 16px 40px -16px rgba(0,0,72,.3); display:flex; flex-direction:column; gap:16px;}
+.rsc .top{display:flex; align-items:center; justify-content:space-between; gap:var(--space-3);}
+.rsc .who{display:flex; align-items:center; gap:16px;}
+.rsc .who img{width:72px; height:72px; border-radius:50%; object-fit:cover; display:block;}
+.rsc .bignum{font-size:40px;}
+.rsc .kind{padding:6px 12px; border-radius:var(--radius-pill); font-size:12px; font-weight:600; background:var(--pink-light);}
+.rsc h3{margin-top:12px; font-size:26px; line-height:1.2;}
+.rsc p{font-size:var(--text-base); line-height:1.6; opacity:.82;}
+.rsc .tags{margin-top:auto; display:flex; flex-wrap:wrap; gap:6px;}
+.rsc .tags span{padding:6px 12px; border-radius:var(--radius-pill); font-size:13px; font-weight:600; background:var(--pink-light);}
+.rsc-dark{background:var(--blue-dark); color:#fff;}
+.rsc-dark h3{color:#fff;}
+.rsc-dark .kind{background:var(--pink); color:var(--blue-dark);}
+.rsc-dark .tags span{background:rgba(255,200,199,.14); color:var(--pink);}
+.rsc-grid{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:28px;}
+@media(max-width:900px){.rsc-grid{grid-template-columns:1fr;} .rsc{min-height:0;}}
+</style>
 </head>
 <body>
 
 <header class="topbar">
   <div class="wrap topbar-inner">
     <a class="brand" href="/" aria-label="Medu.game">
-      <img src="/assets/logo-oneline.png" alt="Medu.game" style="height:28px; width:auto; display:block;" />
+      <img src="/assets/logo-oneline.png" alt="Medu.game" style="height:30px; width:auto; display:block;" />
     </a>
     <!--NAV-->
     <div class="topbar-actions">
@@ -30,176 +63,205 @@
 <main id="top">
 
 <!-- hero -->
-<section class="mhero">
-  <div class="wrap mhero-grid">
-    <div>
-      <span class="eyebrow"><span class="pulse"></span>module · basic life support</span>
-      <h1><span lang="nl">Reanimatie</span><span lang="en">Resuscitation</span><span class="dot">.</span><br/>&amp; AED</h1>
-      <p class="lede"><span lang="nl">Beheers basic life support en het gebruik van de AED tot het een tweede natuur wordt. Speel realistische scenario's, van een man die onwel wordt tot reanimatie bij een kind, met directe feedback op elke handeling. Veilig, en zo vaak als nodig.</span><span lang="en">Master basic life support and AED use until it becomes second nature. Play realistic scenarios, from a man collapsing to resuscitating a child, with instant feedback on every action. Safe, and as often as needed.</span></p>
-      <div class="cta">
-        <a class="btn btn-primary" href="/demo.html"><span lang="nl">plan een demo (30 min)</span><span lang="en">book a demo (30 min)</span></a>
-        <a class="btn btn-ghost" href="#scenarios"><span lang="nl">bekijk de scenario's</span><span lang="en">view the scenarios</span></a>
-        <a class="btn btn-secondary" href="https://learn.medu.game/local/edwiserstore/productview.php?id=5" target="_blank" rel="noopener"><span lang="nl">direct kopen →</span><span lang="en">buy now →</span></a>
+<section class="mh">
+  <svg class="drift" viewBox="0 0 1200 800" aria-hidden="true"><path class="ic" style="stroke-width:90" d="M 60 900 L 60 300 A 150 150 0 0 1 360 300 L 360 560 A 150 150 0 0 0 660 560 L 660 300 A 150 150 0 0 1 960 300 L 960 560 A 150 150 0 0 0 1260 560"/></svg>
+  <div class="wrap mh-grid">
+    <div class="mh-copy">
+      <div class="mh-crumb">
+        <a href="/#modules"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path class="ic" d="M15 6l-6 6 6 6"/></svg><span lang="nl">alle modules</span><span lang="en">all modules</span></a>
+        <span class="sep" aria-hidden="true"></span>
+        <span class="mh-tag"><span class="pdot"></span>module · basic life support</span>
       </div>
-      <div class="facts">
+      <h1 class="mh-title"><span lang="nl">Reanimatie</span><span lang="en">Resuscitation</span><span class="dot">.</span><span class="sub">&amp; AED</span></h1>
+      <p class="mh-lede"><span lang="nl">Beheers basic life support en het gebruik van de AED tot het een tweede natuur wordt. Speel realistische scenario's, van een man die onwel wordt tot reanimatie bij een kind, met directe feedback op elke handeling. Veilig, en zo vaak als nodig.</span><span lang="en">Master basic life support and AED use until it becomes second nature. Play realistic scenarios, from a man collapsing to resuscitating a child, with instant feedback on every action. Safe, and as often as needed.</span></p>
+      <div class="mh-cta">
+        <a class="btn btn-pink" href="/demo.html"><span lang="nl">plan een demo (30 min)</span><span lang="en">book a demo (30 min)</span></a>
+        <a class="btn btn-ghost-dark" href="#scenarios"><span lang="nl">bekijk de scenario's</span><span lang="en">view the scenarios</span></a>
+      </div>
+      <div class="mh-facts">
         <div><div class="k">3</div><div class="v"><span lang="nl">scenario's</span><span lang="en">scenarios</span></div></div>
         <div><div class="k"><span lang="nl">±1 uur</span><span lang="en">±1 hour</span></div><div class="v"><span lang="nl">content</span><span lang="en">of content</span></div></div>
         <div><div class="k">2</div><div class="v"><span lang="nl">doelgroepen · volwassenen &amp; kinderen</span><span lang="en">audiences · adults &amp; children</span></div></div>
       </div>
     </div>
-    <div class="mhero-visual">
-      <svg class="ribbon" viewBox="0 0 480 600" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-        <g fill="none" stroke="#000048" stroke-width="30" stroke-linecap="round" stroke-linejoin="round" opacity="0.9">
-          <path d="M-40 300 V400 a55 55 0 0 0 110 0 V200 a55 55 0 0 1 110 0 V400 a55 55 0 0 0 110 0 V200 a55 55 0 0 1 110 0 V400 a55 55 0 0 0 110 0 V300"/>
-        </g>
-      </svg>
-      <div class="stamp">
-        <div class="big">BLS</div>
-        <div class="sub"><span lang="nl">Het BLS-protocol, veilig en zo vaak als je het nodig hebt.</span><span lang="en">The BLS protocol, safely and as often as you need it.</span></div>
-      </div>
+    <div class="mh-media">
+      <video muted loop playsinline preload="none" poster="/assets/loops/reanimatie-aed-loop.webp" data-src="/assets/loops/reanimatie-aed-loop.mp4" aria-label="gameplay uit de reanimatie-module" data-aria-label-en="gameplay from the resuscitation module"></video>
     </div>
   </div>
 </section>
 
-<!-- in beeld: video + screenshots -->
+<!-- 01 in de game -->
 <section id="in-beeld">
   <div class="wrap">
-    <div class="section-head">
-      <span class="eyebrow"><span class="pulse"></span><span lang="nl">uit het spel</span><span lang="en">from the game</span></span>
-      <h2 class="section-title"><span lang="nl">Zo ziet de reanimatie &amp; AED-module eruit.</span><span lang="en">This is what the resuscitation &amp; AED module looks like.</span></h2>
-      <p class="section-lede"><span lang="nl">Van een man die onwel wordt tot reanimatie bij een kind, beelden uit de echte scenario's. Klik op een beeld om het groot te bekijken.</span><span lang="en">From a man collapsing to resuscitating a child, images from the real scenarios. Click an image to view it larger.</span></p>
+    <div class="head-split reveal" style="margin-bottom:40px">
+      <div>
+        <span class="section-num"><span lang="nl">01 · in de game</span><span lang="en">01 · in the game</span></span>
+        <h2 class="section-title"><span lang="nl">Zo ziet de reanimatie-module eruit.</span><span lang="en">This is what the resuscitation module looks like.</span></h2>
+      </div>
+      <span class="chip-solid"><span class="pdot pdot-still"></span><span lang="nl">beelden uit de game</span><span lang="en">images from the game</span></span>
     </div>
-    <button class="video-embed" data-src="/assets/modules/video/reanimatie-aed.webm" data-src-mp4="/assets/modules/video/reanimatie-aed.mp4" data-poster="/assets/modules/video/posters/reanimatie-aed.webp" aria-label="speel de reanimatie module-video af" data-aria-label-en="play the resuscitation module video" style="margin-bottom:var(--space-6);">
-      <img class="video-embed-poster" src="/assets/modules/video/posters/reanimatie-aed.webp" alt="videovoorbeeld van de reanimatie &amp; aed-module" data-alt-en="video preview of the resuscitation &amp; AED module" />
-      <span class="video-embed-label"><span class="pulse" style="width:8px;height:8px;border-radius:999px;background:var(--pink);box-shadow:0 0 0 4px rgba(255,200,199,.3);"></span><span lang="nl">module-video · 0:56</span><span lang="en">module video · 0:56</span></span>
-      <span class="video-embed-play"><svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
-    </button>
-    <div class="gallery-grid">
-        <button class="gallery-item"><img src="/assets/modules/gallery/reanimatie-aed/reanimatie-aed-01.webp" alt="onwel geworden, de eerste seconden tellen" data-alt-en="collapsed, the first seconds count" loading="lazy" /></button>
-        <button class="gallery-item"><img src="/assets/modules/gallery/reanimatie-aed/reanimatie-aed-02.webp" alt="controle van bewustzijn en ademhaling" data-alt-en="checking responsiveness and breathing" loading="lazy" /></button>
-        <button class="gallery-item"><img src="/assets/modules/gallery/reanimatie-aed/reanimatie-aed-03.webp" alt="borstcompressies, tempo en diepte" data-alt-en="chest compressions, rate and depth" loading="lazy" /></button>
-        <button class="gallery-item"><img src="/assets/modules/gallery/reanimatie-aed/reanimatie-aed-04.webp" alt="de aed inzetten" data-alt-en="deploying the AED" loading="lazy" /></button>
-        <button class="gallery-item"><img src="/assets/modules/gallery/reanimatie-aed/reanimatie-aed-05.webp" alt="reanimatie in een realistische thuissituatie" data-alt-en="resuscitation in a realistic home setting" loading="lazy" /></button>
-        <button class="gallery-item"><img src="/assets/modules/gallery/reanimatie-aed/reanimatie-aed-06.webp" alt="beademing tijdens de reanimatie" data-alt-en="rescue breaths during resuscitation" loading="lazy" /></button>
-        <button class="gallery-item"><img src="/assets/modules/gallery/reanimatie-aed/reanimatie-aed-07.webp" alt="reanimatie bij een kind" data-alt-en="resuscitation of a child" loading="lazy" /></button>
-        <button class="gallery-item"><img src="/assets/modules/gallery/reanimatie-aed/reanimatie-aed-08.webp" alt="de aed klaarmaken in de ruimte" data-alt-en="preparing the AED in the room" loading="lazy" /></button>
+    <div class="reveal" data-switch>
+      <div class="gal-top">
+        <figure class="vidfig">
+          <div class="vidbox">
+            <video controls preload="metadata" playsinline poster="/assets/modules/video/posters/reanimatie-aed.webp" aria-label="walkthrough van de reanimatie-module" data-aria-label-en="walkthrough of the resuscitation module">
+              <source src="/assets/modules/video/reanimatie-aed.webm" type="video/webm" />
+              <source src="/assets/modules/video/reanimatie-aed.mp4" type="video/mp4" />
+            </video>
+          </div>
+          <figcaption><span class="t"><span lang="nl">Walkthrough van de module</span><span lang="en">Walkthrough of the module</span></span><span class="m"><span lang="nl">0:56 · met geluid</span><span lang="en">0:56 · with sound</span></span></figcaption>
+        </figure>
+        <figure class="vidfig">
+          <div class="vidbox gal-view">
+            <img class="is-active" data-switch-panel="g1" src="/assets/modules/gallery/reanimatie-aed/reanimatie-aed-01.webp" width="1280" height="720" loading="lazy" alt="eerste stap: wat doe je in deze situatie?" data-alt-en="first step: what do you do in this situation?" />
+            <img data-switch-panel="g2" src="/assets/modules/gallery/reanimatie-aed/reanimatie-aed-02.webp" width="1280" height="720" loading="lazy" alt="borstcompressies op het juiste tempo" data-alt-en="chest compressions at the right rate" />
+            <img data-switch-panel="g3" src="/assets/modules/gallery/reanimatie-aed/reanimatie-aed-03.webp" width="1280" height="720" loading="lazy" alt="kleding openknippen voor de AED-elektroden" data-alt-en="cutting open clothing for the AED pads" />
+            <img data-switch-panel="g4" src="/assets/modules/gallery/reanimatie-aed/reanimatie-aed-04.webp" width="1280" height="720" loading="lazy" alt="beademen met masker, de AED ernaast" data-alt-en="rescue breaths with a mask, the AED alongside" />
+            <img data-switch-panel="g5" src="/assets/modules/gallery/reanimatie-aed/reanimatie-aed-05.webp" width="1280" height="720" loading="lazy" alt="de omgeving verkennen: is het veilig?" data-alt-en="scanning the surroundings: is it safe?" />
+            <img data-switch-panel="g6" src="/assets/modules/gallery/reanimatie-aed/reanimatie-aed-06.webp" width="1280" height="720" loading="lazy" alt="luchtweg openen bij een kind" data-alt-en="opening a child's airway" />
+            <img data-switch-panel="g7" src="/assets/modules/gallery/reanimatie-aed/reanimatie-aed-07.webp" width="1280" height="720" loading="lazy" alt="AED-elektroden plaatsen bij een vrouw" data-alt-en="placing AED pads on a woman" />
+            <img data-switch-panel="g8" src="/assets/modules/gallery/reanimatie-aed/reanimatie-aed-08.webp" width="1280" height="720" loading="lazy" alt="in gesprek met een omstander" data-alt-en="talking to a bystander" />
+            <div class="gal-nav js-only">
+              <button class="round-sm" type="button" data-switch-step="-1" aria-label="vorige afbeelding" data-aria-label-en="previous image"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path class="ic" d="M15 6l-6 6 6 6"/></svg></button>
+              <button class="round-sm" type="button" data-switch-step="1" aria-label="volgende afbeelding" data-aria-label-en="next image"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path class="ic" d="M9 6l6 6-6 6"/></svg></button>
+            </div>
+          </div>
+          <figcaption class="gal-caps">
+            <span class="is-active" data-switch-panel="g1"><span class="t"><span lang="nl">Eerste stap: wat doe je in deze situatie?</span><span lang="en">First step: what do you do in this situation?</span></span><span class="m">1 / 8</span></span>
+            <span data-switch-panel="g2"><span class="t"><span lang="nl">Borstcompressies op het juiste tempo</span><span lang="en">Chest compressions at the right rate</span></span><span class="m">2 / 8</span></span>
+            <span data-switch-panel="g3"><span class="t"><span lang="nl">Kleding openknippen voor de AED-elektroden</span><span lang="en">Cutting open clothing for the AED pads</span></span><span class="m">3 / 8</span></span>
+            <span data-switch-panel="g4"><span class="t"><span lang="nl">Beademen met masker, de AED ernaast</span><span lang="en">Rescue breaths with a mask, the AED alongside</span></span><span class="m">4 / 8</span></span>
+            <span data-switch-panel="g5"><span class="t"><span lang="nl">De omgeving verkennen: is het veilig?</span><span lang="en">Scanning the surroundings: is it safe?</span></span><span class="m">5 / 8</span></span>
+            <span data-switch-panel="g6"><span class="t"><span lang="nl">Luchtweg openen bij een kind</span><span lang="en">Opening a child's airway</span></span><span class="m">6 / 8</span></span>
+            <span data-switch-panel="g7"><span class="t"><span lang="nl">AED-elektroden plaatsen bij een vrouw</span><span lang="en">Placing AED pads on a woman</span></span><span class="m">7 / 8</span></span>
+            <span data-switch-panel="g8"><span class="t"><span lang="nl">In gesprek met een omstander</span><span lang="en">Talking to a bystander</span></span><span class="m">8 / 8</span></span>
+          </figcaption>
+        </figure>
+      </div>
+      <div class="thumbs js-only">
+        <button type="button" class="is-active" data-switch-to="g1"><img src="/assets/modules/gallery/reanimatie-aed/reanimatie-aed-01.webp" width="1280" height="720" loading="lazy" alt="afbeelding 1" data-alt-en="image 1" /></button>
+        <button type="button" data-switch-to="g2"><img src="/assets/modules/gallery/reanimatie-aed/reanimatie-aed-02.webp" width="1280" height="720" loading="lazy" alt="afbeelding 2" data-alt-en="image 2" /></button>
+        <button type="button" data-switch-to="g3"><img src="/assets/modules/gallery/reanimatie-aed/reanimatie-aed-03.webp" width="1280" height="720" loading="lazy" alt="afbeelding 3" data-alt-en="image 3" /></button>
+        <button type="button" data-switch-to="g4"><img src="/assets/modules/gallery/reanimatie-aed/reanimatie-aed-04.webp" width="1280" height="720" loading="lazy" alt="afbeelding 4" data-alt-en="image 4" /></button>
+        <button type="button" data-switch-to="g5"><img src="/assets/modules/gallery/reanimatie-aed/reanimatie-aed-05.webp" width="1280" height="720" loading="lazy" alt="afbeelding 5" data-alt-en="image 5" /></button>
+        <button type="button" data-switch-to="g6"><img src="/assets/modules/gallery/reanimatie-aed/reanimatie-aed-06.webp" width="1280" height="720" loading="lazy" alt="afbeelding 6" data-alt-en="image 6" /></button>
+        <button type="button" data-switch-to="g7"><img src="/assets/modules/gallery/reanimatie-aed/reanimatie-aed-07.webp" width="1280" height="720" loading="lazy" alt="afbeelding 7" data-alt-en="image 7" /></button>
+        <button type="button" data-switch-to="g8"><img src="/assets/modules/gallery/reanimatie-aed/reanimatie-aed-08.webp" width="1280" height="720" loading="lazy" alt="afbeelding 8" data-alt-en="image 8" /></button>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- leerdoelen -->
-<section id="leerdoelen" style="background:var(--surface-warm);">
+<!-- 02 leerdoelen -->
+<section id="leerdoelen">
   <div class="wrap">
-    <div class="section-head">
-      <span class="eyebrow"><span lang="nl">01 · leerdoelen</span><span lang="en">01 · learning objectives</span></span>
-      <h2 class="section-title"><span lang="nl">Wat je na deze module beheerst.</span><span lang="en">What you'll master after this module.</span></h2>
+    <div class="head-split reveal">
+      <div>
+        <span class="section-num"><span lang="nl">02 · leerdoelen</span><span lang="en">02 · learning objectives</span></span>
+        <h2 class="section-title"><span lang="nl">Wat je na deze module beheerst.</span><span lang="en">What you'll master after this module.</span></h2>
+      </div>
+      <p class="section-lede"><span lang="nl">Vijf stappen van het BLS-protocol, in de volgorde waarin je ze in een echte noodsituatie doorloopt. Klik een stap aan.</span><span lang="en">Five steps of the BLS protocol, in the order you work through them in a real emergency. Click a step.</span></p>
     </div>
-    <ul class="goals">
-      <li><span class="chk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#000048" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span><span lang="nl">Weet hoe je het <b>bewustzijn</b> controleert.</span><span lang="en">Know how to check <b>responsiveness</b>.</span></span></li>
-      <li><span class="chk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#000048" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span><span lang="nl">Weet hoe je de <b>luchtweg</b> opent.</span><span lang="en">Know how to open the <b>airway</b>.</span></span></li>
-      <li><span class="chk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#000048" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span><span lang="nl">Weet hoe je de <b>ademhaling</b> controleert.</span><span lang="en">Know how to check <b>breathing</b>.</span></span></li>
-      <li><span class="chk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#000048" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span><span lang="nl">Weet hoe je moet <b>reanimeren</b> (tempo &amp; diepte).</span><span lang="en">Know how to perform <b>CPR</b> (rate &amp; depth).</span></span></li>
-      <li><span class="chk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#000048" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span><span lang="nl">Weet wanneer en hoe je de <b>AED</b> toepast.</span><span lang="en">Know when and how to use the <b>AED</b>.</span></span></li>
-    </ul>
+    <div class="bls reveal" data-switch>
+      <div class="bls-line" aria-hidden="true"></div>
+      <div class="bls-steps">
+        <button type="button" class="bls-step is-active" data-switch-to="b1"><span class="n">1</span><span class="tx"><span class="tt"><span lang="nl">Bewustzijn</span><span lang="en">Responsiveness</span></span><span class="dd"><span lang="nl">Weet hoe je het bewustzijn controleert.</span><span lang="en">Know how to check responsiveness.</span></span></span></button>
+        <button type="button" class="bls-step" data-switch-to="b2"><span class="n">2</span><span class="tx"><span class="tt"><span lang="nl">Luchtweg</span><span lang="en">Airway</span></span><span class="dd"><span lang="nl">Weet hoe je de luchtweg opent.</span><span lang="en">Know how to open the airway.</span></span></span></button>
+        <button type="button" class="bls-step" data-switch-to="b3"><span class="n">3</span><span class="tx"><span class="tt"><span lang="nl">Ademhaling</span><span lang="en">Breathing</span></span><span class="dd"><span lang="nl">Weet hoe je de ademhaling controleert.</span><span lang="en">Know how to check breathing.</span></span></span></button>
+        <button type="button" class="bls-step" data-switch-to="b4"><span class="n">4</span><span class="tx"><span class="tt"><span lang="nl">Reanimeren</span><span lang="en">CPR</span></span><span class="dd"><span lang="nl">Weet hoe je moet reanimeren (tempo &amp; diepte).</span><span lang="en">Know how to perform CPR (rate &amp; depth).</span></span></span></button>
+        <button type="button" class="bls-step" data-switch-to="b5"><span class="n">5</span><span class="tx"><span class="tt">AED</span><span class="dd"><span lang="nl">Weet wanneer en hoe je de AED toepast.</span><span lang="en">Know when and how to use the AED.</span></span></span></button>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- scenarios -->
-<section id="scenarios">
+<!-- 03 scenario's -->
+<section id="scenarios" class="band-pink">
   <div class="wrap">
-    <div class="section-head">
-      <span class="eyebrow"><span lang="nl">02 · scenario's</span><span lang="en">02 · scenarios</span></span>
+    <div class="head-stack reveal">
+      <span class="section-num"><span lang="nl">03 · scenario's</span><span lang="en">03 · scenarios</span></span>
       <h2 class="section-title"><span lang="nl">Drie realistische scenario's, elk met eigen leerdoelen.</span><span lang="en">Three realistic scenarios, each with their own objectives.</span></h2>
     </div>
-    <div class="scenarios">
-      <div class="scenario">
-        <div style="display:flex; gap:var(--space-4); align-items:center; margin-bottom:var(--space-4);">
-          <img src="/assets/modules/patients/bls_man.png" alt="patiënt, scenario 1" data-alt-en="patient, scenario 1" style="width:60px; height:60px; border-radius:var(--radius-pill); flex:0 0 auto;" />
-          <div><div class="num">scenario 1</div><h3 style="margin-top:4px;"><span lang="nl">Onwel in de lobby</span><span lang="en">Collapse in the lobby</span></h3></div>
-        </div>
+    <div class="rsc-grid reveal">
+      <article class="rsc lift">
+        <div class="top"><span class="who"><img src="/assets/modules/patients/bls_man.webp" width="240" height="240" loading="lazy" alt="virtuele patiënt uit het scenario Onwel in de lobby" data-alt-en="virtual patient from the scenario Collapse in the lobby" /><span class="bignum">01</span></span><span class="kind"><span lang="nl">volwassene</span><span lang="en">adult</span></span></div>
+        <h3><span lang="nl">Onwel in de lobby</span><span lang="en">Collapse in the lobby</span></h3>
         <p><span lang="nl">Een oudere man raakt plotseling buiten bewustzijn in de lobby van een kantoorgebouw.</span><span lang="en">An older man suddenly loses consciousness in the lobby of an office building.</span></p>
-        <div class="goal-tags"><span><span lang="nl">bewustzijn</span><span lang="en">responsiveness</span></span><span><span lang="nl">luchtweg</span><span lang="en">airway</span></span><span><span lang="nl">ademhaling</span><span lang="en">breathing</span></span><span><span lang="nl">reanimeren</span><span lang="en">CPR</span></span><span>aed</span></div>
-      </div>
-      <div class="scenario">
-        <div style="display:flex; gap:var(--space-4); align-items:center; margin-bottom:var(--space-4);">
-          <img src="/assets/modules/patients/bls_child.png" alt="patiënt, scenario 2" data-alt-en="patient, scenario 2" style="width:60px; height:60px; border-radius:var(--radius-pill); flex:0 0 auto;" />
-          <div><div class="num">scenario 2</div><h3 style="margin-top:4px;"><span lang="nl">Reanimatie bij een kind</span><span lang="en">Resuscitating a child</span></h3></div>
-        </div>
+        <div class="tags"><span><span lang="nl">bewustzijn</span><span lang="en">responsiveness</span></span><span><span lang="nl">luchtweg</span><span lang="en">airway</span></span><span><span lang="nl">ademhaling</span><span lang="en">breathing</span></span><span><span lang="nl">reanimeren</span><span lang="en">CPR</span></span><span>aed</span></div>
+      </article>
+      <article class="rsc rsc-dark lift">
+        <div class="top"><span class="who"><img src="/assets/modules/patients/bls_child.webp" width="240" height="240" loading="lazy" alt="virtuele patiënt uit het scenario Reanimatie bij een kind" data-alt-en="virtual patient from the scenario Resuscitating a child" /><span class="bignum">02</span></span><span class="kind"><span lang="nl">kind</span><span lang="en">child</span></span></div>
+        <h3><span lang="nl">Reanimatie bij een kind</span><span lang="en">Resuscitating a child</span></h3>
         <p><span lang="nl">Een minderjarige jongen raakt buiten bewustzijn na het krijgen van een schok.</span><span lang="en">A young boy loses consciousness after receiving an electric shock.</span></p>
-        <div class="goal-tags"><span><span lang="nl">reanimeren bij een kind</span><span lang="en">child CPR</span></span><span><span lang="nl">aed bij een kind</span><span lang="en">AED on a child</span></span></div>
-      </div>
-      <div class="scenario">
-        <div style="display:flex; gap:var(--space-4); align-items:center; margin-bottom:var(--space-4);">
-          <img src="/assets/modules/patients/bls_woman.png" alt="patiënt, scenario 3" data-alt-en="patient, scenario 3" style="width:60px; height:60px; border-radius:var(--radius-pill); flex:0 0 auto;" />
-          <div><div class="num">scenario 3</div><h3 style="margin-top:4px;"><span lang="nl">Op een openbare locatie</span><span lang="en">In a public place</span></h3></div>
-        </div>
+        <div class="tags"><span><span lang="nl">reanimeren bij een kind</span><span lang="en">child CPR</span></span><span><span lang="nl">aed bij een kind</span><span lang="en">AED on a child</span></span></div>
+      </article>
+      <article class="rsc lift">
+        <div class="top"><span class="who"><img src="/assets/modules/patients/bls_woman.webp" width="240" height="240" loading="lazy" alt="virtuele patiënt uit het scenario Op een openbare locatie" data-alt-en="virtual patient from the scenario In a public place" /><span class="bignum">03</span></span><span class="kind"><span lang="nl">volwassene</span><span lang="en">adult</span></span></div>
+        <h3><span lang="nl">Op een openbare locatie</span><span lang="en">In a public place</span></h3>
         <p><span lang="nl">Een vrouw raakt buiten bewustzijn op een openbare locatie.</span><span lang="en">A woman loses consciousness in a public place.</span></p>
-        <div class="goal-tags"><span><span lang="nl">veilige werkruimte</span><span lang="en">safe work area</span></span><span><span lang="nl">aed bij een vrouw</span><span lang="en">AED on a woman</span></span><span><span lang="nl">niet-reanimeren verklaring</span><span lang="en">do-not-resuscitate order</span></span></div>
-      </div>
+        <div class="tags"><span><span lang="nl">veilige werkruimte</span><span lang="en">safe work area</span></span><span><span lang="nl">aed bij een vrouw</span><span lang="en">AED on a woman</span></span><span><span lang="nl">niet-reanimeren verklaring</span><span lang="en">do-not-resuscitate order</span></span></div>
+      </article>
     </div>
   </div>
 </section>
 
-<!-- waarom -->
-<section id="waarom" style="background:var(--surface-warm);">
+<!-- 04 waarom het werkt -->
+<section id="waarom">
   <div class="wrap">
-    <div class="section-head">
-      <span class="eyebrow"><span lang="nl">03 · waarom het werkt</span><span lang="en">03 · why it works</span></span>
+    <div class="head-stack reveal">
+      <span class="section-num"><span lang="nl">04 · waarom het werkt</span><span lang="en">04 · why it works</span></span>
       <h2 class="section-title"><span lang="nl">Interactief, virtueel en altijd beschikbaar.</span><span lang="en">Interactive, virtual and always available.</span></h2>
     </div>
-    <div class="props">
-      <div class="prop">
-        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FFE0E0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 10-12h-7z"/></svg></div>
-        <h3><span lang="nl">Interactief</span><span lang="en">Interactive</span></h3>
-        <p><span lang="nl">Directe feedback op elke handeling. Juist gehandeld? Je score laat het meteen zien.</span><span lang="en">Instant feedback on every action. Did you act correctly? Your score shows it right away.</span></p>
-      </div>
-      <div class="prop">
-        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FFE0E0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 3 8l9 5 9-5-9-5zM3 16l9 5 9-5M3 12l9 5 9-5"/></svg></div>
-        <h3><span lang="nl">Virtueel</span><span lang="en">Virtual</span></h3>
-        <p><span lang="nl">Oefen in een realistische simulatie tot het protocol zit, zonder risico voor een echte patiënt.</span><span lang="en">Practise in a realistic simulation until the protocol sticks, without risk to a real patient.</span></p>
-      </div>
-      <div class="prop">
-        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FFE0E0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2.5"/><path d="M11 18h2"/></svg></div>
-        <h3><span lang="nl">Altijd beschikbaar</span><span lang="en">Always available</span></h3>
-        <p><span lang="nl">Oefen waar en wanneer je wilt, op computer, telefoon of tablet, zo vaak als nodig.</span><span lang="en">Practise wherever and whenever you want, on computer, phone or tablet, as often as needed.</span></p>
-      </div>
+    <div class="grid-3 reveal">
+      <div class="tcard lift"><span class="icbox" style="width:56px;height:56px"><svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><path class="ic" d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0zM17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"/></svg></span><h3><span lang="nl">Interactief</span><span lang="en">Interactive</span></h3><p><span lang="nl">Directe feedback op elke handeling. Juist gehandeld? Je score laat het meteen zien.</span><span lang="en">Instant feedback on every action. Did you act correctly? Your score shows it right away.</span></p></div>
+      <div class="tcard lift"><span class="icbox" style="width:56px;height:56px"><svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><path class="ic" d="M12 2l9 5v10l-9 5-9-5V7zM12 12l9-5M12 12v10M12 12L3 7"/></svg></span><h3><span lang="nl">Virtueel</span><span lang="en">Virtual</span></h3><p><span lang="nl">Oefen in een realistische simulatie tot het protocol zit, zonder risico voor een echte patiënt.</span><span lang="en">Practise in a realistic simulation until the protocol sticks, without risk to a real patient.</span></p></div>
+      <div class="tcard lift"><span class="icbox" style="width:56px;height:56px"><svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><path class="ic" d="M3 5h13a1 1 0 0 1 1 1v8H2V6a1 1 0 0 1 1-1zM6 18h7M19 8h3v11h-3z"/></svg></span><h3><span lang="nl">Altijd beschikbaar</span><span lang="en">Always available</span></h3><p><span lang="nl">Oefen waar en wanneer je wilt, op computer, telefoon of tablet, zo vaak als nodig.</span><span lang="en">Practise wherever and whenever you want, on computer, phone or tablet, as often as needed.</span></p></div>
     </div>
   </div>
 </section>
 
-<!-- doelgroep -->
-<section id="doelgroep">
+<!-- 05 voor wie -->
+<section id="doelgroep" style="padding-top:0">
   <div class="wrap">
-    <div class="section-head">
-      <span class="eyebrow"><span lang="nl">04 · voor wie</span><span lang="en">04 · who it's for</span></span>
+    <div class="head-stack reveal">
+      <span class="section-num"><span lang="nl">05 · voor wie</span><span lang="en">05 · who it's for</span></span>
       <h2 class="section-title"><span lang="nl">Voor iedereen die vakbekwaam moet blijven in reanimeren.</span><span lang="en">For everyone who needs to stay competent in resuscitation.</span></h2>
     </div>
-    <div class="aud">
-      <div class="aud-card"><h3><span lang="nl">Bhv-medewerkers</span><span lang="en">Workplace first responders</span></h3><p><span lang="nl">Houd je reanimatie- en AED-vaardigheden op peil voor de bedrijfshulpverlening.</span><span lang="en">Keep your CPR and AED skills up to standard for workplace emergency response.</span></p></div>
-      <div class="aud-card"><h3><span lang="nl">Ehbo'ers</span><span lang="en">First aiders</span></h3><p><span lang="nl">Oefen het BLS-protocol zo vaak als nodig om zeker te handelen bij een noodgeval.</span><span lang="en">Practise the BLS protocol as often as needed to act with confidence in an emergency.</span></p></div>
-      <div class="aud-card"><h3><span lang="nl">Vakbekwame professionals</span><span lang="en">Qualified professionals</span></h3><p><span lang="nl">Houd je reanimatievaardigheid scherp tussen de verplichte hercertificeringen door.</span><span lang="en">Keep your resuscitation skills sharp between mandatory recertifications.</span></p></div>
+    <div class="grid-3 reveal">
+      <div class="acard"><span class="n">01</span><h3><span lang="nl">Bhv-medewerkers</span><span lang="en">Workplace first responders</span></h3><p><span lang="nl">Houd je reanimatie- en AED-vaardigheden op peil voor de bedrijfshulpverlening.</span><span lang="en">Keep your CPR and AED skills up to standard for workplace emergency response.</span></p></div>
+      <div class="acard"><span class="n">02</span><h3><span lang="nl">Ehbo'ers</span><span lang="en">First aiders</span></h3><p><span lang="nl">Oefen het BLS-protocol zo vaak als nodig om zeker te handelen bij een noodgeval.</span><span lang="en">Practise the BLS protocol as often as needed to act with confidence in an emergency.</span></p></div>
+      <div class="acard"><span class="n">03</span><h3><span lang="nl">Vakbekwame professionals</span><span lang="en">Qualified professionals</span></h3><p><span lang="nl">Houd je reanimatievaardigheid scherp tussen de verplichte hercertificeringen door.</span><span lang="en">Keep your resuscitation skills sharp between mandatory recertifications.</span></p></div>
+    </div>
+  </div>
+</section>
+
+<!-- andere modules -->
+<section class="others">
+  <div class="wrap reveal">
+    <div class="others-head"><span class="t"><span lang="nl">Andere modules</span><span lang="en">Other modules</span></span><a class="textlink" href="/#modules"><span lang="nl">alle modules</span><span lang="en">all modules</span></a></div>
+    <div class="others-grid">
+      <a class="other lift" href="/modules/abcde.html"><span><span class="m"><span lang="nl">acute zorg · 4 scenario's</span><span lang="en">acute care · 4 scenarios</span></span><span class="n">ABCDE</span></span><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path class="ic" d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a class="other lift" href="/modules/ecg.html"><span><span class="m"><span lang="nl">cardiologie · 6 scenario's</span><span lang="en">cardiology · 6 scenarios</span></span><span class="n">ECG</span></span><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path class="ic" d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a class="other lift" href="/modules/als.html"><span><span class="m"><span lang="nl">gevorderd · 1 scenario</span><span lang="en">advanced · 1 scenario</span></span><span class="n">ALS</span></span><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path class="ic" d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     </div>
   </div>
 </section>
 
 <!-- cta -->
-<section id="contact">
-  <div class="wrap">
-    <div class="cta-band">
-      <svg class="loops" style="left:-30px; bottom:-30px; width:240px; height:200px; opacity:.6" viewBox="0 0 240 200" aria-hidden="true">
-        <g fill="none" stroke="#FFC8C7" stroke-width="20" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M20 30 V120 a22 22 0 0 0 44 0 V60 a22 22 0 0 1 44 0 V120 a22 22 0 0 0 44 0 V60 a22 22 0 0 1 44 0 V120"/>
-        </g>
-      </svg>
-      <div style="position:relative; z-index:2;">
-        <h2><span lang="nl">De reanimatie<span class="dot">.</span>module live zien?</span><span lang="en">See the resuscitation<span class="dot">.</span>module live?</span></h2>
-        <p><span lang="nl">We laten je in een korte demo een echte casus spelen, en denken mee over hoe je deze module bij jullie achterban inzet.</span><span lang="en">In a short demo we'll let you play a real case, and think along about how to use this module with your audience.</span></p>
-        <div class="row">
-          <a class="btn btn-secondary" href="/"><span lang="nl">terug naar overview</span><span lang="en">back to overview</span></a>
-          <a class="btn btn-primary" href="/demo.html"><span lang="nl">plan een demo (30 min)</span><span lang="en">book a demo (30 min)</span></a>
-          <a class="btn btn-ghost" href="https://learn.medu.game/local/edwiserstore/productview.php?id=5" target="_blank" rel="noopener"><span lang="nl">direct kopen →</span><span lang="en">buy now →</span></a>
-        </div>
+<section id="contact" class="cta-dark">
+  <svg class="drift" viewBox="0 0 1200 800" aria-hidden="true"><path class="ic" style="stroke-width:70" d="M 60 900 L 60 300 A 150 150 0 0 1 360 300 L 360 560 A 150 150 0 0 0 660 560 L 660 300 A 150 150 0 0 1 960 300 L 960 560 A 150 150 0 0 0 1260 560"/></svg>
+  <div class="wrap cta-dark-inner">
+    <div class="cta-dark-copy reveal">
+      <span class="chip"><span class="pdot"></span><span lang="nl">demo · 30 minuten</span><span lang="en">demo · 30 minutes</span></span>
+      <h2><span lang="nl">De reanimatiemodule live zien?</span><span lang="en">See the resuscitation module live?</span></h2>
+      <p><span lang="nl">We laten je in een korte demo een echte casus spelen, en denken mee over hoe je deze module bij jullie achterban inzet.</span><span lang="en">In a short demo we'll let you play a real case, and think along about how to use this module with your audience.</span></p>
+      <div class="row">
+        <a class="btn btn-pink btn-lg" href="/demo.html"><span lang="nl">plan een demo (30 min)</span><span lang="en">book a demo (30 min)</span></a>
+        <a class="btn btn-ghost-dark btn-lg" href="https://learn.medu.game/local/edwiserstore/productview.php?id=5" target="_blank" rel="noopener"><span lang="nl">direct kopen</span><span lang="en">buy now</span><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path class="ic" d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </div>
+    </div>
+    <div class="cta-dark-char">
+      <img src="/assets/char-expert-point.webp" width="640" height="1153" loading="lazy" alt="3D-personage wijst naar de demo-uitnodiging" data-alt-en="3D character pointing at the demo invitation" />
     </div>
   </div>
 </section>
