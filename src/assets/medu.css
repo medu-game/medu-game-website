@@ -189,6 +189,13 @@ section{padding:var(--section-y) 0;}
 .tcard p{max-width:60ch; font-size:var(--text-base); line-height:1.6; color:rgba(0,0,72,.72);}
 .grid-3{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:32px;}
 @media(max-width:900px){.grid-3{grid-template-columns:1fr; gap:var(--space-5);}}
+/* ruled columns: three arguments set as editorial columns under a 2px rule,
+   instead of three identical floating cards */
+.grid-3.ruled{gap:48px;}
+.ruled > .tcard{padding:28px 0 0; border-radius:0; background:none; box-shadow:none; border-top:2px solid currentColor; gap:12px;}
+.ruled > .tcard .icbox{width:auto; height:auto; background:none; border-radius:0; place-items:start; color:inherit;}
+.ruled > .tcard h3{margin-top:4px;}
+@media(max-width:900px){.grid-3.ruled{gap:40px;}}
 
 /* big serpentine "loop" watermark (static) */
 .drift{position:absolute; pointer-events:none;}

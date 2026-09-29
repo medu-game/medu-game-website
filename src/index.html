@@ -8,7 +8,7 @@
 <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/Fieldwork-Geo-Light.woff2" crossorigin />
 <title>Medu.game | platform voor opleiders in de zorg</title>
 <link rel="stylesheet" href="/assets/medu-fonts.css">
-<link rel="stylesheet" href="/assets/medu.css?v=23">
+<link rel="stylesheet" href="/assets/medu.css?v=24">
 <style>
 /* Tokens, buttons, section headers, cards, reveal/lift motion, the dark CTA and
    the footer come from /assets/medu.css (shared with the module pages). Only
@@ -151,13 +151,13 @@
 .plat-sub{display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:var(--space-5) 80px; margin-top:72px;}
 .plat-sub h3{flex:0 1 560px; font-size:32px; line-height:1.2;}
 .plat-sub p{flex:0 1 540px; font-size:17px; line-height:1.6; color:rgba(0,0,72,.72);}
-.feats{display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:16px; margin-top:48px;}
-.feat{padding:24px; border-radius:var(--radius-lg); background:#fff; box-shadow:var(--elev-card); display:flex; flex-direction:column; gap:12px;}
+/* platform features as a spec list: icon · name · what it means */
+.feats{display:flex; flex-direction:column; margin:48px 0 0; border-top:1px solid var(--border);}
+.feat{display:grid; grid-template-columns:44px minmax(0,300px) minmax(0,1fr); gap:6px 28px; align-items:center; padding:22px 0; border-bottom:1px solid var(--border);}
 .feat .icbox{width:44px; height:44px; border-radius:14px;}
-.feat h4{margin-top:4px; font-size:17px; line-height:1.3;}
-.feat p{font-size:var(--text-sm); line-height:1.55; color:rgba(0,0,72,.72);}
-@media(max-width:1100px){.feats{grid-template-columns:repeat(3,minmax(0,1fr));}}
-@media(max-width:700px){.feats{grid-template-columns:1fr;}}
+.feat h4{font-size:18px; line-height:1.3;}
+.feat p{max-width:64ch; font-size:var(--text-base); line-height:1.55; color:rgba(0,0,72,.72);}
+@media(max-width:700px){.feat{grid-template-columns:44px minmax(0,1fr); align-items:start; gap:6px 18px;} .feat h4{padding-top:10px;} .feat p{grid-column:2;}}
 .lms{display:flex; align-items:center; flex-wrap:wrap; gap:10px; margin-top:48px;}
 .lms .lbl{font-size:var(--text-sm); font-weight:400; color:rgba(0,0,72,.62); margin-right:6px;}
 .lms .pill{padding:8px 16px; border-radius:var(--radius-pill); box-shadow:inset 0 0 0 1px rgba(0,0,72,.14); font-size:var(--text-sm); font-weight:600;}
@@ -211,7 +211,7 @@ html:not(.js) .tq[data-switch-panel]{display:flex;}
 .faq .body{margin:0; padding:0 64px 26px 0; font-size:var(--text-base); line-height:1.65; color:rgba(0,0,72,.74); animation:fadeUp 420ms var(--ease) both;}
 @media(max-width:900px){.faq-grid{grid-template-columns:1fr; gap:var(--space-8);} .faq summary{font-size:17px;} .faq .body{padding-right:0;}}
 </style>
-<link rel="stylesheet" href="/assets/medu-gallery.css?v=23">
+<link rel="stylesheet" href="/assets/medu-gallery.css?v=24">
 </head>
 <body>
 
@@ -295,7 +295,7 @@ html:not(.js) .tq[data-switch-panel]{display:flex;}
   <div class="wrap">
     <div class="head-split reveal">
       <div>
-        <span class="section-num"><span lang="nl">01 · wat het is</span><span lang="en">01 · what it is</span></span>
+        <span class="section-num"><span lang="nl">wat het is</span><span lang="en">what it is</span></span>
         <h2 class="section-title"><span lang="nl">Game-based learning, gebouwd voor de zorg.</span><span lang="en">Game-based learning, built for healthcare.</span></h2>
       </div>
       <p class="section-lede"><span lang="nl">Game-based learning zet de mechaniek van games in om kennis, competenties en vaardigheden te oefenen. Niet omdat het leuk moet zijn, maar omdat je onthoudt wat je dóet.</span><span lang="en">Game-based learning puts the mechanics of games to work to practise knowledge, competencies and skills. Not because it has to be fun, but because you remember what you do.</span></p>
@@ -335,7 +335,7 @@ html:not(.js) .tq[data-switch-panel]{display:flex;}
 <section id="leerlijn" class="band-pink">
   <div class="wrap">
     <div class="path-head">
-      <span class="section-num reveal"><span lang="nl">02 · de leerlijn</span><span lang="en">02 · the learning path</span></span>
+      <span class="section-num reveal"><span lang="nl">de leerlijn</span><span lang="en">the learning path</span></span>
       <h2 class="section-title reveal"><span lang="nl">De brug tussen theorie en praktijk.</span><span lang="en">The bridge between theory and practice.</span></h2>
       <p class="section-lede reveal" style="margin-top:0"><span lang="nl">Uit ervaring in de praktijk en uit onderzoek weten we waar onze modules het sterkst werken: tussen de theorie en de praktijk in. Theorie is goedkoop, maar passief; praktijkuren zijn onmisbaar, maar schaars en duur. Wie eerst veilig de online simulatie speelt, komt bekwamer de praktijk in. Zo benut je die schaarse oefenuren beter en beklijft theorie beter.</span><span lang="en">From hands-on experience and from research, we know where our modules work best: between theory and practice. Theory is cheap, but passive; hands-on practice hours are essential, but scarce and costly. Those who first play the online simulation safely arrive more competent in practice. That way you make better use of those scarce practice hours, and the theory sticks better.</span></p>
     </div>
@@ -367,24 +367,24 @@ html:not(.js) .tq[data-switch-panel]{display:flex;}
   <div class="wrap">
     <div class="head-split reveal">
       <div>
-        <span class="section-num"><span lang="nl">03 · waarom het werkt</span><span lang="en">03 · why it works</span></span>
+        <span class="section-num"><span lang="nl">waarom het werkt</span><span lang="en">why it works</span></span>
         <h2 class="section-title"><span lang="nl">Leren door te doen blijft hangen.</span><span lang="en">Learning by doing sticks.</span></h2>
       </div>
       <p class="section-lede"><span lang="nl">Boeken en e-learning leggen een onmisbare basis, maar het blijft droge kost. Wat je actief doet, blijft beter hangen: game-based learning verhoogt betrokkenheid, retentie en directe toepasbaarheid, precies waar verplichte nascholing vaak op vastloopt.</span><span lang="en">Books and e-learning lay an essential foundation, but it stays dry material. What you actively do sticks better: game-based learning boosts engagement, retention and real-world transfer, exactly where mandatory training tends to stall.</span></p>
     </div>
-    <div class="grid-3 reveal">
+    <div class="grid-3 ruled reveal">
       <div class="tcard">
-        <span class="icbox" style="width:56px;height:56px"><svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><path class="ic" d="M17 2l4 4-4 4M3 11V9a3 3 0 0 1 3-3h15M7 22l-4-4 4-4M21 13v2a3 3 0 0 1-3 3H3"/></svg></span>
+        <span class="icbox"><svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><path class="ic" d="M17 2l4 4-4 4M3 11V9a3 3 0 0 1 3-3h15M7 22l-4-4 4-4M21 13v2a3 3 0 0 1-3 3H3"/></svg></span>
         <h3><span lang="nl">Meer betrokkenheid</span><span lang="en">More engagement</span></h3>
         <p><span lang="nl">Interactieve casussen grijpen de aandacht en houden die vast. Zorgprofessionals oefenen uit zichzelf opnieuw, en herhaling is precies wat bekwaamheid bouwt.</span><span lang="en">Interactive cases grab attention and hold it. People come back to practise on their own, and repetition is exactly what builds competence.</span></p>
       </div>
       <div class="tcard">
-        <span class="icbox" style="width:56px;height:56px"><svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><path class="ic" d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V16h8v-1.3A7 7 0 0 0 12 2z"/></svg></span>
+        <span class="icbox"><svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><path class="ic" d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V16h8v-1.3A7 7 0 0 0 12 2z"/></svg></span>
         <h3><span lang="nl">Betere kennisretentie</span><span lang="en">Better knowledge retention</span></h3>
         <p><span lang="nl">Je onthoudt wat je dóet, niet wat je passief doorleest. In de simulatie pas je kennis meteen toe, zo wordt theorie kunde die beklijft.</span><span lang="en">You remember what you do, not what you passively read through. In the simulation you apply knowledge straight away, turning theory into skill that sticks.</span></p>
       </div>
       <div class="tcard">
-        <span class="icbox" style="width:56px;height:56px"><svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><rect class="ic" x="5" y="4" width="14" height="17" rx="2"/><path class="ic" d="M9 2.5h6v3H9zM9 13.5l2 2 4-4"/></svg></span>
+        <span class="icbox"><svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><rect class="ic" x="5" y="4" width="14" height="17" rx="2"/><path class="ic" d="M9 2.5h6v3H9zM9 13.5l2 2 4-4"/></svg></span>
         <h3><span lang="nl">Direct relevant</span><span lang="en">Immediately relevant</span></h3>
         <p><span lang="nl">Elke casus is samen met inhoudelijke experts gebouwd en getoetst aan de richtlijnen. Wat je hier oefent, doe je morgen op de werkvloer.</span><span lang="en">Every case is built together with subject-matter experts and validated against the guidelines. What you practise here, you do on the job tomorrow.</span></p>
       </div>
@@ -397,7 +397,7 @@ html:not(.js) .tq[data-switch-panel]{display:flex;}
   <div class="wrap">
     <div class="head-split reveal">
       <div>
-        <span class="section-num"><span lang="nl">04 · de modules</span><span lang="en">04 · the modules</span></span>
+        <span class="section-num"><span lang="nl">de modules</span><span lang="en">the modules</span></span>
         <h2 class="section-title"><span lang="nl">Klinische content, klaar om te spelen.</span><span lang="en">Clinical content, ready to play.</span></h2>
       </div>
       <p class="section-lede"><span lang="nl">Dit is de échte content. Elke module is een set realistische scenario's met eigen leerdoelen, directe feedback en een score. <b>Kies een module</b> voor de scenario's en details.</span><span lang="en">This is the real content. Each module is a set of realistic scenarios with their own learning objectives, instant feedback and a score. <b>Choose a module</b> for its scenarios and details.</span></p>
@@ -510,7 +510,7 @@ html:not(.js) .tq[data-switch-panel]{display:flex;}
   <div class="wrap">
     <div class="head-split reveal">
       <div>
-        <span class="section-num"><span lang="nl">05 · het platform</span><span lang="en">05 · the platform</span></span>
+        <span class="section-num"><span lang="nl">het platform</span><span lang="en">the platform</span></span>
         <h2 class="section-title"><span lang="nl">Draait overal waar jullie leren.</span><span lang="en">Runs wherever you learn.</span></h2>
       </div>
       <p class="section-lede"><span lang="nl">In de browser op je computer of laptop, en als app op telefoon en tablet, dezelfde klinische scenario's op elk apparaat, met voortgang die overal meereist. Rechtstreeks te spelen, of ingebed in je eigen leeromgeving via een LTI-koppeling.</span><span lang="en">In the browser on a computer or laptop, and as an app on phone and tablet, the same clinical scenarios on every device, with progress that travels with you. Play it directly, or embed it in your own learning environment via an LTI integration.</span></p>
@@ -580,7 +580,7 @@ html:not(.js) .tq[data-switch-panel]{display:flex;}
 <section id="ervaringen" class="band-pink">
   <div class="wrap tq-grid">
     <div class="tq-copy" data-switch data-switch-auto="8000">
-      <span class="section-num reveal"><span lang="nl">06 · ervaringen</span><span lang="en">06 · testimonials</span></span>
+      <span class="section-num reveal"><span lang="nl">ervaringen</span><span lang="en">testimonials</span></span>
       <h2 class="section-title reveal"><span lang="nl">Aanbevolen door artsen, opleiders en beroepsverenigingen.</span><span lang="en">Recommended by physicians, educators and professional associations.</span></h2>
       <svg width="48" height="36" viewBox="0 0 48 36" aria-hidden="true" style="margin-top:36px; color:var(--blue-dark)"><path fill="currentColor" d="M0 36V21C0 9 6 2 18 0l2 5c-6 2-9 6-9 12h9v19zm28 0V21C28 9 34 2 46 0l2 5c-6 2-9 6-9 12h9v19z"/></svg>
       <div class="tq-list">
@@ -627,7 +627,7 @@ html:not(.js) .tq[data-switch-panel]{display:flex;}
 <section id="faq">
   <div class="wrap faq-grid">
     <div class="faq-intro reveal">
-      <span class="section-num"><span lang="nl">07 · veelgestelde vragen</span><span lang="en">07 · frequently asked questions</span></span>
+      <span class="section-num"><span lang="nl">veelgestelde vragen</span><span lang="en">frequently asked questions</span></span>
       <h2 class="section-title"><span lang="nl">Wat opleiders meestal eerst willen weten.</span><span lang="en">What educators usually want to know first.</span></h2>
       <p><span lang="nl">Staat je vraag er niet bij? In de demo laten we een echte casus zien en beantwoorden we alles voor jullie situatie.</span><span lang="en">Question not listed? In the demo we show a real case and answer everything for your situation.</span></p>
       <a class="btn btn-ghost" href="/demo.html"><span lang="nl">plan een demo (30 min)</span><span lang="en">book a demo (30 min)</span></a>
@@ -666,6 +666,6 @@ html:not(.js) .tq[data-switch-panel]{display:flex;}
 
 <!--FOOTER-->
 
-<script src="/assets/medu-gallery.js?v=23" defer></script>
+<script src="/assets/medu-gallery.js?v=24" defer></script>
 </body>
 </html>
