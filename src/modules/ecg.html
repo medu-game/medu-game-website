@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Module ECG-interpretatie | Medu.game</title>
 <link rel="stylesheet" href="/assets/medu-fonts.css">
-<link rel="stylesheet" href="/assets/medu.css?v=34">
-<link rel="stylesheet" href="/assets/medu-gallery.css?v=34">
+<link rel="stylesheet" href="/assets/medu.css?v=37">
+<link rel="stylesheet" href="/assets/medu-gallery.css?v=37">
 <style>
 /* ECG-only layout; shared module components live in /assets/medu.css */
 .md-ecg{grid-template-columns:minmax(0,400px) minmax(0,1fr);}
@@ -20,9 +20,8 @@
 @media(max-width:900px){.thumbs-7{grid-template-columns:repeat(4,minmax(0,1fr));}}
 
 /* patient cards on navy (the active one lights up) */
-.pts{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:24px;}
-.pt{display:flex; flex-direction:column; gap:14px; min-height:340px; padding:30px; border:0; border-radius:var(--radius-xl); text-align:left; font:inherit; cursor:pointer; background:rgba(255,255,255,.04); color:#fff; box-shadow:inset 0 0 0 1px rgba(255,255,255,.1); transition:background var(--motion-base) var(--ease), color var(--motion-base) var(--ease);}
-.pt:hover{background:rgba(255,255,255,.08);}
+.pts{margin:0; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:24px;}
+.pt{display:flex; flex-direction:column; gap:14px; min-height:340px; padding:30px; border:0; border-radius:var(--radius-xl); text-align:left; font:inherit; background:rgba(255,255,255,.04); color:#fff; box-shadow:inset 0 0 0 1px rgba(255,255,255,.1); transition:background var(--motion-base) var(--ease), color var(--motion-base) var(--ease);}
 .pt .top{display:flex; align-items:center; justify-content:space-between; width:100%; gap:var(--space-3);}
 .pt img{width:72px; height:72px; border-radius:50%; object-fit:cover; display:block; box-shadow:0 0 0 3px var(--pink);}
 .pt .meta{font-size:13px; font-weight:600; opacity:.7; text-align:right;}
@@ -30,11 +29,6 @@
 .pt .ds{font-size:var(--text-base); line-height:1.6; font-weight:300; opacity:.84;}
 .pt .tags{margin-top:auto; display:flex; flex-wrap:wrap; gap:6px;}
 .pt .tags span{padding:6px 12px; border-radius:var(--radius-pill); font-size:13px; font-weight:600; background:rgba(255,200,199,.14); color:var(--pink);}
-.pt.is-active{background:var(--pink-light); color:var(--blue-dark);}
-.pt.is-active img{box-shadow:0 0 0 3px var(--blue-dark);}
-.pt.is-active .tags span{background:#fff; color:var(--blue-dark);}
-.pt:focus-visible{outline:none; box-shadow:0 0 0 3px var(--pink);}
-html:not(.js) .pt{cursor:default;}
 .pts-note{margin-top:32px; font-size:var(--text-sm); color:rgba(255,255,255,.7); max-width:760px;}
 @media(max-width:900px){.pts{grid-template-columns:1fr;} .pt{min-height:0;}}
 
@@ -101,8 +95,8 @@ html:not(.js) .q-card{display:flex; flex-direction:column; gap:40px;}
       </div>
     </div>
     <div class="mh-media">
-      <video muted loop playsinline preload="none" poster="/assets/loops/ecg-loop.webp" data-src="/assets/loops/ecg-loop.mp4" aria-label="gameplay uit de ECG-module" data-aria-label-en="gameplay from the ECG module"></video>
-      <span class="chip-solid"><span class="pdot"></span><span lang="nl">gameplay · ECG-module</span><span lang="en">gameplay · ECG module</span></span>
+      <video muted loop playsinline preload="none" poster="/assets/loops/ecg-loop.webp" data-src="/assets/loops/ecg-loop.mp4" aria-label="beelden uit de ECG-module" data-aria-label-en="gameplay from the ECG module"></video>
+      <span class="chip-solid"><span class="pdot"></span><span lang="nl">in de game · ECG-module</span><span lang="en">gameplay · ECG module</span></span>
     </div>
   </div>
 </section>
@@ -125,10 +119,9 @@ html:not(.js) .q-card{display:flex; flex-direction:column; gap:40px;}
       </div>
       <figure class="vidfig phase-fig">
         <div class="vidbox">
-          <img class="md-panel is-active" data-switch-panel="p1" src="/assets/modules/gallery/ecg/ecg-03.webp" width="1280" height="720" loading="lazy" alt="screenshot uit de ECG-module: elektroden plaatsen" data-alt-en="screenshot from the ECG module: placing electrodes" />
-          <img class="md-panel" data-switch-panel="p2" src="/assets/modules/gallery/ecg/ecg-72.webp" width="1280" height="720" loading="lazy" alt="screenshot uit de ECG-module: systematisch analyseren" data-alt-en="screenshot from the ECG module: analysing systematically" />
-          <img class="md-panel" data-switch-panel="p3" src="/assets/modules/gallery/ecg/ecg-06.webp" width="1280" height="720" loading="lazy" alt="screenshot uit de ECG-module: naar een besluit" data-alt-en="screenshot from the ECG module: to a decision" />
-          <span class="chip-solid"><span class="pdot"></span>screenshot</span>
+          <img class="md-panel is-active" data-switch-panel="p1" src="/assets/modules/gallery/ecg/ecg-03.webp" width="1280" height="720" loading="lazy" alt="beeld uit de ECG-module: elektroden plaatsen" data-alt-en="screenshot from the ECG module: placing electrodes" />
+          <img class="md-panel" data-switch-panel="p2" src="/assets/modules/gallery/ecg/ecg-72.webp" width="1280" height="720" loading="lazy" alt="beeld uit de ECG-module: systematisch analyseren" data-alt-en="screenshot from the ECG module: analysing systematically" />
+          <img class="md-panel" data-switch-panel="p3" src="/assets/modules/gallery/ecg/ecg-06.webp" width="1280" height="720" loading="lazy" alt="beeld uit de ECG-module: naar een besluit" data-alt-en="screenshot from the ECG module: to a decision" />
         </div>
         <figcaption>
           <span class="is-active" data-switch-panel="p1"><span lang="nl">In de game plaats je de 10 elektroden zelf op de virtuele patiënt, anatomisch correct, om meetfouten te voorkomen.</span><span lang="en">In the game you place the 10 electrodes on the virtual patient yourself, anatomically correct, to avoid measurement errors.</span></span>
@@ -154,12 +147,12 @@ html:not(.js) .q-card{display:flex; flex-direction:column; gap:40px;}
       <div class="gal-top">
         <figure class="vidfig">
           <div class="vidbox">
-            <video controls preload="metadata" playsinline poster="/assets/modules/video/posters/ecg.webp" aria-label="walkthrough van de ECG-module" data-aria-label-en="walkthrough of the ECG module">
+            <video controls preload="metadata" playsinline poster="/assets/modules/video/posters/ecg.webp" aria-label="rondleiding door de ECG-module" data-aria-label-en="walkthrough of the ECG module">
               <source src="/assets/modules/video/ecg.webm" type="video/webm" />
               <source src="/assets/modules/video/ecg.mp4" type="video/mp4" />
             </video>
           </div>
-          <figcaption><span class="t"><span lang="nl">Walkthrough van de module</span><span lang="en">Walkthrough of the module</span></span><span class="m"><span lang="nl">1:20 · met geluid</span><span lang="en">1:20 · with sound</span></span></figcaption>
+          <figcaption><span class="t"><span lang="nl">Rondleiding door de module</span><span lang="en">Walkthrough of the module</span></span><span class="m"><span lang="nl">1:20 · met geluid</span><span lang="en">1:20 · with sound</span></span></figcaption>
         </figure>
         <figure class="vidfig">
           <div class="vidbox gal-view">
@@ -206,25 +199,25 @@ html:not(.js) .q-card{display:flex; flex-direction:column; gap:40px;}
       <span class="section-num"><span lang="nl">de patiënten</span><span lang="en">the patients</span></span>
       <h2 class="section-title"><span lang="nl">Drie virtuele patiënten, elk een eigen verhaal.</span><span lang="en">Three virtual patients, each with their own story.</span></h2>
     </div>
-    <div class="pts reveal" data-switch>
-      <button type="button" class="pt is-active" data-switch-to="r1">
+    <div class="pts reveal">
+      <article class="pt">
         <span class="top"><img src="/assets/modules/patients/ravi.webp" width="240" height="240" loading="lazy" alt="virtuele patiënt Ravi Singh" data-alt-en="virtual patient Ravi Singh" /><span class="meta"><span lang="nl">44 jaar · 3 routes</span><span lang="en">44 years · 3 routes</span></span></span>
         <span class="nm">Ravi Singh</span>
         <span class="ds"><span lang="nl">Een 44-jarige man met hypertensie en diabetes type 2 en een zwaar belaste familieanamnese, vader én zus jong overleden aan een hartinfarct. Neem het ECG af, los problemen bij het afnemen op en redeneer klinisch.</span><span lang="en">A 44-year-old man with hypertension and type 2 diabetes and a heavy family history, father and sister both died young of a heart attack. Record the ECG, troubleshoot issues during recording and reason clinically.</span></span>
         <span class="tags"><span><span lang="nl">hypertensie</span><span lang="en">hypertension</span></span><span><span lang="nl">diabetes type 2</span><span lang="en">type 2 diabetes</span></span><span><span lang="nl">familieanamnese</span><span lang="en">family history</span></span></span>
-      </button>
-      <button type="button" class="pt" data-switch-to="r2">
+      </article>
+      <article class="pt">
         <span class="top"><img src="/assets/modules/patients/annet.webp" width="240" height="240" loading="lazy" alt="virtuele patiënt Annet de Leeuw" data-alt-en="virtual patient Annet de Leeuw" /><span class="meta"><span lang="nl">48 jaar · eerste harthulp</span><span lang="en">48 years · cardiac emergency</span></span></span>
         <span class="nm">Annet de Leeuw</span>
         <span class="ds"><span lang="nl">Een 48-jarige vrouw meldt zich op de eerste harthulp: sinds gisteravond moe, spierpijn in rug, schouders en nek en wat druk op de borst. Sterke familieanamnese, haar broer en beide ouders hadden een hartinfarct.</span><span lang="en">A 48-year-old woman presents at the cardiac emergency unit: since last night tired, muscle pain in back, shoulders and neck, and some chest pressure. Strong family history, her brother and both parents had a heart attack.</span></span>
         <span class="tags"><span><span lang="nl">druk op de borst</span><span lang="en">chest pressure</span></span><span><span lang="nl">familieanamnese</span><span lang="en">family history</span></span></span>
-      </button>
-      <button type="button" class="pt" data-switch-to="r3">
+      </article>
+      <article class="pt">
         <span class="top"><img src="/assets/modules/patients/nouria.webp" width="240" height="240" loading="lazy" alt="virtuele patiënt Nouria Al'Asad" data-alt-en="virtual patient Nouria Al'Asad" /><span class="meta"><span lang="nl">interne geneeskunde</span><span lang="en">internal medicine</span></span></span>
         <span class="nm">Nouria Al'Asad</span>
         <span class="ds"><span lang="nl">Opgenomen op de interne geneeskunde na diarree in de vakantie. Tijdens de opname is een ECG nodig, plaats de elektroden correct en beoordeel het ECG systematisch.</span><span lang="en">Admitted to internal medicine after diarrhoea on holiday. During admission an ECG is needed, place the electrodes correctly and assess the ECG systematically.</span></span>
         <span class="tags"><span><span lang="nl">opname</span><span lang="en">admission</span></span><span><span lang="nl">diarree</span><span lang="en">diarrhoea</span></span></span>
-      </button>
+      </article>
     </div>
     <p class="pts-note reveal"><span lang="nl">Samen met de 3 routes van Ravi Singh en een interactieve ECG-animatie die het 7+2-stappenplan uitlegt, kom je op 6 scenario's.</span><span lang="en">Together with Ravi Singh's 3 routes and an interactive ECG animation explaining the 7+2 step plan, you reach 6 scenarios.</span></p>
   </div>
@@ -333,6 +326,6 @@ html:not(.js) .q-card{display:flex; flex-direction:column; gap:40px;}
 
 <!--FOOTER-->
 
-<script src="/assets/medu-gallery.js?v=34" defer></script>
+<script src="/assets/medu-gallery.js?v=37" defer></script>
 </body>
 </html>

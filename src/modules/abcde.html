@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Module ABCDE-methode | Medu.game</title>
 <link rel="stylesheet" href="/assets/medu-fonts.css">
-<link rel="stylesheet" href="/assets/medu.css?v=34">
-<link rel="stylesheet" href="/assets/medu-gallery.css?v=34">
+<link rel="stylesheet" href="/assets/medu.css?v=37">
+<link rel="stylesheet" href="/assets/medu-gallery.css?v=37">
 <style>
 /* ABCDE-only layout; shared module components live in /assets/medu.css */
 .play{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,600px); gap:72px; align-items:center;}
@@ -115,8 +115,8 @@
       </div>
     </div>
     <div class="mh-media">
-      <video muted loop playsinline preload="none" poster="/assets/loops/abcde-loop.webp" data-src="/assets/loops/abcde-loop.mp4" aria-label="gameplay uit de ABCDE-module" data-aria-label-en="gameplay from the ABCDE module"></video>
-      <span class="chip-solid"><span class="pdot"></span><span lang="nl">gameplay · ABCDE-module</span><span lang="en">gameplay · ABCDE module</span></span>
+      <video muted loop playsinline preload="none" poster="/assets/loops/abcde-loop.webp" data-src="/assets/loops/abcde-loop.mp4" aria-label="beelden uit de ABCDE-module" data-aria-label-en="gameplay from the ABCDE module"></video>
+      <span class="chip-solid"><span class="pdot"></span><span lang="nl">in de game · ABCDE-module</span><span lang="en">gameplay · ABCDE module</span></span>
     </div>
   </div>
 </section>
@@ -142,25 +142,25 @@
 <!-- 02 zo speel je het -->
 <section id="ervaring" class="band-pink">
   <div class="wrap play">
-    <div class="head-stack reveal" data-switch>
+    <div class="head-stack reveal">
       <span class="section-num"><span lang="nl">zo speel je het</span><span lang="en">how you play it</span></span>
       <h2 class="section-title"><span lang="nl">Neem de leiding in een levensechte spoedopvang.</span><span lang="en">Take the lead in a true-to-life emergency.</span></h2>
       <p class="section-lede"><span lang="nl">Geen passieve kennistest, maar actieve training van klinische vaardigheden én teamcoördinatie.</span><span lang="en">Not a passive knowledge test, but active training of clinical skills and team coordination.</span></p>
-      <div class="steps">
-        <button type="button" class="step" data-switch-to="s1"><span class="n">1</span><span class="t"><span lang="nl">Je wordt direct in een spoedsituatie geplaatst en bent verantwoordelijk voor de volledige opvang van een kritiek zieke patiënt.</span><span lang="en">You're placed straight into an emergency and are responsible for the full management of a critically ill patient.</span></span></button>
-        <button type="button" class="step is-active" data-switch-to="s2"><span class="n">2</span><span class="t"><span lang="nl">Je doorloopt elke fase, airway, breathing, circulation, disability, exposure.</span><span lang="en">You work through every step, airway, breathing, circulation, disability, exposure.</span></span></button>
-        <button type="button" class="step" data-switch-to="s3"><span class="n">3</span><span class="t"><span lang="nl">Je geeft opdrachten aan een virtuele verpleegkundige, raadpleegt specialisten en zet interventies in, onder tijdsdruk.</span><span lang="en">You give orders to a virtual nurse, consult specialists and deploy interventions, under time pressure.</span></span></button>
-        <button type="button" class="step" data-switch-to="s4"><span class="n">4</span><span class="t"><span lang="nl">Na elk scenario volgt een gedetailleerde debriefing met concrete verbeterpunten.</span><span lang="en">After each scenario you get a detailed debriefing with concrete points to improve.</span></span></button>
-      </div>
+      <ol class="steps">
+        <li class="step"><span class="n">1</span><span class="t"><span lang="nl">Je wordt direct in een spoedsituatie geplaatst en bent verantwoordelijk voor de volledige opvang van een kritiek zieke patiënt.</span><span lang="en">You're placed straight into an emergency and are responsible for the full management of a critically ill patient.</span></span></li>
+        <li class="step"><span class="n">2</span><span class="t"><span lang="nl">Je doorloopt elke fase, airway, breathing, circulation, disability, exposure.</span><span lang="en">You work through every step, airway, breathing, circulation, disability, exposure.</span></span></li>
+        <li class="step"><span class="n">3</span><span class="t"><span lang="nl">Je geeft opdrachten aan een virtuele verpleegkundige, raadpleegt specialisten en zet interventies in, onder tijdsdruk.</span><span lang="en">You give orders to a virtual nurse, consult specialists and deploy interventions, under time pressure.</span></span></li>
+        <li class="step"><span class="n">4</span><span class="t"><span lang="nl">Na elk scenario volgt een gedetailleerde debriefing met concrete verbeterpunten.</span><span lang="en">After each scenario you get a detailed debriefing with concrete points to improve.</span></span></li>
+      </ol>
     </div>
     <figure class="vidfig reveal">
       <div class="vidbox" style="border-radius:var(--radius-2xl)">
-        <video controls preload="metadata" playsinline poster="/assets/modules/video/posters/abcde.webp" aria-label="walkthrough van de ABCDE-module" data-aria-label-en="walkthrough of the ABCDE module">
+        <video controls preload="metadata" playsinline poster="/assets/modules/video/posters/abcde.webp" aria-label="rondleiding door de ABCDE-module" data-aria-label-en="walkthrough of the ABCDE module">
           <source src="/assets/modules/video/abcde.webm" type="video/webm" />
           <source src="/assets/modules/video/abcde.mp4" type="video/mp4" />
         </video>
       </div>
-      <figcaption><span class="t">gameplay · walkthrough</span><span class="m"><span lang="nl">1:16 · met geluid</span><span lang="en">1:16 · with sound</span></span></figcaption>
+      <figcaption><span class="t"><span lang="nl">rondleiding door de module</span><span lang="en">gameplay · walkthrough</span></span><span class="m"><span lang="nl">1:16 · met geluid</span><span lang="en">1:16 · with sound</span></span></figcaption>
     </figure>
   </div>
 </section>
@@ -315,18 +315,17 @@
         <span class="section-num">05 · debriefing</span>
         <h2 class="section-title"><span lang="nl">Na elk scenario: feedback op maat, per ABCDE-letter.</span><span lang="en">After every scenario: tailored feedback, per ABCDE letter.</span></h2>
       </div>
-      <p class="section-lede"><span lang="nl">Elke debriefing sluit aan op de keuzes die je maakte en bestaat uit drie delen: hoe <b>compleet</b> je first-assessment was, <b>algemene feedback</b> bij dit scenario, en concrete <b>feedback op je handelen</b>, wat ging fout of werd vergeten, en waarom.</span><span lang="en">Every debriefing builds on the choices you made and has three parts: how <b>complete</b> your first assessment was, <b>general feedback</b> for this scenario, and concrete <b>feedback on your actions</b>, what went wrong or was missed, and why.</span></p>
+      <p class="section-lede"><span lang="nl">Elke debriefing sluit aan op de keuzes die je maakte en bestaat uit drie delen: hoe <b>compleet</b> je eerste beoordeling was, <b>algemene feedback</b> bij dit scenario, en concrete <b>feedback op je handelen</b>, wat ging fout of werd vergeten, en waarom.</span><span lang="en">Every debriefing builds on the choices you made and has three parts: how <b>complete</b> your first assessment was, <b>general feedback</b> for this scenario, and concrete <b>feedback on your actions</b>, what went wrong or was missed, and why.</span></p>
     </div>
     <div class="md md-deb reveal" data-switch>
       <div class="md-list deb-list">
-        <button type="button" class="md-pick is-active" data-switch-to="d1"><span class="hd"><span class="no">01</span><span class="ttl"><span lang="nl">Compleetheid</span><span lang="en">Completeness</span></span></span><span class="sub"><span lang="nl">Heb je de hele ABCDE nagelopen? Per onderdeel zie je wat je wél en niet hebt beoordeeld, met een score voor je first-assessment.</span><span lang="en">Did you work through the whole ABCDE? Per element you see what you did and didn't assess, with a score for your first assessment.</span></span></button>
+        <button type="button" class="md-pick is-active" data-switch-to="d1"><span class="hd"><span class="no">01</span><span class="ttl"><span lang="nl">Compleetheid</span><span lang="en">Completeness</span></span></span><span class="sub"><span lang="nl">Heb je de hele ABCDE nagelopen? Per onderdeel zie je wat je wél en niet hebt beoordeeld, met een score voor je eerste beoordeling.</span><span lang="en">Did you work through the whole ABCDE? Per element you see what you did and didn't assess, with a score for your first assessment.</span></span></button>
         <button type="button" class="md-pick" data-switch-to="d2"><span class="hd"><span class="no">02</span><span class="ttl"><span lang="nl">Algemene feedback</span><span lang="en">General feedback</span></span></span><span class="sub"><span lang="nl">Kennis en aandachtspunten bij dit specifieke scenario, de redenering achter de juiste aanpak.</span><span lang="en">Knowledge and key points for this specific scenario, the reasoning behind the right approach.</span></span></button>
         <button type="button" class="md-pick" data-switch-to="d3"><span class="hd"><span class="no">03</span><span class="ttl"><span lang="nl">Feedback op je handelen</span><span lang="en">Feedback on your actions</span></span></span><span class="sub"><span lang="nl">Concreet: wat ging fout of werd vergeten, en precies waaróm, gekoppeld aan jouw keuzes en de juiste waarde.</span><span lang="en">Concrete: what went wrong or was missed, and exactly why, linked to your choices and the correct value.</span></span></button>
       </div>
       <div class="deb-shot">
         <div class="deb-bar">
           <span class="t">debriefing · <span class="is-active" data-switch-panel="d1"><span lang="nl">compleetheid</span><span lang="en">completeness</span></span><span data-switch-panel="d2"><span lang="nl">algemene feedback</span><span lang="en">general feedback</span></span><span data-switch-panel="d3"><span lang="nl">feedback op je handelen</span><span lang="en">feedback on your actions</span></span></span>
-          <span class="c">screenshot</span>
         </div>
         <div class="deb-img">
           <img class="md-panel is-active" data-switch-panel="d1" src="/assets/modules/debriefing/deb-compleetheid.webp" loading="lazy" alt="voorbeeld debriefing, abcde-volledigheid met groene vinkjes per onderdeel" data-alt-en="example debriefing, ABCDE completeness with green checkmarks per element" />
@@ -412,6 +411,6 @@
 
 <!--FOOTER-->
 
-<script src="/assets/medu-gallery.js?v=34" defer></script>
+<script src="/assets/medu-gallery.js?v=37" defer></script>
 </body>
 </html>

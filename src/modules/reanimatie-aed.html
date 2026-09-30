@@ -5,22 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Module reanimatie &amp; AED | Medu.game</title>
 <link rel="stylesheet" href="/assets/medu-fonts.css">
-<link rel="stylesheet" href="/assets/medu.css?v=34">
-<link rel="stylesheet" href="/assets/medu-gallery.css?v=34">
+<link rel="stylesheet" href="/assets/medu.css?v=37">
+<link rel="stylesheet" href="/assets/medu-gallery.css?v=37">
 <style>
 /* Reanimatie-only layout; shared module components live in /assets/medu.css */
 .bls{position:relative;}
 .bls-line{position:absolute; left:60px; right:60px; top:36px; height:2px; background:rgba(0,0,72,.12);}
-.bls-steps{position:relative; display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:20px;}
-.bls-step{display:flex; flex-direction:column; align-items:flex-start; gap:16px; padding:0; border:0; background:transparent; text-align:left; font:inherit; color:var(--blue-dark); cursor:pointer;}
+.bls-steps{position:relative; margin:0; padding:0; list-style:none; display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:20px;}
+.bls-step{display:flex; flex-direction:column; align-items:flex-start; gap:16px; padding:0; border:0; background:transparent; text-align:left; font:inherit; color:var(--blue-dark);}
 .bls-step .n{width:72px; height:72px; border-radius:22px; display:grid; place-items:center; font-family:var(--font-display); font-size:26px; font-weight:500; background:var(--pink-light); color:var(--blue-dark); transition:background var(--motion-base) var(--ease), color var(--motion-base) var(--ease), box-shadow var(--motion-base) var(--ease);}
-.bls-step.is-before .n{background:var(--pink);}
-.bls-step.is-active .n{background:var(--blue-dark); color:#fff; box-shadow:0 0 0 8px rgba(0,0,72,.08);}
+.bls-step .n{background:var(--blue-dark); color:#fff;}
 .bls-step .tx{display:flex; flex-direction:column; gap:8px;}
 .bls-step .tt{font-size:20px; font-weight:600;}
 .bls-step .dd{font-size:15px; line-height:1.55; color:rgba(0,0,72,.72);}
-.bls-step:focus-visible{outline:none;} .bls-step:focus-visible .n{box-shadow:0 0 0 3px var(--blue-dark);}
-html:not(.js) .bls-step{cursor:default;}
 @media(max-width:900px){.bls-line{display:none;} .bls-steps{grid-template-columns:1fr; gap:var(--space-5);} .bls-step{flex-direction:row; align-items:center;} .bls-step .n{flex:0 0 auto; width:56px; height:56px; border-radius:18px; font-size:22px;}}
 
 .rsc{position:relative; overflow:hidden; min-height:400px; padding:34px; border-radius:26px; background:#fff; color:var(--blue-dark); box-shadow:0 1px 2px rgba(0,0,72,.05), 0 16px 40px -16px rgba(0,0,72,.3); display:flex; flex-direction:column; gap:16px;}
@@ -85,7 +82,7 @@ html:not(.js) .bls-step{cursor:default;}
       </div>
     </div>
     <div class="mh-media">
-      <video muted loop playsinline preload="none" poster="/assets/loops/reanimatie-aed-loop.webp" data-src="/assets/loops/reanimatie-aed-loop.mp4" aria-label="gameplay uit de reanimatie-module" data-aria-label-en="gameplay from the resuscitation module"></video>
+      <video muted loop playsinline preload="none" poster="/assets/loops/reanimatie-aed-loop.webp" data-src="/assets/loops/reanimatie-aed-loop.mp4" aria-label="beelden uit de reanimatie-module" data-aria-label-en="gameplay from the resuscitation module"></video>
     </div>
   </div>
 </section>
@@ -104,12 +101,12 @@ html:not(.js) .bls-step{cursor:default;}
       <div class="gal-top">
         <figure class="vidfig">
           <div class="vidbox">
-            <video controls preload="metadata" playsinline poster="/assets/modules/video/posters/reanimatie-aed.webp" aria-label="walkthrough van de reanimatie-module" data-aria-label-en="walkthrough of the resuscitation module">
+            <video controls preload="metadata" playsinline poster="/assets/modules/video/posters/reanimatie-aed.webp" aria-label="rondleiding door de reanimatie-module" data-aria-label-en="walkthrough of the resuscitation module">
               <source src="/assets/modules/video/reanimatie-aed.webm" type="video/webm" />
               <source src="/assets/modules/video/reanimatie-aed.mp4" type="video/mp4" />
             </video>
           </div>
-          <figcaption><span class="t"><span lang="nl">Walkthrough van de module</span><span lang="en">Walkthrough of the module</span></span><span class="m"><span lang="nl">0:56 · met geluid</span><span lang="en">0:56 · with sound</span></span></figcaption>
+          <figcaption><span class="t"><span lang="nl">Rondleiding door de module</span><span lang="en">Walkthrough of the module</span></span><span class="m"><span lang="nl">0:56 · met geluid</span><span lang="en">0:56 · with sound</span></span></figcaption>
         </figure>
         <figure class="vidfig">
           <div class="vidbox gal-view">
@@ -162,15 +159,15 @@ html:not(.js) .bls-step{cursor:default;}
       </div>
       <p class="section-lede"><span lang="nl">Vijf stappen van het BLS-protocol, in de volgorde waarin je ze in een echte noodsituatie doorloopt. Klik een stap aan.</span><span lang="en">Five steps of the BLS protocol, in the order you work through them in a real emergency. Click a step.</span></p>
     </div>
-    <div class="bls reveal" data-switch>
+    <div class="bls reveal">
       <div class="bls-line" aria-hidden="true"></div>
-      <div class="bls-steps">
-        <button type="button" class="bls-step is-active" data-switch-to="b1"><span class="n">1</span><span class="tx"><span class="tt"><span lang="nl">Bewustzijn</span><span lang="en">Responsiveness</span></span><span class="dd"><span lang="nl">Weet hoe je het bewustzijn controleert.</span><span lang="en">Know how to check responsiveness.</span></span></span></button>
-        <button type="button" class="bls-step" data-switch-to="b2"><span class="n">2</span><span class="tx"><span class="tt"><span lang="nl">Luchtweg</span><span lang="en">Airway</span></span><span class="dd"><span lang="nl">Weet hoe je de luchtweg opent.</span><span lang="en">Know how to open the airway.</span></span></span></button>
-        <button type="button" class="bls-step" data-switch-to="b3"><span class="n">3</span><span class="tx"><span class="tt"><span lang="nl">Ademhaling</span><span lang="en">Breathing</span></span><span class="dd"><span lang="nl">Weet hoe je de ademhaling controleert.</span><span lang="en">Know how to check breathing.</span></span></span></button>
-        <button type="button" class="bls-step" data-switch-to="b4"><span class="n">4</span><span class="tx"><span class="tt"><span lang="nl">Reanimeren</span><span lang="en">CPR</span></span><span class="dd"><span lang="nl">Weet hoe je moet reanimeren (tempo &amp; diepte).</span><span lang="en">Know how to perform CPR (rate &amp; depth).</span></span></span></button>
-        <button type="button" class="bls-step" data-switch-to="b5"><span class="n">5</span><span class="tx"><span class="tt">AED</span><span class="dd"><span lang="nl">Weet wanneer en hoe je de AED toepast.</span><span lang="en">Know when and how to use the AED.</span></span></span></button>
-      </div>
+      <ol class="bls-steps">
+        <li class="bls-step"><span class="n">1</span><span class="tx"><span class="tt"><span lang="nl">Bewustzijn</span><span lang="en">Responsiveness</span></span><span class="dd"><span lang="nl">Weet hoe je het bewustzijn controleert.</span><span lang="en">Know how to check responsiveness.</span></span></span></li>
+        <li class="bls-step"><span class="n">2</span><span class="tx"><span class="tt"><span lang="nl">Luchtweg</span><span lang="en">Airway</span></span><span class="dd"><span lang="nl">Weet hoe je de luchtweg opent.</span><span lang="en">Know how to open the airway.</span></span></span></li>
+        <li class="bls-step"><span class="n">3</span><span class="tx"><span class="tt"><span lang="nl">Ademhaling</span><span lang="en">Breathing</span></span><span class="dd"><span lang="nl">Weet hoe je de ademhaling controleert.</span><span lang="en">Know how to check breathing.</span></span></span></li>
+        <li class="bls-step"><span class="n">4</span><span class="tx"><span class="tt"><span lang="nl">Reanimeren</span><span lang="en">CPR</span></span><span class="dd"><span lang="nl">Weet hoe je moet reanimeren (tempo &amp; diepte).</span><span lang="en">Know how to perform CPR (rate &amp; depth).</span></span></span></li>
+        <li class="bls-step"><span class="n">5</span><span class="tx"><span class="tt">AED</span><span class="dd"><span lang="nl">Weet wanneer en hoe je de AED toepast.</span><span lang="en">Know when and how to use the AED.</span></span></span></li>
+      </ol>
     </div>
   </div>
 </section>
@@ -270,6 +267,6 @@ html:not(.js) .bls-step{cursor:default;}
 
 <!--FOOTER-->
 
-<script src="/assets/medu-gallery.js?v=34" defer></script>
+<script src="/assets/medu-gallery.js?v=37" defer></script>
 </body>
 </html>

@@ -40,7 +40,7 @@ const FOOTER = `<footer class="site-footer">
     <div class="footer-cols">
       <div class="footer-col footer-brand">
         <span class="footer-word">medu<span class="dot">.</span>game</span>
-        <p><span lang="nl">Virtuele scenario's spelen, echte skills verbeteren.</span><span lang="en">Play virtual scenarios, improve real skills.</span></p>
+        <p><span lang="nl">Virtuele scenario's spelen, echte vaardigheden verbeteren.</span><span lang="en">Play virtual scenarios, improve real skills.</span></p>
       </div>
       <div class="footer-col">
         <span class="lbl"><span lang="nl">locaties</span><span lang="en">locations</span></span>
