@@ -350,7 +350,7 @@ html:not(.js) .js-only{display:none !important;}
 .steps{display:flex; flex-direction:column; gap:4px; margin:0; padding:0; list-style:none;}
 .step{display:flex; gap:18px; align-items:flex-start; padding:18px 20px; border-radius:18px; color:var(--blue-dark); transition:background var(--motion-slow) var(--ease), box-shadow var(--motion-slow) var(--ease);}
 .step .n{flex:0 0 auto; width:36px; height:36px; border-radius:50%; display:grid; place-items:center; font-size:15px; font-weight:600; background:var(--blue-dark); color:#fff; transition:background var(--motion-slow) var(--ease), color var(--motion-slow) var(--ease);}
-.step .t{font-size:var(--text-base); line-height:1.55; font-weight:300; padding-top:6px;}
+.step .t{font-size:var(--text-base); line-height:1.55; font-weight:300; padding-top:3px;} /* x-height centred on the 36px circle (measured) */
 .steps.is-cycling .step .n{background:rgba(0,0,72,.08); color:var(--blue-dark);}
 .steps.is-cycling .step.is-active{background:#fff; box-shadow:0 12px 32px -12px rgba(0,0,72,.25);}
 .steps.is-cycling .step.is-active .n{background:var(--blue-dark); color:#fff;}
