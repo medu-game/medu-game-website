@@ -40,8 +40,8 @@
   position:absolute; left:var(--space-5); top:var(--space-5); z-index:2;
   display:inline-flex; align-items:center; gap:8px;
   padding:7px 14px; border-radius:var(--radius-pill);
-  background:rgba(0,0,72,.55); backdrop-filter:blur(6px);
-  color:var(--pink-light); font-weight:600; font-size:var(--text-xs);
+  background:rgba(0,0,72,.86); /* same as .chip-solid */
+  color:#fff; font-weight:600; font-size:13px; white-space:nowrap;
 }
 .video-embed video{position:absolute; inset:0; width:100%; height:100%; object-fit:contain; background:#000; display:block; z-index:3;}
 .video-embed.is-playing{cursor:default;}
