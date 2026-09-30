@@ -69,6 +69,53 @@
 .goals-split .section-title{font-size:clamp(32px,3.6vw,46px);}
 .goals-split h2.small{font-size:32px; line-height:1.2;}
 @media(max-width:1000px){.goals-split{grid-template-columns:1fr; gap:var(--space-12);}}
+
+/* probeer het zelf: decision moment ([data-bm], behaviour in medu-gallery.js) */
+[data-bm] [hidden]{display:none !important;}
+.bm{display:grid; grid-template-columns:minmax(0,5fr) minmax(0,7fr); border-radius:var(--radius-2xl); overflow:hidden; box-shadow:inset 0 0 0 1px rgba(255,255,255,.12);}
+.bm-stage{position:relative; display:flex; flex-direction:column; gap:var(--space-6); padding:32px; background:var(--navy-deep);}
+.bm-note{align-self:flex-start; padding:6px 12px; border-radius:var(--radius-pill); background:rgba(255,255,255,.08); font-size:var(--text-xs); font-weight:600; color:rgba(255,255,255,.72);}
+.bm-rail{display:flex; gap:10px;}
+.bm-rail span{width:44px; height:44px; border-radius:50%; display:grid; place-items:center; font-family:var(--font-display); font-size:18px; font-weight:500; background:rgba(255,255,255,.08); color:rgba(255,255,255,.5); transition:background var(--motion-base) var(--ease), color var(--motion-base) var(--ease);}
+.bm-rail span.is-now{background:#fff; color:var(--blue-dark);}
+.bm-rail span.is-done{background:var(--pink); color:var(--blue-dark);}
+.bm-monitor{display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:12px; margin:0; padding:18px 20px; border-radius:var(--radius-lg); background:rgba(255,255,255,.04); box-shadow:inset 0 0 0 1px rgba(255,255,255,.1);}
+.bm-vital{display:flex; flex-direction:column; gap:4px; min-width:0;}
+.bm-vital dt{font-size:12px; font-weight:600; letter-spacing:.04em; color:rgba(255,255,255,.55);}
+.bm-vital dd{margin:0; font-family:var(--font-mono); font-size:15px; font-variant-numeric:tabular-nums; color:rgba(255,255,255,.45); white-space:nowrap;}
+.bm-vital dd .hot{color:var(--pink);}
+.bm-vital dd span[data-k]:not([data-k="0"]):not(.hot){color:#fff;}
+.bm-voices{min-height:3.2em;}
+.bm-voice{font-size:var(--text-lg); font-style:italic; color:rgba(255,255,255,.82);}
+.bm-score{margin-top:auto; font-family:var(--font-display); font-size:28px; color:#fff; font-variant-numeric:tabular-nums;}
+.bm-score .of,.bm-big .of{font-size:.55em; color:rgba(255,255,255,.5);}
+.bm-panel{padding:40px; display:flex; flex-direction:column;}
+.bm-panel > [data-bm-view],.bm-step{display:flex; flex-direction:column; gap:18px; align-items:flex-start;}
+.bm-kick{font-size:13px; font-weight:600; letter-spacing:.06em; color:var(--pink);}
+.bm-case{max-width:60ch; font-size:17px; line-height:1.6; color:rgba(255,255,255,.8);}
+.bm-q{font-size:26px; line-height:1.25; color:#fff; outline:none;}
+.bm-opts{display:flex; flex-direction:column; gap:10px; width:100%;}
+.bm-opt{display:flex; align-items:center; gap:14px; width:100%; min-height:56px; padding:12px 18px; border:0; border-radius:16px; font:inherit; font-size:var(--text-base); text-align:left; color:#fff; background:rgba(255,255,255,.05); box-shadow:inset 0 0 0 1px rgba(255,255,255,.16); cursor:pointer; transition:background var(--motion-fast) var(--ease), opacity var(--motion-fast) var(--ease), transform var(--motion-fast) var(--ease);}
+@media(hover:hover){.bm-opt:not([aria-disabled]):hover{background:rgba(255,255,255,.1);}}
+.bm-opt:not([aria-disabled]):active{transform:scale(.99);}
+.bm-opt:focus-visible{outline:none; box-shadow:0 0 0 3px var(--pink);}
+.bm-opt .k{flex:0 0 auto; width:32px; height:32px; border-radius:50%; display:grid; place-items:center; font-size:var(--text-sm); font-weight:600; background:rgba(255,255,255,.1);}
+.bm-opt .t{flex:1 1 auto;}
+.bm-opt .bm-ic{display:none; flex:0 0 auto;}
+.bm-opt[aria-disabled]{cursor:default;}
+.bm-opt.is-right{background:var(--pink); color:var(--blue-dark); box-shadow:none;}
+.bm-opt.is-right .k{background:rgba(0,0,72,.12);}
+.bm-opt.is-right .bm-ic:first-of-type{display:block;}
+.bm-opt.is-wrong{box-shadow:inset 0 0 0 1.5px var(--pink);}
+.bm-opt.is-wrong .bm-ic:last-of-type{display:block; color:var(--pink);}
+.bm-opt.is-dim{opacity:.4;}
+.bm-live{width:100%;}
+.bm-fb{display:flex; flex-direction:column; gap:6px; padding:16px 18px; border-radius:16px; background:rgba(255,200,199,.08); animation:fadeIn 180ms var(--ease) both;}
+.bm-fb .h{font-size:13px; font-weight:600; letter-spacing:.06em; color:var(--pink);}
+.bm-fb p{font-size:var(--text-base); line-height:1.55; color:rgba(255,255,255,.86);}
+.bm-big{font-family:var(--font-display); font-size:64px; line-height:1; color:#fff; font-variant-numeric:tabular-nums;}
+.bm-cta{display:flex; flex-wrap:wrap; gap:14px;}
+@media(max-width:900px){.bm{grid-template-columns:minmax(0,1fr);} .bm-stage{padding:24px; gap:var(--space-5);} .bm-panel{padding:28px 24px;} .bm-monitor{grid-template-columns:repeat(3,minmax(0,1fr));} .bm-score{display:none;} .bm-q{font-size:22px;}}
 </style>
 </head>
 <body>
@@ -135,6 +182,110 @@
       <div class="tcard"><span class="bignum">01</span><h3><span lang="nl">Inconsistente blootstelling</span><span lang="en">Inconsistent exposure</span></h3><p><span lang="nl">Spoedsituaties doen zich niet op afspraak voor. Ervaring bouwt onvoorspelbaar op, met variabele aanpak als gevolg.</span><span lang="en">Emergencies don't happen on schedule. Experience builds up unpredictably, resulting in variable practice.</span></p></div>
       <div class="tcard"><span class="bignum">02</span><h3><span lang="nl">Beperkte herhaling</span><span lang="en">Limited repetition</span></h3><p><span lang="nl">Meesterschap vereist frequente, doelgerichte oefening. Klinische stages bieden die herhaling zelden.</span><span lang="en">Mastery requires frequent, deliberate practice. Clinical placements rarely offer that repetition.</span></p></div>
       <div class="tcard"><span class="bignum">03</span><h3><span lang="nl">Risico op de werkvloer</span><span lang="en">Risk on the job</span></h3><p><span lang="nl">Hoogrisico-vaardigheden leren op echte patiënten remt het opbouwen van zelfvertrouwen.</span><span lang="en">Learning high-risk skills on real patients holds back the building of confidence.</span></p></div>
+    </div>
+  </div>
+</section>
+
+<!-- probeer het zelf: speelbaar beslismoment (alleen met JS) -->
+<section id="probeer" class="band-navy js-only">
+  <div class="wrap">
+    <div class="head-split reveal">
+      <div>
+        <span class="section-num"><span lang="nl">probeer het zelf</span><span lang="en">try it yourself</span></span>
+        <h2 class="section-title"><span lang="nl">Drie beslissingen. Directe feedback.</span><span lang="en">Three decisions. Instant feedback.</span></h2>
+      </div>
+      <p class="section-lede"><span lang="nl">Een vereenvoudigd fragment uit een ABCDE-casus, ±1 minuut. In de module speel je dit in 3D, met een virtueel team en een volledige debriefing.</span><span lang="en">A simplified excerpt from an ABCDE case, about a minute. In the module you play this in 3D, with a virtual team and a full debriefing.</span></p>
+    </div>
+    <div class="bm" data-bm>
+      <div class="bm-stage">
+        <span class="bm-note"><span lang="nl">vereenvoudigd · ter illustratie</span><span lang="en">simplified · for illustration</span></span>
+        <div class="bm-rail" data-bm-rail aria-hidden="true"><span>A</span><span>B</span><span>C</span><span>D</span><span>E</span></div>
+        <dl class="bm-monitor" aria-label="monitor" data-aria-label-en="monitor">
+            <div class="bm-vital" data-bm-vital><dt><span lang="nl">luchtweg</span><span lang="en">airway</span></dt><dd><span data-k="0">?</span><span data-k="1"><span lang="nl">vrij</span><span lang="en">clear</span></span></dd></div>
+            <div class="bm-vital" data-bm-vital><dt><span lang="nl">AH</span><span lang="en">RR</span></dt><dd><span data-k="0">—</span><span data-k="1" class="hot">28/min</span></dd></div>
+            <div class="bm-vital" data-bm-vital><dt>SpO₂</dt><dd><span data-k="0">—</span><span data-k="1" class="hot">88%</span><span data-k="2" data-b="ok">94% · O₂</span><span data-k="2" data-b="miss" class="hot">87%</span></dd></div>
+            <div class="bm-vital" data-bm-vital><dt><span lang="nl">HF</span><span lang="en">HR</span></dt><dd><span data-k="0">—</span><span data-k="2" class="hot">118</span></dd></div>
+            <div class="bm-vital" data-bm-vital><dt><span lang="nl">RR</span><span lang="en">BP</span></dt><dd><span data-k="0">—</span><span data-k="2" class="hot">100/60</span></dd></div>
+        </dl>
+        <div class="bm-voices">
+          <p class="bm-voice" data-bm-voice="0" hidden>“<span lang="nl">ik… krijg… geen lucht…</span><span lang="en">I… can't… get any air…</span>”</p>
+          <p class="bm-voice" data-bm-voice="1" hidden>“<span lang="nl">het wordt… steeds erger…</span><span lang="en">it's… getting… worse…</span>”</p>
+          <p class="bm-voice" data-bm-voice="2" hidden>“<span lang="nl">ik voel me… zo slap…</span><span lang="en">I feel… so weak…</span>”</p>
+        </div>
+        <div class="bm-score"><span data-bm-score>0</span><span class="of">/30</span></div>
+      </div>
+      <div class="bm-panel">
+        <div data-bm-view="intro">
+          <span class="bm-kick"><span lang="nl">speel het zelf · ±1 minuut</span><span lang="en">play it yourself · about a minute</span></span>
+          <h3 class="bm-q"><span lang="nl">Een benauwde patiënt op de SEH. Waar begin je?</span><span lang="en">A breathless patient in the emergency department. Where do you start?</span></h3>
+          <p class="bm-case"><span lang="nl">Je beoordeelt A, B en C. Bij elke stap kies je uit drie opties en krijg je meteen feedback.</span><span lang="en">You assess A, B and C. At each step you choose from three options and get feedback straight away.</span></p>
+          <button type="button" class="btn btn-pink" data-bm-start><span lang="nl">start het beslismoment</span><span lang="en">start the decision moment</span><svg class="arr" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path class="ic" d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        </div>
+        <div data-bm-view="play" hidden>
+        <div class="bm-step" data-bm-step="0" hidden>
+          <span class="bm-kick"><span lang="nl">stap 1 van 3</span><span lang="en">step 1 of 3</span> · A · airway</span>
+          <p class="bm-case"><span lang="nl">Mevrouw Jansen (64) wordt benauwd binnengebracht op de SEH. Ze zit rechtop en praat in korte zinnen.</span><span lang="en">Mrs Jansen (64) is brought into the emergency department short of breath. She is sitting upright and speaking in short sentences.</span></p>
+          <h3 class="bm-q" tabindex="-1"><span lang="nl">Waar begin je?</span><span lang="en">Where do you start?</span></h3>
+          <div class="bm-opts">
+          <button type="button" class="bm-opt" data-ok><span class="k">1</span><span class="t"><span lang="nl">Luchtweg beoordelen: praat ze, hoor je bijgeluiden?</span><span lang="en">Assess the airway: is she talking, can you hear added sounds?</span></span><svg class="bm-ic" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path class="ic" d="M20 6 9 17l-5-5"/></svg><svg class="bm-ic" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path class="ic" d="M18 6 6 18M6 6l12 12"/></svg></button>
+          <button type="button" class="bm-opt"><span class="k">2</span><span class="t"><span lang="nl">Direct een ECG laten maken</span><span lang="en">Get an ECG straight away</span></span><svg class="bm-ic" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path class="ic" d="M20 6 9 17l-5-5"/></svg><svg class="bm-ic" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path class="ic" d="M18 6 6 18M6 6l12 12"/></svg></button>
+          <button type="button" class="bm-opt"><span class="k">3</span><span class="t"><span lang="nl">De familie vragen naar de voorgeschiedenis</span><span lang="en">Ask the family about her medical history</span></span><svg class="bm-ic" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path class="ic" d="M20 6 9 17l-5-5"/></svg><svg class="bm-ic" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path class="ic" d="M18 6 6 18M6 6l12 12"/></svg></button>
+          </div>
+          <div class="bm-live" aria-live="polite">
+          <div class="bm-fb is-ok" data-bm-fb="0" hidden><span class="h"><span lang="nl">goed gedaan · +10</span><span lang="en">well done · +10</span></span><p><span lang="nl">Je begint altijd bij A. Ze praat in korte zinnen, dus de luchtweg is vrij. Door naar B.</span><span lang="en">You always start at A. She is speaking in short sentences, so the airway is clear. On to B.</span></p></div>
+          <div class="bm-fb" data-bm-fb="1" hidden><span class="h"><span lang="nl">niet helemaal</span><span lang="en">not quite</span></span><p><span lang="nl">Een ECG hoort bij C. Eerst sluit je een bedreigde luchtweg uit: A gaat voor alles.</span><span lang="en">An ECG belongs to C. First you rule out a threatened airway: A comes before everything.</span></p></div>
+          <div class="bm-fb" data-bm-fb="2" hidden><span class="h"><span lang="nl">niet helemaal</span><span lang="en">not quite</span></span><p><span lang="nl">Belangrijk, maar later. Bij een acute patiënt pak je eerst aan wat het snelst bedreigend is, in de volgorde van ABCDE.</span><span lang="en">Important, but later. In an acutely ill patient you first deal with what threatens life fastest, in ABCDE order.</span></p></div>
+          </div>
+          <button type="button" class="btn btn-pink" data-bm-next hidden><span lang="nl">volgende stap</span><span lang="en">next step</span><svg class="arr" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path class="ic" d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        </div>
+        <div class="bm-step" data-bm-step="1" hidden>
+          <span class="bm-kick"><span lang="nl">stap 2 van 3</span><span lang="en">step 2 of 3</span> · B · breathing</span>
+          <p class="bm-case"><span lang="nl">Ademfrequentie 28 per minuut, saturatie 88% zonder zuurstof.</span><span lang="en">Respiratory rate 28 per minute, oxygen saturation 88% on room air.</span></p>
+          <h3 class="bm-q" tabindex="-1"><span lang="nl">Wat doe je nu?</span><span lang="en">What do you do now?</span></h3>
+          <div class="bm-opts">
+          <button type="button" class="bm-opt"><span class="k">1</span><span class="t"><span lang="nl">Een thoraxfoto aanvragen en de uitslag afwachten</span><span lang="en">Request a chest X-ray and wait for the result</span></span><svg class="bm-ic" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path class="ic" d="M20 6 9 17l-5-5"/></svg><svg class="bm-ic" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path class="ic" d="M18 6 6 18M6 6l12 12"/></svg></button>
+          <button type="button" class="bm-opt" data-ok><span class="k">2</span><span class="t"><span lang="nl">Zuurstof toedienen en daarna de saturatie opnieuw beoordelen</span><span lang="en">Give oxygen, then reassess the saturation</span></span><svg class="bm-ic" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path class="ic" d="M20 6 9 17l-5-5"/></svg><svg class="bm-ic" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path class="ic" d="M18 6 6 18M6 6l12 12"/></svg></button>
+          <button type="button" class="bm-opt"><span class="k">3</span><span class="t"><span lang="nl">Door naar C, de ademhaling komt later</span><span lang="en">Move on to C, breathing can wait</span></span><svg class="bm-ic" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path class="ic" d="M20 6 9 17l-5-5"/></svg><svg class="bm-ic" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path class="ic" d="M18 6 6 18M6 6l12 12"/></svg></button>
+          </div>
+          <div class="bm-live" aria-live="polite">
+          <div class="bm-fb" data-bm-fb="0" hidden><span class="h"><span lang="nl">niet helemaal</span><span lang="en">not quite</span></span><p><span lang="nl">Aanvullend onderzoek komt later. Een saturatie van 88% vraagt nú om behandeling.</span><span lang="en">Further investigations come later. A saturation of 88% needs treatment now.</span></p></div>
+          <div class="bm-fb is-ok" data-bm-fb="1" hidden><span class="h"><span lang="nl">goed gedaan · +10</span><span lang="en">well done · +10</span></span><p><span lang="nl">Hypoxie behandel je direct in B, en je evalueert meteen het effect. Door naar C.</span><span lang="en">You treat hypoxia straight away in B, and immediately evaluate the effect. On to C.</span></p></div>
+          <div class="bm-fb" data-bm-fb="2" hidden><span class="h"><span lang="nl">niet helemaal</span><span lang="en">not quite</span></span><p><span lang="nl">Je gaat pas naar C als je B hebt behandeld. Een lage saturatie laat je niet liggen.</span><span lang="en">You only move on to C once you have treated B. You don't leave a low saturation untreated.</span></p></div>
+          </div>
+          <button type="button" class="btn btn-pink" data-bm-next hidden><span lang="nl">volgende stap</span><span lang="en">next step</span><svg class="arr" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path class="ic" d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        </div>
+        <div class="bm-step" data-bm-step="2" hidden>
+          <span class="bm-kick"><span lang="nl">stap 3 van 3</span><span lang="en">step 3 of 3</span> · C · circulation</span>
+          <p class="bm-case"><span lang="nl">Hartfrequentie 118 per minuut, bloeddruk 100/60, capillaire refill 4 seconden. Ze voelt klam aan.</span><span lang="en">Heart rate 118 per minute, blood pressure 100/60, capillary refill 4 seconds. She feels clammy.</span></p>
+          <h3 class="bm-q" tabindex="-1"><span lang="nl">Je volgende stap?</span><span lang="en">Your next step?</span></h3>
+          <div class="bm-opts">
+          <button type="button" class="bm-opt"><span class="k">1</span><span class="t"><span lang="nl">Door naar D: de bloeddruk is nog acceptabel</span><span lang="en">Move on to D: the blood pressure is still acceptable</span></span><svg class="bm-ic" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path class="ic" d="M20 6 9 17l-5-5"/></svg><svg class="bm-ic" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path class="ic" d="M18 6 6 18M6 6l12 12"/></svg></button>
+          <button type="button" class="bm-opt"><span class="k">2</span><span class="t"><span lang="nl">Mevrouw plat neerleggen</span><span lang="en">Lay her flat</span></span><svg class="bm-ic" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path class="ic" d="M20 6 9 17l-5-5"/></svg><svg class="bm-ic" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path class="ic" d="M18 6 6 18M6 6l12 12"/></svg></button>
+          <button type="button" class="bm-opt" data-ok><span class="k">3</span><span class="t"><span lang="nl">Infuus inbrengen, bloed afnemen en de circulatie verder beoordelen</span><span lang="en">Insert an IV cannula, take bloods and assess the circulation further</span></span><svg class="bm-ic" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path class="ic" d="M20 6 9 17l-5-5"/></svg><svg class="bm-ic" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path class="ic" d="M18 6 6 18M6 6l12 12"/></svg></button>
+          </div>
+          <div class="bm-live" aria-live="polite">
+          <div class="bm-fb" data-bm-fb="0" hidden><span class="h"><span lang="nl">niet helemaal</span><span lang="en">not quite</span></span><p><span lang="nl">Tachycardie en een verlengde capillaire refill wijzen op een verminderde circulatie. Eerst handelen, dan door.</span><span lang="en">Tachycardia and a prolonged capillary refill point to reduced circulation. Act first, then move on.</span></p></div>
+          <div class="bm-fb" data-bm-fb="1" hidden><span class="h"><span lang="nl">niet helemaal</span><span lang="en">not quite</span></span><p><span lang="nl">Een benauwde patiënt laat je juist rechtop zitten. Plat leggen maakt ademen zwaarder.</span><span lang="en">You keep a breathless patient sitting upright. Lying flat makes breathing harder.</span></p></div>
+          <div class="bm-fb is-ok" data-bm-fb="2" hidden><span class="h"><span lang="nl">goed gedaan · +10</span><span lang="en">well done · +10</span></span><p><span lang="nl">Je zorgt voor toegang, verzamelt informatie en herbeoordeelt. In de module ga je nu verder met D en E.</span><span lang="en">You secure access, gather information and reassess. In the module you now carry on with D and E.</span></p></div>
+          </div>
+          <button type="button" class="btn btn-pink" data-bm-next hidden><span lang="nl">bekijk resultaat</span><span lang="en">see your result</span><svg class="arr" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path class="ic" d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        </div>
+        </div>
+        <div data-bm-view="done" hidden>
+          <span class="bm-kick"><span lang="nl">fragment voltooid</span><span lang="en">excerpt complete</span></span>
+          <div class="bm-big"><span data-bm-score>0</span><span class="of">/30</span></div>
+          <div data-bm-result>
+            <h3 class="bm-q" data-min="30"><span lang="nl">Uitstekend: je werkt systematisch volgens ABCDE.</span><span lang="en">Excellent: you work systematically through ABCDE.</span></h3>
+            <h3 class="bm-q" data-min="20" hidden><span lang="nl">Goed bezig. Eén beslissing kan nog scherper.</span><span lang="en">Good work. One decision could be sharper.</span></h3>
+            <h3 class="bm-q" data-min="0" hidden><span lang="nl">Precies daarom oefen je dit eerst veilig in een simulatie.</span><span lang="en">That is exactly why you practise this safely in a simulation first.</span></h3>
+          </div>
+          <p class="bm-case"><span lang="nl">Dit was een voorproefje. In de module speel je 4 volledige scenario's en een tutorial in de 3D-omgeving, met debriefing per scenario.</span><span lang="en">This was a taster. In the module you play 4 full scenarios and a tutorial in the 3D environment, with a debriefing after each scenario.</span></p>
+          <div class="bm-cta">
+            <a class="btn btn-pink" href="/demo.html"><span lang="nl">plan een demo (30 min)</span><span lang="en">book a demo (30 min)</span></a>
+            <button type="button" class="btn btn-ghost-dark" data-bm-restart><span lang="nl">opnieuw spelen</span><span lang="en">play again</span></button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>

@@ -2,6 +2,7 @@
  * medu.game — media behaviour
  *   1. click-to-play video embeds  (.video-embed[data-src])
  *   2. switchers + count-up (see the block at the end of this file)
+ *   3. decision moment ([data-bm]: a short playable case, copy in the HTML)
  * No dependencies. Progressive enhancement: without JS the posters/links
  * remain visible and every switcher shows its first state.
  * ───────────────────────────────────────────────────────────────────────── */
@@ -257,8 +258,101 @@
     list.addEventListener("mouseleave", function () { hover = false; sync(); });
   }
 
+  /* ── 3. decision moment ────────────────────────────────────────────────
+   * <div data-bm> holds everything; all copy lives in the markup:
+   *   [data-bm-view="intro|play|done"]  the three views
+   *   [data-bm-step="0..n"]             one step each, inside the play view
+   *     .bm-opt[data-ok]                the correct option has data-ok
+   *     [data-bm-fb="i"]                feedback for option i (hidden)
+   *     [data-bm-next]                  next / see result
+   *   [data-bm-start], [data-bm-restart]
+   *   [data-bm-rail] > span             A–E rail; gets is-done / is-now
+   *   [data-bm-vital] > [data-k]        variants shown once step k is reached;
+   *                                     data-b="ok|miss" picks by the step-2 answer
+   *   [data-bm-score]                   filled with the score
+   *   [data-bm-result] > [data-min]     highest data-min ≤ score is shown
+   * Options stay focusable after answering (aria-disabled, not disabled) so
+   * keyboard focus is never dropped; feedback is announced via aria-live. */
+  function initDecision(root) {
+    var steps = [].slice.call(root.querySelectorAll("[data-bm-step]"));
+    var st = { k: -1, score: 0, bOk: null, picked: null };
+    function q(sel) { return root.querySelector(sel); }
+    function show(el, on) { if (el) el.hidden = !on; }
+    function view(name) {
+      root.querySelectorAll("[data-bm-view]").forEach(function (v) { show(v, v.getAttribute("data-bm-view") === name); });
+      root.setAttribute("data-bm-state", name);
+    }
+    function paint() {
+      var k = st.k;
+      root.querySelectorAll("[data-bm-rail] > *").forEach(function (r, i) {
+        r.classList.toggle("is-done", k >= 0 && i < Math.min(k, steps.length));
+        r.classList.toggle("is-now", k >= 0 && k < steps.length && i === k);
+      });
+      root.querySelectorAll("[data-bm-vital]").forEach(function (v) {
+        var best = null;
+        v.querySelectorAll("[data-k]").forEach(function (c) {
+          var ck = parseInt(c.getAttribute("data-k"), 10), b = c.getAttribute("data-b");
+          var fits = ck <= Math.max(k, 0) && (!b || (b === "ok") === !!st.bOk);
+          if (fits && (!best || ck >= parseInt(best.getAttribute("data-k"), 10))) best = c;
+        });
+        v.querySelectorAll("[data-k]").forEach(function (c) { show(c, c === best); });
+      });
+      root.querySelectorAll("[data-bm-voice]").forEach(function (vc) { show(vc, parseInt(vc.getAttribute("data-bm-voice"), 10) === k); });
+    }
+    function goStep(i) {
+      st.k = i; st.picked = null;
+      steps.forEach(function (s, j) { show(s, j === i); });
+      var s = steps[i];
+      s.querySelectorAll(".bm-opt").forEach(function (o) { o.removeAttribute("aria-disabled"); o.classList.remove("is-right", "is-wrong", "is-dim"); });
+      s.querySelectorAll("[data-bm-fb]").forEach(function (f) { show(f, false); });
+      show(s.querySelector("[data-bm-next]"), false);
+      view("play"); paint();
+      var h = s.querySelector("[tabindex='-1']"); if (h) h.focus({ preventScroll: true });
+    }
+    function pick(s, o, idx) {
+      if (st.picked !== null) return;
+      st.picked = idx;
+      var ok = o.hasAttribute("data-ok");
+      if (ok) st.score += 10;
+      if (steps.indexOf(s) === 1) st.bOk = ok;
+      s.querySelectorAll(".bm-opt").forEach(function (b) {
+        b.setAttribute("aria-disabled", "true");
+        if (b.hasAttribute("data-ok")) b.classList.add("is-right");
+        else if (b === o) b.classList.add("is-wrong");
+        else b.classList.add("is-dim");
+      });
+      show(s.querySelector("[data-bm-fb='" + idx + "']"), true);
+      show(s.querySelector("[data-bm-next]"), true);
+      root.querySelectorAll("[data-bm-score]").forEach(function (e) { e.textContent = st.score; });
+      paint();
+    }
+    function finish() {
+      st.k = steps.length;
+      var shown = null;
+      root.querySelectorAll("[data-bm-result] > [data-min]").forEach(function (r) {
+        if (st.score >= parseInt(r.getAttribute("data-min"), 10) && (!shown || +r.getAttribute("data-min") > +shown.getAttribute("data-min"))) shown = r;
+      });
+      root.querySelectorAll("[data-bm-result] > [data-min]").forEach(function (r) { show(r, r === shown); });
+      view("done"); paint();
+      if (shown) { shown.setAttribute("tabindex", "-1"); shown.focus({ preventScroll: true }); }
+    }
+    function start() {
+      st = { k: -1, score: 0, bOk: null, picked: null };
+      root.querySelectorAll("[data-bm-score]").forEach(function (e) { e.textContent = "0"; });
+      goStep(0);
+    }
+    steps.forEach(function (s, i) {
+      s.querySelectorAll(".bm-opt").forEach(function (o, idx) { o.addEventListener("click", function () { pick(s, o, idx); }); });
+      var nx = s.querySelector("[data-bm-next]");
+      if (nx) nx.addEventListener("click", function () { if (i + 1 < steps.length) goStep(i + 1); else finish(); });
+    });
+    root.querySelectorAll("[data-bm-start],[data-bm-restart]").forEach(function (b) { b.addEventListener("click", start); });
+    view("intro"); paint();
+  }
+
   function init() {
     document.querySelectorAll("[data-cycle]").forEach(initCycle);
+    document.querySelectorAll("[data-bm]").forEach(initDecision);
     initVideosInView();
     document.querySelectorAll("[data-switch]").forEach(initSwitch);
     initCounters();

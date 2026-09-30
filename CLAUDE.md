@@ -131,6 +131,7 @@ first state of every switcher without JS). Features are driven entirely by marku
 - **Switchers** (hero video tabs, module picker, device frame, testimonial carousel, screenshot viewer, scenario/debriefing lists): a `[data-switch]` root with `[data-switch-to="key"]` triggers, `[data-switch-panel="key"]` panels and optional `[data-switch-step="±1"]` / `data-switch-auto="ms"`. Mark the initial trigger and panel `is-active` in the markup. The root gets `data-active="key"`; triggers before the active one get `is-before`. Keep all copy in the HTML (bilingual spans), never in JS.
 - **Muted loops:** `video[data-src]` (no `src`) only loads and plays while its panel is active, on screen and `prefers-reduced-motion` is off.
 - **Count-up:** `[data-count-to="2000" data-count-suffix="+"]`.
+- **Decision moment** (ABCDE page, `#probeer`): `[data-bm]` with `[data-bm-view="intro|play|done"]`, `[data-bm-step]` steps holding `.bm-opt` buttons (correct one has `data-ok`) and `[data-bm-fb="i"]` feedback, a `[data-bm-rail]`, `[data-bm-vital]` values with `data-k` (and `data-b="ok|miss"`) variants, and `[data-bm-result] > [data-min]` result titles. All copy is in the HTML; the section is `.js-only`. Its clinical content must be checked by an expert before it goes live.
 - `html.js` is set by the script; `.js-only` elements are hidden without JS.
 
 To add media or a switcher, write the markup with the right classes/data-attributes — no JS changes needed.
