@@ -344,11 +344,16 @@ html:not(.js) .js-only{display:none !important;}
 .band-navy .md-pick:focus-visible{box-shadow:0 0 0 3px var(--pink);}
 @media(max-width:900px){.md{grid-template-columns:minmax(0,1fr);}}
 
-/* numbered steps (static list; nothing to click) */
-.steps{display:flex; flex-direction:column; gap:6px; margin:0; padding:0; list-style:none;}
-.step{display:flex; gap:18px; align-items:flex-start; padding:12px 0; color:var(--blue-dark);}
-.step .n{flex:0 0 auto; width:36px; height:36px; border-radius:50%; display:grid; place-items:center; font-size:15px; font-weight:600; background:var(--blue-dark); color:#fff;}
+/* numbered steps: not clickable. With [data-cycle] a soft highlight walks
+   1 → 2 → 3 → 4 while the list is on screen (medu-gallery.js); every row keeps
+   the same padding so nothing shifts when the highlight moves. */
+.steps{display:flex; flex-direction:column; gap:4px; margin:0; padding:0; list-style:none;}
+.step{display:flex; gap:18px; align-items:flex-start; padding:18px 20px; border-radius:18px; color:var(--blue-dark); transition:background var(--motion-slow) var(--ease), box-shadow var(--motion-slow) var(--ease);}
+.step .n{flex:0 0 auto; width:36px; height:36px; border-radius:50%; display:grid; place-items:center; font-size:15px; font-weight:600; background:var(--blue-dark); color:#fff; transition:background var(--motion-slow) var(--ease), color var(--motion-slow) var(--ease);}
 .step .t{font-size:var(--text-base); line-height:1.55; font-weight:300; padding-top:6px;}
+.steps.is-cycling .step .n{background:rgba(0,0,72,.08); color:var(--blue-dark);}
+.steps.is-cycling .step.is-active{background:#fff; box-shadow:0 12px 32px -12px rgba(0,0,72,.25);}
+.steps.is-cycling .step.is-active .n{background:var(--blue-dark); color:#fff;}
 
 /* native video in a rounded frame + caption */
 .vidfig{margin:0; display:flex; flex-direction:column; gap:12px;}

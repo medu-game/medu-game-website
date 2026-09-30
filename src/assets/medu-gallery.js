@@ -237,7 +237,28 @@
     els.forEach(function (el) { obs.observe(el); });
   }
 
+  /* ── ambient step highlight ([data-cycle="ms"]) ─────────────────────────
+   * Not interactive: moves .is-active over the children while the list is on
+   * screen, pauses on hover, and does nothing under reduced motion. */
+  function initCycle(list) {
+    var items = [].slice.call(list.children), ms = parseInt(list.getAttribute("data-cycle"), 10) || 3200;
+    if (!motionOK || !io || items.length < 2) return;
+    var i = 0, timer = null, inView = false, hover = false;
+    list.classList.add("is-cycling");
+    function paint() { items.forEach(function (el, k) { el.classList.toggle("is-active", k === i); }); }
+    function sync() {
+      var run = inView && !hover;
+      if (run && !timer) timer = setInterval(function () { i = (i + 1) % items.length; paint(); }, ms);
+      if (!run && timer) { clearInterval(timer); timer = null; }
+    }
+    paint();
+    new IntersectionObserver(function (en) { inView = en[0].isIntersecting; sync(); }, { threshold: 0.4 }).observe(list);
+    list.addEventListener("mouseenter", function () { hover = true; sync(); });
+    list.addEventListener("mouseleave", function () { hover = false; sync(); });
+  }
+
   function init() {
+    document.querySelectorAll("[data-cycle]").forEach(initCycle);
     initVideosInView();
     document.querySelectorAll("[data-switch]").forEach(initSwitch);
     initCounters();
