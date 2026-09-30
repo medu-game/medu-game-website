@@ -58,7 +58,7 @@ const FOOTER = `<footer class="site-footer">
         <a href="/terms.html"><span lang="nl">gebruiksvoorwaarden</span><span lang="en">terms &amp; conditions</span></a>
       </nav>
     </div>
-    <div class="footer-base"><span>© ${new Date().getFullYear()} medu.game · <span lang="nl">Nederland</span><span lang="en">The Netherlands</span></span></div>
+    <div class="footer-base"><span>© ${new Date().getFullYear()} Medu.game B.V. · <span lang="nl">Nederland</span><span lang="en">The Netherlands</span></span></div>
   </div>
 </footer>`;
 
