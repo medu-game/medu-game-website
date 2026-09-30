@@ -33,7 +33,7 @@ p{margin-top:22px;font-size:26px;line-height:1.4;color:rgba(255,255,255,.8);text
 .shot{position:absolute;left:680px;top:0;width:520px;height:630px;border-radius:32px 0 0 32px;overflow:hidden;background:#000030}
 .shot img{width:100%;height:100%;object-fit:cover;object-position:center}
 </style></head><body>
-<div class="copy"><img class="logo" src="${A}/footer-logo.png"><span class="lbl">${lbl}</span><h1>${title}<span class="dot">.</span></h1><p>${sub}</p><span class="url">medu.game</span></div>
+<div class="copy"><img class="logo" src="${A}/footer-logo.png"><span class="lbl">${lbl}</span><h1>${title}</h1><p>${sub}</p><span class="url">medu.game</span></div>
 <div class="shot"><img src="${A}/${img}"></div></body></html>`;
 const br=await chromium.launch(process.env.CHROME ? {executablePath:process.env.CHROME} : {});
 const pg=await br.newPage({viewport:{width:1200,height:630}});
