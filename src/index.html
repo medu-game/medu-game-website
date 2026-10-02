@@ -161,6 +161,14 @@ button.mx-pick{border:0; font:inherit; cursor:pointer;}
 .lms{display:flex; align-items:center; flex-wrap:wrap; gap:10px; margin-top:48px;}
 .lms .lbl{font-size:var(--text-sm); font-weight:400; color:rgba(0,0,72,.62); margin-right:6px;}
 .lms .pill{padding:8px 16px; border-radius:var(--radius-pill); box-shadow:inset 0 0 0 1px rgba(0,0,72,.14); font-size:var(--text-sm); font-weight:600;}
+/* Leeromgeving: eigen blok met echte screenshot en een eigen intentie (zelf rondkijken), naast "plan een demo" */
+.learnenv{margin:72px 0 0; display:grid; grid-template-columns:minmax(0,420px) minmax(0,1fr); gap:48px; align-items:center; padding:48px; border-radius:var(--radius-2xl); background:var(--blue-dark); color:#fff;}
+.learnenv h3{font-size:32px; line-height:1.2; color:#fff;}
+.learnenv p{margin:16px 0 0; font-size:17px; line-height:1.6; color:rgba(255,255,255,.78); max-width:46ch;}
+.learnenv .btn{margin-top:28px;}
+.learnenv .btn:focus-visible{outline:3px solid var(--pink); outline-offset:3px;}
+.learnenv img{width:100%; height:auto; aspect-ratio:auto; object-fit:contain; border-radius:18px; display:block; box-shadow:0 24px 56px -24px rgba(0,0,0,.6);}
+@media(max-width:900px){.learnenv{grid-template-columns:1fr; gap:var(--space-6); padding:28px;} .learnenv h3{font-size:26px;} .learnenv .shot{order:-1;}}
 .builder{margin:64px 0 0; display:grid; grid-template-columns:minmax(0,1fr) 340px; gap:40px; align-items:center; padding:28px; border-radius:var(--radius-2xl); background:var(--pink-light);}
 .builder img{width:100%; height:auto; border-radius:18px; display:block; box-shadow:0 20px 48px -20px rgba(0,0,72,.35);}
 .builder figcaption{display:flex; flex-direction:column; gap:12px;}
@@ -555,6 +563,15 @@ html:not(.js) .tq[data-switch-panel]{display:flex;}
       <span class="chip-solid dev-sync"><svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path class="ic" d="M21 12a9 9 0 0 1-15.5 6.3M3 12a9 9 0 0 1 15.5-6.3M18.5 2v3.7h-3.7M5.5 22v-3.7h3.7"/></svg><span lang="nl">voortgang gesynchroniseerd</span><span lang="en">progress synced</span></span>
     </div>
 
+    <div class="learnenv reveal" id="leeromgeving">
+      <div>
+        <h3><span lang="nl">Kijk rond in onze leeromgeving.</span><span lang="en">Take a look at our learning environment.</span></h3>
+        <p><span lang="nl">Geen eigen LMS? Dan spelen cursisten de modules in onze leeromgeving, met de theorie, toetsen en het certificaat in dezelfde cursus. Accountbeheer, SSO, gasttoegang en voortgang zitten erin.</span><span lang="en">No LMS of your own? Learners then play the modules in our learning environment, with the theory, tests and certificate in the same course. Account management, SSO, guest access and progress tracking are included.</span></p>
+        <a class="btn btn-pink" href="https://learn.medu.game/"><span lang="nl">bekijk de leeromgeving</span><span lang="en">see it for yourself</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+      <div class="shot"><img src="/assets/platform/learn-cursus.webp" width="1512" height="805" loading="lazy" alt="Een cursus in de leeromgeving van Medu.game: links de onderdelen met voortgang, rechts de cursuspagina" data-alt-en="A course in the Medu.game learning environment: sections and progress on the left, the course page on the right" /></div>
+    </div>
+
     <div class="plat-sub reveal">
       <h3><span lang="nl">Eén stabiel platform. Wij bouwen het, jullie gebruiken het.</span><span lang="en">One stable platform. We build it, you use it.</span></h3>
       <p><span lang="nl">Bouw zelf snel content op een bewezen platform met kant-en-klare bouwblokken, of laat ons de scenario's en simulaties maken, samen met jullie experts.</span><span lang="en">Build content quickly yourself on a proven platform with ready-made building blocks, or let us create the scenarios and simulations, together with your experts.</span></p>
@@ -569,11 +586,6 @@ html:not(.js) .tq[data-switch-panel]{display:flex;}
         <span class="icbox"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path class="ic" d="M12 2l9 5v10l-9 5-9-5V7zM12 12l9-5M12 12v10M12 12L3 7"/></svg></span>
         <h4><span lang="nl">Immersief 3D</span><span lang="en">Immersive 3D</span></h4>
         <p><span lang="nl">Realistische 3D-omgevingen en animaties maken de stof memorabel, een virtueel ziekenhuis om veilig in te oefenen.</span><span lang="en">Realistic 3D environments and animations make the material memorable, a virtual hospital to practise in safely.</span></p>
-      </div>
-      <div class="feat">
-        <span class="icbox"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path class="ic" d="M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zM3 9h18M9 21V9"/></svg></span>
-        <h4><span lang="nl">Ons leerplatform, optioneel</span><span lang="en">Our learning platform, optional</span></h4>
-        <p><span lang="nl">Geen eigen LMS? Speel de modules in ons leerplatform, met theorie ernaast als e-learning. Inclusief accountbeheer, SSO, gasttoegang en analytics.</span><span lang="en">No LMS of your own? Run the modules in our learning platform, with theory alongside as e-learning. Includes account management, SSO, guest access and analytics.</span></p>
       </div>
       <div class="feat">
         <span class="icbox"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path class="ic" d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/></svg></span>
