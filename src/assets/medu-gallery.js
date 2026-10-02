@@ -180,9 +180,16 @@
 
     triggers.forEach(function (t) {
       t.addEventListener("click", function (e) {
+        // A real link opened in a new tab/window keeps working (Cmd/Ctrl/Shift/middle click).
+        if (t.tagName === "A" && (e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1)) return;
         e.preventDefault();
         userPicked = true; stopAuto();
         activate(t.getAttribute("data-switch-to"));
+        // On narrow screens the panel sits below the picker: bring it into view so the tap visibly does something.
+        if (window.matchMedia("(max-width:1000px)").matches) {
+          var panel = sw.querySelector("[data-switch-panel].is-active");
+          if (panel) panel.scrollIntoView({ block: "nearest", behavior: motionOK ? "smooth" : "auto" });
+        }
       });
     });
     sw.querySelectorAll("[data-switch-step]").forEach(function (b) {

@@ -254,6 +254,9 @@ html:not(.js) .js-only{display:none !important;}
 .footer-col .lbl{font-size:13px; font-weight:600; letter-spacing:0.1em; color:rgba(255,255,255,.5);}
 .footer-col a{color:rgba(255,255,255,.82); display:inline-flex; align-items:center; gap:8px; transition:color var(--motion-fast) var(--ease);}
 .footer-col a:hover{color:#fff; text-decoration:underline; text-underline-offset:3px;}
+/* tikvlak >= 44px en een roze focusring op navy (de browserring haalde 3,2:1) */
+@media(pointer:coarse){.footer-col a{min-height:44px;}}
+.site-footer a:focus-visible, .cta-dark .mail:focus-visible, .video-embed:focus-visible{outline:3px solid var(--pink); outline-offset:3px; border-radius:6px;}
 .footer-word{font-family:var(--font-display); font-weight:500; font-size:34px; line-height:1; color:#fff;}
 .footer-word .dot{color:var(--pink);}
 .footer-brand{gap:14px;}

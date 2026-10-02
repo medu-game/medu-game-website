@@ -8,7 +8,7 @@
 <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/Fieldwork-Geo-Light.woff2" crossorigin />
 <title>Medu.game | platform voor opleiders in de zorg</title>
 <link rel="stylesheet" href="/assets/medu-fonts.css">
-<link rel="stylesheet" href="/assets/medu.css?v=40">
+<link rel="stylesheet" href="/assets/medu.css?v=41">
 <style>
 /* Tokens, buttons, section headers, cards, reveal/lift motion, the dark CTA and
    the footer come from /assets/medu.css (shared with the module pages). Only
@@ -45,7 +45,10 @@
 .hero-tab.is-active{background:var(--pink); color:var(--blue-dark);}
 .hero-tab.is-active img{opacity:1;}
 .hero-tab:focus-visible{outline:none; box-shadow:0 0 0 3px var(--pink);}
-@media(max-width:1000px){.hero-grid{grid-template-columns:1fr; min-height:0; padding-top:56px; padding-bottom:56px;}}
+@media(max-width:1000px){.hero-grid{grid-template-columns:1fr; min-height:0; padding-top:56px; padding-bottom:56px; gap:24px;}
+  /* telefoon/tablet: gameplay direct onder de kop, zodat het eerste scherm het product toont */
+  .hero-copy{display:contents;} .hero-copy > .chip{order:1;} .hero-copy > .hero-title{order:2;} .hero-copy > .hero-cta{order:3;} .hero-media{order:4;} .hero-copy > .hero-lede{order:5;}}
+@media(max-width:560px){.hero-copy > .chip{display:none;}}
 @media(max-width:560px){.hero-stats{flex-wrap:wrap;} .hero-tabs{grid-template-columns:repeat(2,minmax(0,1fr));} .hero-stats .k{font-size:32px;}}
 
 /* trust row (static: no marquee, nothing moves without the visitor asking) */
@@ -53,7 +56,7 @@
 .trust-inner{display:flex; align-items:center; gap:var(--space-4) 48px;}
 .trust-lbl{flex:0 0 150px; font-size:var(--text-sm); line-height:1.4; font-weight:400; color:rgba(0,0,72,.62);}
 .trust-list{flex:1 1 auto; display:flex; flex-wrap:wrap; justify-content:flex-start; align-items:center; gap:var(--space-3) 40px; margin:0; padding:0; list-style:none;}
-.trust-list li{font-size:20px; font-weight:600; line-height:1.2; color:rgba(0,0,72,.5); white-space:nowrap;}
+.trust-list li{font-size:20px; font-weight:600; line-height:1.2; color:rgba(0,0,72,.72); white-space:nowrap;}
 @media(max-width:900px){.trust-inner{flex-direction:column; align-items:flex-start;} .trust-lbl{flex:none;} .trust-list{justify-content:flex-start; gap:var(--space-2) var(--space-6);} .trust-list li{font-size:17px;}}
 
 /* 01 what it is: video + steps on navy */
@@ -221,7 +224,7 @@ html:not(.js) .tq[data-switch-panel]{display:flex;}
 .faq .body{margin:0; padding:0 64px 26px 0; font-size:var(--text-base); line-height:1.65; color:rgba(0,0,72,.74); animation:fadeUp 420ms var(--ease) both;}
 @media(max-width:900px){.faq-grid{grid-template-columns:1fr; gap:var(--space-8);} .faq summary{font-size:17px;} .faq .body{padding-right:0;}}
 </style>
-<link rel="stylesheet" href="/assets/medu-gallery.css?v=40">
+<link rel="stylesheet" href="/assets/medu-gallery.css?v=41">
 </head>
 <body>
 
@@ -249,37 +252,32 @@ html:not(.js) .tq[data-switch-panel]{display:flex;}
   <svg class="drift" viewBox="0 0 1200 800" aria-hidden="true"><path class="ic" style="stroke-width:90" d="M 60 900 L 60 300 A 150 150 0 0 1 360 300 L 360 560 A 150 150 0 0 0 660 560 L 660 300 A 150 150 0 0 1 960 300 L 960 560 A 150 150 0 0 0 1260 560"/></svg>
   <div class="wrap hero-grid">
     <div class="hero-copy hero-anim">
-      <span class="chip"><span class="pdot"></span><span><span lang="nl">virtuele simulaties · voor opleiders &amp; L&amp;D in de zorg</span><span lang="en">virtual simulations · for educators &amp; L&amp;D in healthcare</span></span></span>
+      <span class="chip"><span><span lang="nl">virtuele simulaties voor opleiders en L&amp;D in de zorg</span><span lang="en">virtual simulations for educators and L&amp;D in healthcare</span></span></span>
       <h1 class="hero-title"><span lang="nl">Het leerplatform dat de <span class="kloof">kloof</span> tussen theorie en praktijk dicht.</span><span lang="en">The learning platform that closes the <span class="kloof">gap</span> between theory and practice.</span></h1>
       <p class="hero-lede"><span lang="nl">Oefen klinische scenario's in een realistische 3D-omgeving, in de browser of als app, zo vaak als nodig. Zorgprofessionals trainen zelfstandig en komen voorbereid de praktijk in, zo haal je meer uit elk schaars oefenuur.</span><span lang="en">Practise clinical scenarios in a realistic 3D environment, in the browser or as an app, as often as needed. Healthcare professionals train on their own and walk into practice prepared, so every scarce training hour goes further.</span></p>
       <div class="hero-cta">
         <a class="btn btn-pink" href="/demo.html"><span lang="nl">plan een demo (30 min)</span><span lang="en">book a demo (30 min)</span></a>
         <a class="btn btn-ghost-dark" href="#wat"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.9l10.4-6.5a1 1 0 0 0 0-1.8L9.5 4.6A1 1 0 0 0 8 5.5z"/></svg><span lang="nl">bekijk hoe het werkt</span><span lang="en">see how it works</span></a>
       </div>
-      <div class="hero-stats">
-        <div><div class="k"><span lang="nl">overal</span><span lang="en">anywhere</span></div><div class="v"><span lang="nl">browser, telefoon &amp; tablet</span><span lang="en">browser, phone &amp; tablet</span></div></div>
-        <div><div class="k">4</div><div class="v"><span lang="nl">klinische modules · speelklaar</span><span lang="en">clinical modules · ready to play</span></div></div>
-        <div><div class="k" data-count-to="2000" data-count-suffix="+">2000+</div><div class="v"><span lang="nl">professionals getraind</span><span lang="en">professionals trained</span></div></div>
-      </div>
     </div>
 
-    <div class="hero-media" data-switch data-switch-auto="15000">
+    <div class="hero-media" data-switch>
       <div class="hero-stage">
         <div class="is-active" data-switch-panel="abcde">
           <video muted loop playsinline preload="none" poster="/assets/loops/abcde-loop.webp" data-src="/assets/loops/abcde-loop.mp4" aria-label="beelden uit de module ABCDE" data-aria-label-en="gameplay from the ABCDE module"></video>
-          <span class="chip-solid"><span class="pdot pdot-live"></span><span lang="nl">in de game</span><span lang="en">gameplay</span> · ABCDE</span>
+          <span class="chip-solid"><span class="pdot pdot-live"></span><span lang="nl">in de game</span><span lang="en">gameplay</span>: ABCDE</span>
         </div>
         <div data-switch-panel="reanimatie">
           <video muted loop playsinline preload="none" poster="/assets/loops/reanimatie-aed-loop.webp" data-src="/assets/loops/reanimatie-aed-loop.mp4" aria-label="beelden uit de module Reanimatie &amp; AED" data-aria-label-en="gameplay from the Resuscitation &amp; AED module"></video>
-          <span class="chip-solid"><span class="pdot pdot-live"></span><span lang="nl">in de game</span><span lang="en">gameplay</span> · <span lang="nl">Reanimatie &amp; AED</span><span lang="en">Resuscitation &amp; AED</span></span>
+          <span class="chip-solid"><span class="pdot pdot-live"></span><span lang="nl">in de game</span><span lang="en">gameplay</span>: <span lang="nl">Reanimatie &amp; AED</span><span lang="en">Resuscitation &amp; AED</span></span>
         </div>
         <div data-switch-panel="ecg">
           <video muted loop playsinline preload="none" poster="/assets/loops/ecg-loop.webp" data-src="/assets/loops/ecg-loop.mp4" aria-label="beelden uit de module ECG" data-aria-label-en="gameplay from the ECG module"></video>
-          <span class="chip-solid"><span class="pdot pdot-live"></span><span lang="nl">in de game</span><span lang="en">gameplay</span> · ECG</span>
+          <span class="chip-solid"><span class="pdot pdot-live"></span><span lang="nl">in de game</span><span lang="en">gameplay</span>: ECG</span>
         </div>
         <div data-switch-panel="als">
           <video muted loop playsinline preload="none" poster="/assets/loops/als-loop.webp" data-src="/assets/loops/als-loop.mp4" aria-label="beelden uit de module ALS" data-aria-label-en="gameplay from the ALS module"></video>
-          <span class="chip-solid"><span class="pdot pdot-live"></span><span lang="nl">in de game</span><span lang="en">gameplay</span> · ALS</span>
+          <span class="chip-solid"><span class="pdot pdot-live"></span><span lang="nl">in de game</span><span lang="en">gameplay</span>: ALS</span>
         </div>
       </div>
       <div class="hero-tabs js-only" role="tablist" aria-label="kies een module" data-aria-label-en="choose a module">
@@ -295,7 +293,7 @@ html:not(.js) .tq[data-switch-panel]{display:flex;}
 <!-- trust row -->
 <section class="trust" aria-label="samengewerkt met" data-aria-label-en="worked with">
   <div class="wrap trust-inner">
-    <span class="trust-lbl"><span lang="nl">samengewerkt met</span><span lang="en">worked with</span></span>
+    <span class="trust-lbl"><span lang="nl">meer dan 2000 professionals getraind, samen met</span><span lang="en">more than 2000 professionals trained, together with</span></span>
     <ul class="trust-list"><li>NVIC</li><li>NVA</li><li>UMCG</li><li>MUMC+</li><li>Amsterdam UMC</li><li>Gelre ziekenhuizen</li><li>Tergooi MC</li></ul>
   </div>
 </section>
@@ -305,7 +303,6 @@ html:not(.js) .tq[data-switch-panel]{display:flex;}
   <div class="wrap">
     <div class="head-split reveal">
       <div>
-        <span class="section-num"><span lang="nl">wat het is</span><span lang="en">what it is</span></span>
         <h2 class="section-title"><span lang="nl">Game-based learning, gebouwd voor de zorg.</span><span lang="en">Game-based learning, built for healthcare.</span></h2>
       </div>
       <p class="section-lede"><span lang="nl">Game-based learning zet de mechaniek van games in om kennis, competenties en vaardigheden te oefenen. Niet omdat het leuk moet zijn, maar omdat je onthoudt wat je dóet.</span><span lang="en">Game-based learning puts the mechanics of games to work to practise knowledge, competencies and skills. Not because it has to be fun, but because you remember what you do.</span></p>
@@ -314,11 +311,11 @@ html:not(.js) .tq[data-switch-panel]{display:flex;}
     <div class="how reveal">
       <button class="video-embed" data-src="/assets/wat/abcde-intro.webm" data-src-mp4="/assets/wat/abcde-intro.mp4" data-poster="/assets/wat/abcde-intro-poster.webp" aria-label="speel de Medu.game intro-video af" data-aria-label-en="play the Medu.game intro video">
         <img class="video-embed-poster" src="/assets/wat/abcde-intro-poster.webp" width="1280" height="720" alt="beeld uit Medu.game, klinisch redeneren in een 3D-spoedopvang" data-alt-en="still from Medu.game, clinical reasoning in a 3D emergency department" loading="lazy" />
-        <span class="video-embed-label"><span class="pdot"></span><span lang="nl">bekijk in actie · 2:53</span><span lang="en">watch it in action · 2:53</span></span>
+        <span class="video-embed-label"><span lang="nl">bekijk in actie (2:53)</span><span lang="en">watch it in action (2:53)</span></span>
         <span class="video-embed-play"><svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
       </button>
       <div class="how-copy">
-        <span class="kick"><span lang="nl">zo werkt het</span><span lang="en">how it works</span></span>
+        
         <ol class="how-steps">
           <li><span class="n">1</span><span><span lang="nl">Je speelt een <b>realistische casus</b> met personages en een verhaallijn, geen klaslokaal, wel context.</span><span lang="en">You play a <b>realistic case</b> with characters and a storyline, no classroom, real context.</span></span></li>
           <li><span class="n">2</span><span><span lang="nl">Je neemt <b>beslissingen</b>, rondt opdrachten af en past direct toe wat je leert in een veilige simulatie.</span><span lang="en">You make <b>decisions</b>, complete tasks and immediately apply what you learn in a safe simulation.</span></span></li>
@@ -345,7 +342,6 @@ html:not(.js) .tq[data-switch-panel]{display:flex;}
 <section id="leerlijn" class="band-pink">
   <div class="wrap">
     <div class="path-head">
-      <span class="section-num reveal"><span lang="nl">de leerlijn</span><span lang="en">the learning path</span></span>
       <h2 class="section-title reveal"><span lang="nl">De brug tussen theorie en praktijk.</span><span lang="en">The bridge between theory and practice.</span></h2>
       <p class="section-lede reveal" style="margin-top:0"><span lang="nl">Uit ervaring in de praktijk en uit onderzoek weten we waar onze modules het sterkst werken: tussen de theorie en de praktijk in. Theorie is goedkoop, maar passief; praktijkuren zijn onmisbaar, maar schaars en duur. Wie eerst veilig de online simulatie speelt, komt bekwamer de praktijk in. Zo benut je die schaarse oefenuren beter en beklijft theorie beter.</span><span lang="en">From hands-on experience and from research, we know where our modules work best: between theory and practice. Theory is cheap, but passive; hands-on practice hours are essential, but scarce and costly. Those who first play the online simulation safely arrive more competent in practice. That way you make better use of those scarce practice hours, and the theory sticks better.</span></p>
     </div>
@@ -353,17 +349,17 @@ html:not(.js) .tq[data-switch-panel]{display:flex;}
       <div class="path-line" aria-hidden="true"><span class="path-fill"></span></div>
       <ol class="path-steps">
         <li class="tcard">
-          <div class="row"><span class="icbox"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path class="ic" d="M4 19.5V5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2zM4 19.5A1.5 1.5 0 0 0 5.5 21H19"/></svg></span><span class="stepno"><span lang="nl">stap 1</span><span lang="en">step 1</span></span></div>
+          <div class="row"><span class="icbox"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path class="ic" d="M4 19.5V5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2zM4 19.5A1.5 1.5 0 0 0 5.5 21H19"/></svg></span></div>
           <h3><span lang="nl">Theorie</span><span lang="en">Theory</span></h3>
           <p><span lang="nl">Boek of e-learning, de kennisbasis. Goedkoop en schaalbaar, maar passief en snel weggezakt.</span><span lang="en">Book or e-learning, the knowledge base. Cheap and scalable, but passive and quickly forgotten.</span></p>
         </li>
         <li class="tcard path-mid">
-          <div class="row"><span class="brandchip">medu.game</span><span class="stepno"><span class="pdot"></span><span lang="nl">stap 2</span><span lang="en">step 2</span></span></div>
+          <div class="row"><span class="brandchip">medu.game</span></div>
           <h3><span lang="nl">Virtuele simulatie</span><span lang="en">Virtual simulation</span></h3>
           <p><span lang="nl">Pas de theorie veilig toe in realistische scenario's. Overal, zo vaak als nodig, zonder extra kosten per keer, en je ervaart precies wat er in de praktijk van je verwacht wordt.</span><span lang="en">Apply the theory safely in realistic scenarios. Anywhere, as often as needed, at no extra cost per run, and you experience exactly what will be expected of you in practice.</span></p>
         </li>
         <li class="tcard">
-          <div class="row"><span class="icbox"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path class="ic" d="M3 21h18M5 21V8l7-5 7 5v13M12 9v5M9.5 11.5h5"/></svg></span><span class="stepno"><span lang="nl">stap 3</span><span lang="en">step 3</span></span></div>
+          <div class="row"><span class="icbox"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path class="ic" d="M3 21h18M5 21V8l7-5 7 5v13M12 9v5M9.5 11.5h5"/></svg></span></div>
           <h3><span lang="nl">De praktijkdag</span><span lang="en">The hands-on day</span></h3>
           <p><span lang="nl">Onmisbaar, maar schaars en duur. Zorgprofessionals komen voorbereid binnen: meer tijd voor verdieping, minder voor de basis.</span><span lang="en">Essential, but scarce and costly. Healthcare professionals arrive prepared: more time for depth, less for the basics.</span></p>
         </li>
@@ -377,7 +373,6 @@ html:not(.js) .tq[data-switch-panel]{display:flex;}
   <div class="wrap">
     <div class="head-split reveal">
       <div>
-        <span class="section-num"><span lang="nl">waarom het werkt</span><span lang="en">why it works</span></span>
         <h2 class="section-title"><span lang="nl">Leren door te doen blijft hangen.</span><span lang="en">Learning by doing sticks.</span></h2>
       </div>
       <p class="section-lede"><span lang="nl">Boeken en e-learning leggen een onmisbare basis, maar het blijft droge kost. Wat je actief doet, blijft beter hangen: game-based learning verhoogt betrokkenheid, retentie en directe toepasbaarheid, precies waar verplichte nascholing vaak op vastloopt.</span><span lang="en">Books and e-learning lay an essential foundation, but it stays dry material. What you actively do sticks better: game-based learning boosts engagement, retention and real-world transfer, exactly where mandatory training tends to stall.</span></p>
@@ -416,24 +411,24 @@ html:not(.js) .tq[data-switch-panel]{display:flex;}
     <div class="mx reveal" data-switch>
       <div class="mx-list">
         <a class="mx-pick is-active" href="/modules/reanimatie-aed.html" data-switch-to="reanimatie">
-          <span class="r1"><span class="nm"><span class="no">01</span><span class="name"><span lang="nl">Reanimatie &amp; AED</span><span lang="en">Resuscitation &amp; AED</span></span></span><span class="cat">bls</span></span>
-          <span class="meta"><span lang="nl">3 scenario's · ±1 uur speeltijd</span><span lang="en">3 scenarios · ±1 hour of content</span></span>
+          <span class="r1"><span class="nm"><span class="name"><span lang="nl">Reanimatie &amp; AED</span><span lang="en">Resuscitation &amp; AED</span></span></span><span class="cat">bls</span></span>
+          <span class="meta"><span lang="nl">3 scenario's, ±1 uur speeltijd</span><span lang="en">3 scenarios, ±1 hour of content</span></span>
         </a>
         <a class="mx-pick" href="/modules/abcde.html" data-switch-to="abcde">
-          <span class="r1"><span class="nm"><span class="no">02</span><span class="name">ABCDE</span></span><span class="cat"><span lang="nl">acute zorg</span><span lang="en">acute care</span></span></span>
+          <span class="r1"><span class="nm"><span class="name">ABCDE</span></span><span class="cat"><span lang="nl">acute zorg</span><span lang="en">acute care</span></span></span>
           <span class="meta"><span lang="nl">4 scenario's + 1 tutorial</span><span lang="en">4 scenarios + 1 tutorial</span></span>
         </a>
         <a class="mx-pick" href="/modules/ecg.html" data-switch-to="ecg">
-          <span class="r1"><span class="nm"><span class="no">03</span><span class="name">ECG</span></span><span class="cat"><span lang="nl">cardiologie</span><span lang="en">cardiology</span></span></span>
-          <span class="meta"><span lang="nl">6 scenario's · ~15 min elk</span><span lang="en">6 scenarios · ~15 min each</span></span>
+          <span class="r1"><span class="nm"><span class="name">ECG</span></span><span class="cat"><span lang="nl">cardiologie</span><span lang="en">cardiology</span></span></span>
+          <span class="meta"><span lang="nl">6 scenario's van ~15 min</span><span lang="en">6 scenarios of ~15 min</span></span>
         </a>
         <a class="mx-pick" href="/modules/als.html" data-switch-to="als">
-          <span class="r1"><span class="nm"><span class="no">04</span><span class="name">ALS</span></span><span class="cat"><span lang="nl">gevorderd</span><span lang="en">advanced</span></span></span>
-          <span class="meta"><span lang="nl">1 code blue-scenario · ~20 min</span><span lang="en">1 code blue scenario · ~20 min</span></span>
+          <span class="r1"><span class="nm"><span class="name">ALS</span></span><span class="cat"><span lang="nl">gevorderd</span><span lang="en">advanced</span></span></span>
+          <span class="meta"><span lang="nl">1 code blue-scenario: ~20 min</span><span lang="en">1 code blue scenario: ~20 min</span></span>
         </a>
         <button type="button" class="mx-pick js-only" data-switch-to="triage">
-          <span class="r1"><span class="nm"><span class="no">05</span><span class="name">Triage Cockpit</span></span><span class="cat"><span lang="nl">binnenkort</span><span lang="en">coming soon</span></span></span>
-          <span class="meta"><span lang="nl">huisartsenpost · in ontwikkeling</span><span lang="en">out-of-hours GP service · in development</span></span>
+          <span class="r1"><span class="nm"><span class="name">Triage Cockpit</span></span><span class="cat"><span lang="nl">binnenkort</span><span lang="en">coming soon</span></span></span>
+          <span class="meta"><span lang="nl">huisartsenpost, in ontwikkeling</span><span lang="en">out-of-hours GP service, in development</span></span>
         </button>
       </div>
 
@@ -441,8 +436,7 @@ html:not(.js) .tq[data-switch-panel]{display:flex;}
         <article class="mx-panel is-active" data-switch-panel="reanimatie">
           <div class="mx-media">
             <video muted loop playsinline preload="none" poster="/assets/loops/reanimatie-aed-loop.webp" data-src="/assets/loops/reanimatie-aed-loop.mp4" aria-label="beelden uit de module Reanimatie &amp; AED" data-aria-label-en="gameplay from the Resuscitation &amp; AED module"></video>
-            <span class="chip-solid"><span class="pdot"></span><span lang="nl">in de game</span><span lang="en">gameplay</span></span>
-            <span class="chip-light"><span lang="nl">3 scenario's · ±1 uur speeltijd</span><span lang="en">3 scenarios · ±1 hour of content</span></span>
+            
           </div>
           <div class="mx-body">
             <h3><span lang="nl">Reanimatie &amp; AED</span><span lang="en">Resuscitation &amp; AED</span></h3>
@@ -461,8 +455,7 @@ html:not(.js) .tq[data-switch-panel]{display:flex;}
         <article class="mx-panel" data-switch-panel="abcde">
           <div class="mx-media">
             <video muted loop playsinline preload="none" poster="/assets/loops/abcde-loop.webp" data-src="/assets/loops/abcde-loop.mp4" aria-label="beelden uit de module ABCDE" data-aria-label-en="gameplay from the ABCDE module"></video>
-            <span class="chip-solid"><span class="pdot"></span><span lang="nl">in de game</span><span lang="en">gameplay</span></span>
-            <span class="chip-light"><span lang="nl">4 scenario's + 1 tutorial</span><span lang="en">4 scenarios + 1 tutorial</span></span>
+            
           </div>
           <div class="mx-body">
             <h3>ABCDE</h3>
@@ -479,8 +472,7 @@ html:not(.js) .tq[data-switch-panel]{display:flex;}
         <article class="mx-panel" data-switch-panel="ecg">
           <div class="mx-media">
             <video muted loop playsinline preload="none" poster="/assets/loops/ecg-loop.webp" data-src="/assets/loops/ecg-loop.mp4" aria-label="beelden uit de module ECG" data-aria-label-en="gameplay from the ECG module"></video>
-            <span class="chip-solid"><span class="pdot"></span><span lang="nl">in de game</span><span lang="en">gameplay</span></span>
-            <span class="chip-light"><span lang="nl">6 scenario's · ~15 min elk</span><span lang="en">6 scenarios · ~15 min each</span></span>
+            
           </div>
           <div class="mx-body">
             <h3>ECG</h3>
@@ -498,8 +490,7 @@ html:not(.js) .tq[data-switch-panel]{display:flex;}
         <article class="mx-panel" data-switch-panel="als">
           <div class="mx-media">
             <video muted loop playsinline preload="none" poster="/assets/loops/als-loop.webp" data-src="/assets/loops/als-loop.mp4" aria-label="beelden uit de module ALS" data-aria-label-en="gameplay from the ALS module"></video>
-            <span class="chip-solid"><span class="pdot"></span><span lang="nl">in de game</span><span lang="en">gameplay</span></span>
-            <span class="chip-light"><span lang="nl">1 code blue-scenario · ~20 min</span><span lang="en">1 code blue scenario · ~20 min</span></span>
+            
           </div>
           <div class="mx-body">
             <h3>ALS</h3>
@@ -516,8 +507,7 @@ html:not(.js) .tq[data-switch-panel]{display:flex;}
         <article class="mx-panel" data-switch-panel="triage">
           <div class="mx-media">
             <img src="/assets/modules/triage/triage-cockpit.webp" width="1600" height="1000" loading="lazy" alt="Triage Cockpit: telefoongesprek met een beller naast de triagemonitor met NTS-ingangsklachten" data-alt-en="Triage Cockpit: a phone call with a caller next to the triage monitor with NTS presenting complaints" />
-            <span class="chip-solid"><span class="pdot"></span><span lang="nl">in ontwikkeling</span><span lang="en">in development</span></span>
-            <span class="chip-light"><span lang="nl">speelt in de browser · huisartsenpost</span><span lang="en">browser game · GP out-of-hours</span></span>
+            
           </div>
           <div class="mx-body">
             <h3>Triage Cockpit</h3>
@@ -529,7 +519,7 @@ html:not(.js) .tq[data-switch-panel]{display:flex;}
               <li><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path class="ic" style="stroke-width:2.4" d="M5 12.5l4.5 4.5L19 7.5"/></svg><span lang="nl">in de browser, niets te installeren</span><span lang="en">in the browser, nothing to install</span></li>
               <li><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path class="ic" style="stroke-width:2.4" d="M5 12.5l4.5 4.5L19 7.5"/></svg><span lang="nl">gebaseerd op de NTS</span><span lang="en">in Dutch, based on the Dutch NTS</span></li>
             </ul>
-            <span class="mx-soon"><span class="pdot"></span><span lang="nl">binnenkort beschikbaar</span><span lang="en">coming soon</span></span>
+            <span class="mx-soon"><span lang="nl">binnenkort beschikbaar</span><span lang="en">coming soon</span></span>
           </div>
         </article>
       </div>
@@ -541,7 +531,6 @@ html:not(.js) .tq[data-switch-panel]{display:flex;}
   <div class="wrap">
     <div class="head-split reveal">
       <div>
-        <span class="section-num"><span lang="nl">het platform</span><span lang="en">the platform</span></span>
         <h2 class="section-title"><span lang="nl">Draait overal waar jullie leren.</span><span lang="en">Runs wherever you learn.</span></h2>
       </div>
       <p class="section-lede"><span lang="nl">In de browser op je computer of laptop, en als app op telefoon en tablet, dezelfde klinische scenario's op elk apparaat, met voortgang die overal meereist. Rechtstreeks te spelen, of ingebed in je eigen leeromgeving via een LTI-koppeling.</span><span lang="en">In the browser on a computer or laptop, and as an app on phone and tablet, the same clinical scenarios on every device, with progress that travels with you. Play it directly, or embed it in your own learning environment via an LTI integration.</span></p>
@@ -620,18 +609,18 @@ html:not(.js) .tq[data-switch-panel]{display:flex;}
 <!-- 06 ervaringen -->
 <section id="ervaringen" class="band-pink">
   <div class="wrap tq-grid">
-    <div class="tq-copy" data-switch data-switch-auto="8000">
+    <div class="tq-copy" data-switch>
       <span class="section-num reveal"><span lang="nl">ervaringen</span><span lang="en">testimonials</span></span>
       <h2 class="section-title reveal"><span lang="nl">Aanbevolen door artsen, opleiders en beroepsverenigingen.</span><span lang="en">Recommended by physicians, educators and professional associations.</span></h2>
       <svg width="48" height="36" viewBox="0 0 48 36" aria-hidden="true" style="margin-top:36px; color:var(--blue-dark)"><path fill="currentColor" d="M0 36V21C0 9 6 2 18 0l2 5c-6 2-9 6-9 12h9v19zm28 0V21C28 9 34 2 46 0l2 5c-6 2-9 6-9 12h9v19z"/></svg>
       <div class="tq-list">
         <figure class="tq is-active" data-switch-panel="t1">
           <blockquote><span lang="nl">“Serious games hebben een educatief doel en gebruiken simulatie en gamification om dat te bereiken. Je kunt veilig verschillende patiëntcasus oefenen, je leert interactief en effectief, en je hoeft niet naar een training op locatie.”</span><span lang="en">“Serious games serve an educational purpose and use simulation and gamification to achieve it. You can safely practice different patient cases, you learn interactively and effectively, and you do not have to go to an on-site training.”</span></blockquote>
-          <figcaption><img src="/assets/testimonials/beldman.webp" width="240" height="240" alt="Tanja Beldman" loading="lazy" /><span><span class="nm">Tanja Beldman</span><span class="rl"><span lang="nl">anesthesioloog · Tergooi MC</span><span lang="en">anaesthesiologist · Tergooi MC</span></span></span></figcaption>
+          <figcaption><img src="/assets/testimonials/beldman.webp" width="240" height="240" alt="Tanja Beldman" loading="lazy" /><span><span class="nm">Tanja Beldman</span><span class="rl"><span lang="nl">anesthesioloog, Tergooi MC</span><span lang="en">anaesthesiologist, Tergooi MC</span></span></span></figcaption>
         </figure>
         <figure class="tq" data-switch-panel="t2">
           <blockquote><span lang="nl">“Bij het trainen, begeleiden en aanleren van specifieke vaardigheden kan serious gaming een belangrijke rol spelen.”</span><span lang="en">“In training, tutoring and teaching specific skills, serious gaming can play an important role.”</span></blockquote>
-          <figcaption><img src="/assets/testimonials/gommers.webp" width="240" height="240" alt="Dr. Diederik Gommers" loading="lazy" /><span><span class="nm">Dr. Diederik Gommers</span><span class="rl"><span lang="nl">ic-arts · Erasmus MC</span><span lang="en">ICU physician · Erasmus MC</span></span></span></figcaption>
+          <figcaption><img src="/assets/testimonials/gommers.webp" width="240" height="240" alt="Dr. Diederik Gommers" loading="lazy" /><span><span class="nm">Dr. Diederik Gommers</span><span class="rl"><span lang="nl">ic-arts, Erasmus MC</span><span lang="en">ICU physician, Erasmus MC</span></span></span></figcaption>
         </figure>
         <figure class="tq" data-switch-panel="t3">
           <blockquote><span lang="nl">“Serious games bieden ons de mogelijkheid om kennisoverdracht op een leuke en interactieve manier te laten plaatsvinden.”</span><span lang="en">“Serious games give us the opportunity for knowledge transfer to take place in a fun and interactive manner.”</span></blockquote>
@@ -639,11 +628,11 @@ html:not(.js) .tq[data-switch-panel]{display:flex;}
         </figure>
         <figure class="tq" data-switch-panel="t4">
           <blockquote><span lang="nl">“Met simulaties kun je situaties op de ic oefenen die in de dagelijkse praktijk weinig voorkomen.”</span><span lang="en">“With simulations, you can practice situations in the ICU that are infrequent in daily practice.”</span></blockquote>
-          <figcaption><img src="/assets/testimonials/schroten.webp" width="240" height="240" alt="Dr. N.F. Schroten" loading="lazy" /><span><span class="nm">Dr. N.F. Schroten</span><span class="rl">internist-intensivist · Gelre Ziekenhuizen</span></span></figcaption>
+          <figcaption><img src="/assets/testimonials/schroten.webp" width="240" height="240" alt="Dr. N.F. Schroten" loading="lazy" /><span><span class="nm">Dr. N.F. Schroten</span><span class="rl">internist-intensivist, Gelre Ziekenhuizen</span></span></figcaption>
         </figure>
         <figure class="tq" data-switch-panel="t5">
           <blockquote><span lang="nl">“Met deze game stappen studenten vol enthousiasme in de rol van arts: ze nemen een ECG af bij een virtuele patiënt, beoordelen het stap voor stap en trainen spelenderwijs het klinisch redeneren. Een game naar ons hart!”</span><span lang="en">“With this game, students step enthusiastically into the role of physician: they record an ECG on a virtual patient, assess it step by step and train clinical reasoning through play. A game after our own heart!”</span></blockquote>
-          <figcaption><img src="/assets/testimonials/bindraban.webp" width="240" height="240" alt="Dr. Navin R. Bindraban" loading="lazy" /><span><span class="nm">Dr. Navin R. Bindraban</span><span class="rl"><span lang="nl">cardioloog &amp; onderwijscoördinator · Amsterdam UMC Hartcentrum</span><span lang="en">cardiologist &amp; education coordinator · Amsterdam UMC Heart Centre</span></span></span></figcaption>
+          <figcaption><img src="/assets/testimonials/bindraban.webp" width="240" height="240" alt="Dr. Navin R. Bindraban" loading="lazy" /><span><span class="nm">Dr. Navin R. Bindraban</span><span class="rl"><span lang="nl">cardioloog &amp; onderwijscoördinator, Amsterdam UMC Hartcentrum</span><span lang="en">cardiologist &amp; education coordinator, Amsterdam UMC Heart Centre</span></span></span></figcaption>
         </figure>
       </div>
       <div class="tq-ctrl js-only">
@@ -689,7 +678,7 @@ html:not(.js) .tq[data-switch-panel]{display:flex;}
   <svg class="drift" viewBox="0 0 1200 800" aria-hidden="true"><path class="ic" style="stroke-width:70" d="M 60 900 L 60 300 A 150 150 0 0 1 360 300 L 360 560 A 150 150 0 0 0 660 560 L 660 300 A 150 150 0 0 1 960 300 L 960 560 A 150 150 0 0 0 1260 560"/></svg>
   <div class="wrap cta-dark-inner">
     <div class="cta-dark-copy reveal">
-      <span class="chip"><span class="pdot"></span><span lang="nl">demo · 30 minuten</span><span lang="en">demo · 30 minutes</span></span>
+      
       <h2><span lang="nl">Klaar om Medu.game zelf te ervaren?</span><span lang="en">Ready to see Medu.game in action?</span></h2>
       <p><span lang="nl">De snelste manier om het platform te begrijpen is een korte demo, we laten een echte casus zien en denken mee over jullie opleidingsdoelen en leerlijnen.</span><span lang="en">The fastest way to understand the platform is a short demo, we'll show a real case and think along about your training goals and learning paths.</span></p>
       <div class="row">
@@ -707,6 +696,6 @@ html:not(.js) .tq[data-switch-panel]{display:flex;}
 
 <!--FOOTER-->
 
-<script src="/assets/medu-gallery.js?v=40" defer></script>
+<script src="/assets/medu-gallery.js?v=41" defer></script>
 </body>
 </html>
