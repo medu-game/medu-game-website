@@ -17,7 +17,7 @@
 - Kleine letters in de bron: `°c`, `seh`, `pq, qrs`, `engels`.
 - Team-meta "remote, verspreid over Europa" tegenover "makers uit Nederland": welke klopt?
 - Moodle: "op tablet of telefoon" (browser) tegenover medu.game "als app". Ook ontbreekt `lang="nl"` op `.mhome`.
-- De humanizer-voorstellen (±25) staan in het sessieverslag van 06-10. Copy pas na akkoord.
+- **Copy gedaan (akkoord Tim 06-10):** hoofdletters (°C, SEH, PQ/QRS/QT, H's/T's, AIOS, Engels), kommazinnen, team-meta "uit Nederland", "2000+" weg (trustlabel "samengewerkt met"), herhaling ("dóet" 1×, "precies" 1×), EN "think along" weg (7×), eigen kop per module (ALS/ECG/Reanimatie). Nog niet gedaan (niet gekozen): claims afzwakken ("small but mighty", "memorabel", "effectiefste middel", "beroepsverenigingen", "Wij bouwen het, jullie gebruiken het").
 
 ## VOLGENDE STAP
 `git push origin master` (de deploy), daarna `curl -s https://medu.game/ | grep -o 'medu.css?v=[0-9]*'` → v=42.
