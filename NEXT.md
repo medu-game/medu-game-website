@@ -1,3 +1,28 @@
+# NEXT — review humanizer + better-interface (06-10-2026, read-only)
+
+## KLAAR
+- Review op medu.game (7 pagina's × NL/EN × 320/390/1280, Playwright) en de uitgelogde homepage van learn.medu.game. Niets gewijzigd en niets gedeployed.
+- Gevonden en in de bron bevestigd: HIGH in `src/assets/medu.css:111-113`. Het gesloten mobiele menu is alleen `opacity:0`, dus Tab landt op 11 onzichtbare links. Verdict website: **Block**.
+
+- **Gefixt (06-10, website, v=42, lokaal gecommit, NIET gepusht):** het gesloten mobiele menu heeft nu `visibility:hidden` (Playwright 390 px: 0 van 5 links focusbaar als het dicht is, 5 als het open is; desktop ongewijzigd). Body is 400 in plaats van 300, Regular wordt gepreload en `.section-lede` en quotes blijven Light. h3 `clamp(24px,3vw,32px)`: 24 px bij 390, 32 px bij 1280. 29/29 tests.
+
+## ONGEVERIFIEERD
+- De domeinen accessibility en colors zijn niet gereviewd: de skills `better-accessibility` en `better-colors` zijn niet geïnstalleerd.
+- Ook niet bekeken: Safari, Firefox, 200% zoom en de Calendly-iframe. Op Moodle is reduced-motion alleen uit de code afgeleid, niet in de browser getest.
+- Moodle-console: 404's op bootstrap.js en design-system index.js. Of daardoor iets niet werkt, is niet uitgezocht.
+
+## OPEN (beslissing Tim)
+- Moodle: body Light 300 → 400 en h2 zwaarder dan h1 (nog niet gedaan; vereist `deploy.sh --apply`).
+- Kleine letters in de bron: `°c`, `seh`, `pq, qrs`, `engels`.
+- Team-meta "remote, verspreid over Europa" tegenover "makers uit Nederland": welke klopt?
+- Moodle: "op tablet of telefoon" (browser) tegenover medu.game "als app". Ook ontbreekt `lang="nl"` op `.mhome`.
+- De humanizer-voorstellen (±25) staan in het sessieverslag van 06-10. Copy pas na akkoord.
+
+## VOLGENDE STAP
+`git push origin master` (de deploy), daarna `curl -s https://medu.game/ | grep -o 'medu.css?v=[0-9]*'` → v=42.
+
+---
+
 # NEXT — review 02-10-2026 + leeromgeving-CTA (LIVE)
 
 ## KLAAR (met bewijs)

@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <link rel="preload" as="image" href="/assets/loops/abcde-loop.webp" fetchpriority="high" />
 <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/MuseoModerno-latin.woff2" crossorigin />
-<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/Fieldwork-Geo-Light.woff2" crossorigin />
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/Fieldwork-Geo-Regular.woff2" crossorigin />
 <title>Medu.game | platform voor opleiders in de zorg</title>
 <link rel="stylesheet" href="/assets/medu-fonts.css">
-<link rel="stylesheet" href="/assets/medu.css?v=41">
+<link rel="stylesheet" href="/assets/medu.css?v=42">
 <style>
 /* Tokens, buttons, section headers, cards, reveal/lift motion, the dark CTA and
    the footer come from /assets/medu.css (shared with the module pages). Only
@@ -108,7 +108,7 @@
 .mx-pick .no{font-family:var(--font-display); font-size:15px; font-weight:500; opacity:.6;}
 .mx-pick .name{font-size:22px; font-weight:600;}
 .mx-pick .cat{padding:4px 10px; border-radius:var(--radius-pill); font-size:12px; font-weight:600; background:rgba(255,255,255,.1); white-space:nowrap;}
-.mx-pick .meta{font-size:var(--text-sm); font-weight:300; opacity:.78; padding-left:36px;}
+.mx-pick .meta{font-size:var(--text-sm); opacity:.78; padding-left:36px;}
 .mx-pick.is-active{background:var(--pink-light); color:var(--blue-dark); box-shadow:inset 0 0 0 1px var(--pink-light);}
 .mx-pick.is-active .cat{background:var(--pink);}
 .mx-pick:focus-visible{outline:none; box-shadow:0 0 0 3px var(--pink);}
@@ -121,7 +121,7 @@ button.mx-pick{border:0; font:inherit; cursor:pointer;}
 .mx-media .chip-solid{position:absolute; left:20px; top:20px;}
 .mx-media .chip-light{position:absolute; right:20px; top:20px;}
 .mx-body{padding:36px; display:flex; flex-direction:column; gap:20px;}
-.mx-body h3{font-size:32px; color:#fff;}
+.mx-body h3{font-size:clamp(24px,3vw,32px); color:#fff;}
 .mx-body > p{font-size:17px; line-height:1.6; color:rgba(255,255,255,.8);}
 .mx-topics{display:flex; flex-wrap:wrap; gap:8px;}
 .mx-topics > span{padding:7px 14px; border-radius:var(--radius-pill); background:rgba(255,200,199,.14); color:var(--pink); font-size:13px; font-weight:600;}
@@ -152,7 +152,7 @@ button.mx-pick{border:0; font:inherit; cursor:pointer;}
 @media(max-width:700px){.dev{border-radius:var(--radius-xl);}}
 
 .plat-sub{display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:var(--space-5) 80px; margin-top:72px;}
-.plat-sub h3{flex:0 1 560px; font-size:32px; line-height:1.2;}
+.plat-sub h3{flex:0 1 560px; font-size:clamp(24px,3vw,32px); line-height:1.2;}
 .plat-sub p{flex:0 1 540px; font-size:17px; line-height:1.6; color:rgba(0,0,72,.72);}
 /* platform features as a spec list: icon · name · what it means */
 .feats{display:flex; flex-direction:column; gap:var(--space-8); margin:56px 0 0;}
@@ -166,7 +166,7 @@ button.mx-pick{border:0; font:inherit; cursor:pointer;}
 .lms .pill{padding:8px 16px; border-radius:var(--radius-pill); box-shadow:inset 0 0 0 1px rgba(0,0,72,.14); font-size:var(--text-sm); font-weight:600;}
 /* Leeromgeving: eigen blok met echte screenshot en een eigen intentie (zelf rondkijken), naast "plan een demo" */
 .learnenv{margin:72px 0 0; display:grid; grid-template-columns:minmax(0,420px) minmax(0,1fr); gap:48px; align-items:center; padding:48px; border-radius:var(--radius-2xl); background:var(--blue-dark); color:#fff;}
-.learnenv h3{font-size:32px; line-height:1.2; color:#fff;}
+.learnenv h3{font-size:clamp(24px,3vw,32px); line-height:1.2; color:#fff;}
 .learnenv p{margin:16px 0 0; font-size:17px; line-height:1.6; color:rgba(255,255,255,.78); max-width:46ch;}
 .learnenv .btn{margin-top:28px;}
 .learnenv .btn:focus-visible{outline:3px solid var(--pink); outline-offset:3px;}
@@ -224,7 +224,7 @@ html:not(.js) .tq[data-switch-panel]{display:flex;}
 .faq .body{margin:0; padding:0 64px 26px 0; font-size:var(--text-base); line-height:1.65; color:rgba(0,0,72,.74); animation:fadeUp 420ms var(--ease) both;}
 @media(max-width:900px){.faq-grid{grid-template-columns:1fr; gap:var(--space-8);} .faq summary{font-size:17px;} .faq .body{padding-right:0;}}
 </style>
-<link rel="stylesheet" href="/assets/medu-gallery.css?v=41">
+<link rel="stylesheet" href="/assets/medu-gallery.css?v=42">
 </head>
 <body>
 
@@ -682,6 +682,6 @@ html:not(.js) .tq[data-switch-panel]{display:flex;}
 
 <!--FOOTER-->
 
-<script src="/assets/medu-gallery.js?v=41" defer></script>
+<script src="/assets/medu-gallery.js?v=42" defer></script>
 </body>
 </html>
