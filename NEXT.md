@@ -12,7 +12,8 @@
 - Moodle-console: 404's op bootstrap.js en design-system index.js. Of daardoor iets niet werkt, is niet uitgezocht.
 
 ## OPEN (beslissing Tim)
-- Moodle: body Light 300 → 400 en h2 zwaarder dan h1 (nog niet gedaan; vereist `deploy.sh --apply`).
+- Moodle: de typografie- en lang-fixes staan op branch `fix/u5-home-typografie` (`0dcb740`, moodle-backend, worktree `../moodle-backend-home`). Build en 76 tests OK, nog geen PR. Ze komen pas live na een merge plus `deploy.sh --apply` (akkoord Tim). Afgestemd met de 5.3-sessie: de console-404's zijn daar opgelost met nginx `try_files`.
+- Moodle-punten voor Tim: de stage valt op mobiel onder de vouw, en de copy is "telefoon" tegenover "app" met koppen die medu.game herhalen.
 - Kleine letters in de bron: `°c`, `seh`, `pq, qrs`, `engels`.
 - Team-meta "remote, verspreid over Europa" tegenover "makers uit Nederland": welke klopt?
 - Moodle: "op tablet of telefoon" (browser) tegenover medu.game "als app". Ook ontbreekt `lang="nl"` op `.mhome`.
