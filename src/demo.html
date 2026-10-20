@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="/assets/medu.css?v=42">
 <link rel="stylesheet" href="/assets/medu-gallery.css?v=42">
 <style>
-.demo-embed{margin-top:var(--space-8); min-height:640px; width:100%; border-radius:var(--radius-lg); overflow:hidden;}
+.demo-cta{margin-top:var(--space-4);}
 .demo-fallback{margin-top:var(--space-6); font-size:var(--text-sm); color:var(--muted);}
 </style>
 </head>
@@ -42,16 +42,14 @@
   <div class="wrap">
     <span class="eyebrow"><span class="pulse"></span><span lang="nl">demo</span><span lang="en">demo</span></span>
     <h1 class="legal-title"><span lang="nl">Plan een demo</span><span lang="en">Book a demo</span></h1>
-    <p class="section-lede" style="max-width:60ch;"><span lang="nl">Kies hieronder direct een moment dat jou uitkomt (±30 minuten). We laten een echte casus zien en denken mee over jullie opleidingsdoelen en leerlijnen.</span><span lang="en">Pick a time below that suits you (±30 minutes). We'll show a real case and help you think through your training goals and learning paths.</span></p>
+    <p class="section-lede" style="max-width:60ch;"><span lang="nl">Kies via de planner een moment dat jou uitkomt (±30 minuten). We laten een echte casus zien en denken mee over jullie opleidingsdoelen en leerlijnen.</span><span lang="en">Pick a time that suits you in our scheduler (±30 minutes). We'll show a real case and help you think through your training goals and learning paths.</span></p>
   </div>
 </section>
 
 <section style="padding-top:var(--space-8);">
   <div class="wrap">
-    <!-- Cal.com inline embed (EU instance) -->
-    <div class="demo-embed" id="cal-inline-medugame"></div>
-    <p class="demo-fallback"><span lang="nl">Werkt de planner niet? <a href="https://cal.eu/medugame" target="_blank" rel="noopener">Open hem direct in een nieuw tabblad</a> of mail <a href="mailto:aad.lievaart@medu.game?subject=Demo%20Medu.game">aad.lievaart@medu.game</a>.</span><span lang="en">Planner not loading? <a href="https://cal.eu/medugame" target="_blank" rel="noopener">Open it in a new tab</a> or email <a href="mailto:aad.lievaart@medu.game?subject=Demo%20Medu.game">aad.lievaart@medu.game</a>.</span></p>
-    <noscript><p class="demo-fallback"><span lang="nl">Schakel JavaScript in of <a href="https://cal.eu/medugame">plan je demo hier</a>.</span><span lang="en">Enable JavaScript or <a href="https://cal.eu/medugame">book your demo here</a>.</span></p></noscript>
+    <p class="demo-cta"><a class="btn btn-primary" href="https://cal.eu/medugame/30min" target="_blank" rel="noopener"><span lang="nl">kies een moment</span><span lang="en">pick a time</span></a></p>
+    <p class="demo-fallback"><span lang="nl">De planner opent in een nieuw tabblad bij Cal.com. Liever mailen? Stuur een bericht naar <a href="mailto:aad.lievaart@medu.game?subject=Demo%20Medu.game">aad.lievaart@medu.game</a>.</span><span lang="en">The scheduler opens in a new tab at Cal.com. Prefer email? Write to <a href="mailto:aad.lievaart@medu.game?subject=Demo%20Medu.game">aad.lievaart@medu.game</a>.</span></p>
   </div>
 </section>
 
@@ -59,17 +57,6 @@
 
 <!--FOOTER-->
 
-<!-- Cal.com inline embed loader (EU) -->
-<script type="text/javascript">
-  (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if (typeof namespace === "string") { cal.ns[namespace] = cal.ns[namespace] || api; p(cal.ns[namespace], ar); p(cal, ["initNamespace", namespace]); } else p(cal, ar); return; } p(cal, ar); }; })(window, "https://app.cal.eu/embed/embed.js", "init");
-  Cal("init", "medugame", { origin: "https://app.cal.eu" });
-  Cal.ns.medugame("inline", {
-    elementOrSelector: "#cal-inline-medugame",
-    config: { layout: "month_view" },
-    calLink: "medugame/30min",
-  });
-  Cal.ns.medugame("ui", { cssVarsPerTheme: { light: { "cal-brand": "#000048" }, dark: { "cal-brand": "#000048" } }, hideEventTypeDetails: false, layout: "month_view" });
-</script>
 <script src="/assets/medu-gallery.js?v=42" defer></script>
 </body>
 </html>
