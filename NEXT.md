@@ -7,15 +7,16 @@
 - `d1a1d5a`: demo-pagina = "Demo & contact" met `#contact`-sectie, ContactPage-schema, footer-link. 404 en contactsectie bekeken in Playwright op 390 px.
 - Bekend: de directe sprong naar `#contact` landt te hoog, omdat de meetergo-embed na het laden groeit. Na het laden zit de kop netjes onder de topbar.
 
+- **LIVE:** PR #6 gemerged (`83eb2fd`), deploy-run `41635906081` exit 0. curl: llms.txt 200 text/plain, agents.md + index.md 200 text/markdown, onbekend pad 404 met eigen pagina, og:title "Demo &amp; contact" (enkel ge-escaped).
+
 ## ONGEVERIFIEERD
-- Content-Type van `/index.md`, `/agents.md` op GitHub Pages (`text/markdown` verwacht). Pas na deploy te meten.
 - Score-effect: pas na een rescan op getdedica.com/score/medu.game.
 
 ## OPEN (beslissing Tim)
 - Prijzen publiek of niet (`discoverable-pricing`, +20 volgens de scan).
 
 ## VOLGENDE STAP
-`git push -u origin feature/agent-readiness && gh pr create --base master`
+Rescan op https://getdedica.com/score/medu.game (was 61,3).
 
 ---
 
