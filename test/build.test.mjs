@@ -33,6 +33,7 @@ test('full build produces single-language pages with SEO', () => {
   assert.match(readFileSync('dist/en/pricing.html', 'utf8'), /"@type":"OfferCatalog"/);
   assert.match(readFileSync('dist/modules/abcde.html', 'utf8'), /"offers":\{"@type":"Offer"[^}]*"price":"100\.00","priceCurrency":"EUR"/);
   assert.match(llms, /ABCDE €100/);
+  assert.match(readFileSync('dist/pricing.md', 'utf8'), /\| \[ABCDE\]\(https:\/\/medu\.game\/en\/modules\/abcde\.html\) \| €100 \|/);
   // Organization carries a description
   assert.match(en, /"@type":"Organization"[^}]*"description":"Medu\.game is the game-based/);
 
