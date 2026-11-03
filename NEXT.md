@@ -1,9 +1,26 @@
-# NEXT — prijzenpagina (03-11-2026)
+# NEXT — privacyverklaring: Hostinger → OVHcloud (03-11-2026)
+
+## KLAAR (met bewijs)
+- Moodle (learn.medu.game) verhuisd naar OVHcloud (Frankfurt) op 03-11; de privacyverklaring §subverwerkers (NL+EN)
+  noemt nu "OVHcloud – hosting van de LMS-omgeving (learn.medu.game), in de EU (Frankfurt, Duitsland)", datum 3 november 2026.
+  PR #10, merge db8438f, deploy-run 41652639040 geslaagd. Live gemeten: `curl https://medu.game/privacy` en `/en/privacy`
+  → 0× "hostinger", 1× "OVHcloud</strong>".
+
+## ONGEVERIFIEERD
+- Niets anders op de site noemt Hostinger (`grep -ri hostinger src/` → alleen deze regel, nu weg); de rest van de privacytekst niet herlezen.
+
+## VOLGENDE STAP
+Niets verplicht. Na de ontmanteling van Hostinger (≥ 17-11) hoeft hier niets meer; de bron is de GDPR-map (`subverwerkers.md`).
+
+---
+
+# NEXT — agent-readiness afgerond (03-11-2026): 61,3 → 90,7 "Agent-ready"
 
 ## KLAAR (met bewijs)
 - Scan na PR #6: 61,3 → 68,4; na PR #7 (prijzen live, fc8a64a, run 41640012562): 88,4 "Strong" (screenshots Tim).
 - `/pricing.md` LIVE (PR #8, f32cc34, run 41641438846; curl 200 text/markdown).
-- Branch `feature/ard`: `/.well-known/ard.json` (ARD, 4 entries met representativeQueries), `<link rel="ard">` op elke pagina, `Agentmap:` in robots.txt. upload-pages-artifact@v3 sluit alleen .git/.github uit, dus .well-known gaat mee. Tests 30/30.
+- ARD LIVE (PR #9, 296fb7f, run 41642563126; curl ard.json 200 application/json, 4 entries). Eindscan 90,7, Find 100, Understand 77, 2 must-haves open (WebMCP/onboarding, bewust niet gedaan).
+- (was) Branch `feature/ard`: `/.well-known/ard.json` (ARD, 4 entries met representativeQueries), `<link rel="ard">` op elke pagina, `Agentmap:` in robots.txt. upload-pages-artifact@v3 sluit alleen .git/.github uit, dus .well-known gaat mee. Tests 30/30.
 - Branch `feature/pricing`: `/pricing.html` (NL+EN), prijzen in `lib/pricing.mjs` (per gebruiker/jaar, excl. btw: R&AED €25, ABCDE €100, ECG €75, ALS €50; bron: shop learn.medu.game, huidige prijs zonder doorgestreepte). Course.offers + OfferCatalog in JSON-LD, FAQ "Wat kost" bijgewerkt, nav + footer "prijzen", llms.txt/agents.md. Build-assert: pagina toont dezelfde bedragen als `lib/pricing.mjs`.
 - Hamburger-breekpunt 900 → 1180 px + nowrap: bij 1024 px brak de topbar al (ook live), met 6 items erger. Gemeten 1181/1280/1440: één regel, CTA 46 px; ≤1180 hamburger. CSS v=43. Tests 30/30.
 
@@ -11,7 +28,7 @@
 - Score-effect pricing: pas na merge + rescan.
 
 ## VOLGENDE STAP
-PR mergen (= productie-deploy), dan rescan op https://getdedica.com/score/medu.game.
+Niets verplicht. Bij prijswijziging: alleen `lib/pricing.mjs` + `src/pricing.html` aanpassen (build-assert bewaakt de match).
 
 ---
 
