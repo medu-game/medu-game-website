@@ -1,3 +1,25 @@
+# NEXT — agent-readiness (getdedica-scan, 03-11-2026)
+
+## KLAAR (met bewijs)
+- Branch `feature/agent-readiness`, commit `4244ce8`, lokaal, NIET gepusht. `npm test`: 29/29 pass.
+- Build genereert nu `dist/llms.txt`, `dist/agents.md`, `dist/index.md`, `dist/404.html` (`lib/agentfiles.mjs`), uit page-metadata + FAQ.
+- Organization-JSON-LD heeft een tweetalige `description` (`ORG_DESCRIPTION` in `lib/schema.mjs`).
+- `d1a1d5a`: demo-pagina = "Demo & contact" met `#contact`-sectie, ContactPage-schema, footer-link. 404 en contactsectie bekeken in Playwright op 390 px.
+- Bekend: de directe sprong naar `#contact` landt te hoog, omdat de meetergo-embed na het laden groeit. Na het laden zit de kop netjes onder de topbar.
+
+## ONGEVERIFIEERD
+- Content-Type van `/index.md`, `/agents.md` op GitHub Pages (`text/markdown` verwacht). Pas na deploy te meten.
+- Score-effect: pas na een rescan op getdedica.com/score/medu.game.
+
+## OPEN (beslissing Tim)
+- Prijzen publiek of niet (`discoverable-pricing`, +20 volgens de scan).
+- Claim in llms.txt/agents.md checken: doelgroep "hospitals, nursing and medical schools, training institutes".
+
+## VOLGENDE STAP
+`git push -u origin feature/agent-readiness && gh pr create --base master`
+
+---
+
 # NEXT — review humanizer + better-interface (06-10-2026, read-only)
 
 ## KLAAR

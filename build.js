@@ -55,6 +55,7 @@ const FOOTER = `<footer class="site-footer">
       <nav class="footer-col" aria-label="meer" data-aria-label-en="more">
         <span class="lbl"><span lang="nl">meer</span><span lang="en">more</span></span>
         <a href="https://learn.medu.game/login/index.php"><span lang="nl">inloggen</span><span lang="en">log in</span></a>
+        <a href="/demo.html#contact">contact</a>
         <a href="/team.html">team</a>
         <a href="/privacy.html"><span lang="nl">privacybeleid</span><span lang="en">privacy policy</span></a>
         <a href="/terms.html"><span lang="nl">gebruiksvoorwaarden</span><span lang="en">terms &amp; conditions</span></a>
