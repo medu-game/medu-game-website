@@ -13,7 +13,6 @@
 
 ## OPEN (beslissing Tim)
 - Prijzen publiek of niet (`discoverable-pricing`, +20 volgens de scan).
-- Claim in llms.txt/agents.md checken: doelgroep "hospitals, nursing and medical schools, training institutes".
 
 ## VOLGENDE STAP
 `git push -u origin feature/agent-readiness && gh pr create --base master`
