@@ -10,7 +10,7 @@ import { applyLangAttrs } from './lib/attrs.mjs';
 import { buildSchema } from './lib/schema.mjs';
 import { imageSize } from './lib/imagesize.mjs';
 import { PRICES, eur } from './lib/pricing.mjs';
-import { buildLlmsTxt, buildAgentsMd, buildIndexMd, buildPricingMd, build404 } from './lib/agentfiles.mjs';
+import { buildLlmsTxt, buildAgentsMd, buildIndexMd, buildPricingMd, buildArd, build404 } from './lib/agentfiles.mjs';
 
 const SRC = 'src';
 const DIST = 'dist';
@@ -104,7 +104,7 @@ function main() {
   // assets verbatim
   cpSync(join(SRC, 'assets'), join(DIST, 'assets'), { recursive: true });
   // robots.txt generated with the env-aware sitemap URL
-  write(join(DIST, 'robots.txt'), `User-agent: *\nAllow: /\n\nSitemap: ${SITE}${BASE}/sitemap.xml\n`);
+  write(join(DIST, 'robots.txt'), `User-agent: *\nAllow: /\n\nSitemap: ${SITE}${BASE}/sitemap.xml\nAgentmap: ${SITE}${BASE}/.well-known/ard.json\n`);
   // CNAME only for the production (apex) build — never on the preview subpath
   if (!IS_PREVIEW && existsSync(join(SRC, 'CNAME'))) cpSync(join(SRC, 'CNAME'), join(DIST, 'CNAME'));
 
@@ -144,6 +144,7 @@ function main() {
       html = applyHead(html, { lang: code, relPath, meta });
       // set html.js before first paint so JS-only controls don't pop in late
       html = html.replace('</head>', `<script>document.documentElement.classList.add('js')</script>\n</head>`);
+      html = html.replace('</head>', `<link rel="ard" type="application/json" href="/.well-known/ard.json">\n</head>`);
       html = html.replace('</head>', `${buildSchema({ relPath, lang: code, meta })}\n</head>`);
 
       // per-output assertions
@@ -182,6 +183,7 @@ function main() {
   write(join(DIST, 'agents.md'), buildAgentsMd(metas));
   write(join(DIST, 'index.md'), buildIndexMd(metas));
   write(join(DIST, 'pricing.md'), buildPricingMd());
+  write(join(DIST, '.well-known', 'ard.json'), buildArd());
   write(join(DIST, '404.html'), build404(metas));
   console.log(`Built ${pages.length} pages × ${LANGS.length} languages → ${DIST}/`);
 }

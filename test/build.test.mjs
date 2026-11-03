@@ -34,6 +34,16 @@ test('full build produces single-language pages with SEO', () => {
   assert.match(readFileSync('dist/modules/abcde.html', 'utf8'), /"offers":\{"@type":"Offer"[^}]*"price":"100\.00","priceCurrency":"EUR"/);
   assert.match(llms, /ABCDE €100/);
   assert.match(readFileSync('dist/pricing.md', 'utf8'), /\| \[ABCDE\]\(https:\/\/medu\.game\/en\/modules\/abcde\.html\) \| €100 \|/);
+  // ARD manifest + discovery
+  const ard = JSON.parse(readFileSync('dist/.well-known/ard.json', 'utf8'));
+  assert.ok(ard.entries.length >= 3);
+  for (const e of ard.entries) {
+    assert.match(e.identifier, /^urn:air:medu\.game:[a-z-]+:[a-z-]+$/);
+    assert.ok(e.displayName && e.type && e.url && !e.data);
+    assert.ok(e.representativeQueries.length >= 2 && e.representativeQueries.length <= 5);
+  }
+  assert.match(nl, /<link rel="ard" type="application\/json" href="\/\.well-known\/ard\.json">/);
+  assert.match(readFileSync('dist/robots.txt', 'utf8'), /Agentmap: https:\/\/medu\.game\/\.well-known\/ard\.json/);
   // Organization carries a description
   assert.match(en, /"@type":"Organization"[^}]*"description":"Medu\.game is the game-based/);
 

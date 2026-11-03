@@ -2,7 +2,8 @@
 
 ## KLAAR (met bewijs)
 - Scan na PR #6: 61,3 → 68,4; na PR #7 (prijzen live, fc8a64a, run 41640012562): 88,4 "Strong" (screenshots Tim).
-- Branch `feature/pricing-md`: `/pricing.md` uit `lib/pricing.mjs` (check `markdown-pricing-file`). Tests 30/30.
+- `/pricing.md` LIVE (PR #8, f32cc34, run 41641438846; curl 200 text/markdown).
+- Branch `feature/ard`: `/.well-known/ard.json` (ARD, 4 entries met representativeQueries), `<link rel="ard">` op elke pagina, `Agentmap:` in robots.txt. upload-pages-artifact@v3 sluit alleen .git/.github uit, dus .well-known gaat mee. Tests 30/30.
 - Branch `feature/pricing`: `/pricing.html` (NL+EN), prijzen in `lib/pricing.mjs` (per gebruiker/jaar, excl. btw: R&AED €25, ABCDE €100, ECG €75, ALS €50; bron: shop learn.medu.game, huidige prijs zonder doorgestreepte). Course.offers + OfferCatalog in JSON-LD, FAQ "Wat kost" bijgewerkt, nav + footer "prijzen", llms.txt/agents.md. Build-assert: pagina toont dezelfde bedragen als `lib/pricing.mjs`.
 - Hamburger-breekpunt 900 → 1180 px + nowrap: bij 1024 px brak de topbar al (ook live), met 6 items erger. Gemeten 1181/1280/1440: één regel, CTA 46 px; ≤1180 hamburger. CSS v=43. Tests 30/30.
 
