@@ -15,6 +15,16 @@ test('full build produces single-language pages with SEO', () => {
   assert.ok(existsSync('dist/sitemap.xml'));
   assert.ok(existsSync('dist/robots.txt'));
   assert.ok(existsSync('dist/assets/medu.css'));
+  // agent-readable files
+  const llms = readFileSync('dist/llms.txt', 'utf8');
+  assert.match(llms, /^# Medu\.game\n\n> /);
+  assert.match(llms, /\(https:\/\/medu\.game\/en\/modules\/abcde\.html\)/);
+  assert.doesNotMatch(llms, /undefined/);
+  assert.match(readFileSync('dist/agents.md', 'utf8'), /## When Medu\.game is a good fit/);
+  assert.match(readFileSync('dist/index.md', 'utf8'), /## Frequently asked questions/);
+  assert.match(readFileSync('dist/404.html', 'utf8'), /href="https:\/\/medu\.game\/en\/demo\.html"/);
+  // Organization carries a description
+  assert.match(en, /"@type":"Organization"[^}]*"description":"Medu\.game is the game-based/);
 
   assert.match(nl, /<html lang="nl">/);
   assert.match(en, /<html lang="en">/);
