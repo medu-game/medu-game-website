@@ -28,6 +28,11 @@ test('full build produces single-language pages with SEO', () => {
   assert.doesNotMatch(demo, /&amp;amp;/);
   assert.match(demo, /"name":"Demo & contact \| Medu\.game"/);
   assert.match(llms, /\[Demo & contact\]/);
+  // pricing page + Course offers
+  assert.ok(existsSync('dist/pricing.html') && existsSync('dist/en/pricing.html'));
+  assert.match(readFileSync('dist/en/pricing.html', 'utf8'), /"@type":"OfferCatalog"/);
+  assert.match(readFileSync('dist/modules/abcde.html', 'utf8'), /"offers":\{"@type":"Offer"[^}]*"price":"100\.00","priceCurrency":"EUR"/);
+  assert.match(llms, /ABCDE €100/);
   // Organization carries a description
   assert.match(en, /"@type":"Organization"[^}]*"description":"Medu\.game is the game-based/);
 

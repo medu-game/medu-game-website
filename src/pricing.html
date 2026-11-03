@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="nl"
+  data-title-nl="Prijzen | Medu.game"
+  data-title-en="Pricing | Medu.game"
+  data-desc-nl="Prijzen van Medu.game per module, per gebruiker per jaar (excl. btw): Reanimatie & AED €25, ABCDE €100, ECG €75, ALS €50. Staffels en bundels op aanvraag."
+  data-desc-en="Medu.game pricing per module, per user per year (excl. VAT): Resuscitation & AED €25, ABCDE €100, ECG €75, ALS €50. Volume tiers and bundles on request."
+  data-og-image="/assets/logo-pink.png">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Prijzen | Medu.game</title>
+<link rel="stylesheet" href="/assets/medu-fonts.css">
+<link rel="stylesheet" href="/assets/medu.css?v=43">
+<link rel="stylesheet" href="/assets/medu-gallery.css?v=43">
+<style>
+.price-grid{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:var(--space-5); margin-top:var(--space-8);}
+@media(max-width:700px){.price-grid{grid-template-columns:1fr;}}
+.price-card{display:flex; flex-direction:column; gap:var(--space-2); padding:var(--space-6); border-radius:var(--radius-lg); background:var(--pink-light); color:var(--blue-dark);}
+.price-card .m{font-size:var(--text-sm); font-weight:600; letter-spacing:0.08em; color:var(--muted);}
+.price-card .n{font-size:var(--text-xl); font-weight:600;}
+.price-card .p{margin-top:var(--space-3); font-size:var(--text-2xl); font-weight:600; font-variant-numeric:tabular-nums;}
+.price-card .u{font-size:var(--text-sm); color:var(--muted);}
+.price-card .textlink{margin-top:var(--space-3); align-self:flex-start;}
+.price-notes{margin-top:var(--space-12);}
+.price-cta{margin-top:var(--space-8);}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <a class="brand" href="/" aria-label="Medu.game">
+      <img src="/assets/logo-oneline.png" alt="Medu.game" style="height:28px; width:auto; display:block;" />
+    </a>
+    <!--NAV-->
+    <div class="topbar-actions">
+      <!--LANG-SWITCH-->
+      <a class="btn btn-primary btn-sm" href="/demo.html"><span lang="nl">plan een demo (30 min)</span><span lang="en">book a demo (30 min)</span></a>
+      <button class="nav-toggle" type="button" aria-label="menu" aria-expanded="false" aria-controls="topnav">
+        <svg class="ico-bars" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+        <svg class="ico-x" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+<section class="legal-hero">
+  <div class="wrap">
+    <span class="eyebrow"><span class="pulse"></span><span lang="nl">prijzen</span><span lang="en">pricing</span></span>
+    <h1 class="legal-title"><span lang="nl">Prijzen</span><span lang="en">Pricing</span></h1>
+    <p class="section-lede" style="max-width:60ch;"><span lang="nl">Je betaalt per module, per gebruiker per jaar. Alle prijzen zijn exclusief btw.</span><span lang="en">You pay per module, per user per year. All prices exclude VAT.</span></p>
+  </div>
+</section>
+
+<section style="padding-top:0;">
+  <div class="wrap">
+    <div class="price-grid">
+      <div class="price-card">
+        <span class="m"><span lang="nl">bls, 3 scenario's</span><span lang="en">bls, 3 scenarios</span></span>
+        <span class="n"><span lang="nl">Reanimatie &amp; AED</span><span lang="en">Resuscitation &amp; AED</span></span>
+        <span class="p" data-price="modules/reanimatie-aed.html">€25</span>
+        <span class="u"><span lang="nl">per gebruiker per jaar, excl. btw</span><span lang="en">per user per year, excl. VAT</span></span>
+        <a class="textlink" href="/modules/reanimatie-aed.html"><span lang="nl">bekijk de module</span><span lang="en">view the module</span></a>
+      </div>
+      <div class="price-card">
+        <span class="m"><span lang="nl">acute zorg, 4 scenario's + tutorial</span><span lang="en">acute care, 4 scenarios + tutorial</span></span>
+        <span class="n">ABCDE</span>
+        <span class="p" data-price="modules/abcde.html">€100</span>
+        <span class="u"><span lang="nl">per gebruiker per jaar, excl. btw</span><span lang="en">per user per year, excl. VAT</span></span>
+        <a class="textlink" href="/modules/abcde.html"><span lang="nl">bekijk de module</span><span lang="en">view the module</span></a>
+      </div>
+      <div class="price-card">
+        <span class="m"><span lang="nl">cardiologie, 6 scenario's</span><span lang="en">cardiology, 6 scenarios</span></span>
+        <span class="n">ECG</span>
+        <span class="p" data-price="modules/ecg.html">€75</span>
+        <span class="u"><span lang="nl">per gebruiker per jaar, excl. btw</span><span lang="en">per user per year, excl. VAT</span></span>
+        <a class="textlink" href="/modules/ecg.html"><span lang="nl">bekijk de module</span><span lang="en">view the module</span></a>
+      </div>
+      <div class="price-card">
+        <span class="m"><span lang="nl">gevorderd, 1 scenario</span><span lang="en">advanced, 1 scenario</span></span>
+        <span class="n">ALS</span>
+        <span class="p" data-price="modules/als.html">€50</span>
+        <span class="u"><span lang="nl">per gebruiker per jaar, excl. btw</span><span lang="en">per user per year, excl. VAT</span></span>
+        <a class="textlink" href="/modules/als.html"><span lang="nl">bekijk de module</span><span lang="en">view the module</span></a>
+      </div>
+    </div>
+
+    <div class="legal-body price-notes">
+      <h2><span lang="nl">Goed om te weten</span><span lang="en">Good to know</span></h2>
+      <ul>
+        <li><span lang="nl"><strong>Staffels en bundels:</strong> voor grotere aantallen gebruikers of meerdere modules maken we een prijs op aanvraag.</span><span lang="en"><strong>Volume tiers and bundles:</strong> for larger numbers of users or several modules we quote a price on request.</span></li>
+        <li><span lang="nl"><strong>Eigen LMS of ons leerplatform:</strong> je koppelt de modules aan je eigen LMS (zoals Moodle, Canvas of aNewSpring). Ons kant-en-klare leerplatform is optioneel, tegen meerprijs.</span><span lang="en"><strong>Your own LMS or our learning platform:</strong> you connect the modules to your own LMS (such as Moodle, Canvas or aNewSpring). Our ready-made learning platform is optional, at extra cost.</span></li>
+      </ul>
+    </div>
+
+    <div class="price-cta">
+      <a class="btn btn-primary" href="/demo.html"><span lang="nl">plan een demo of vraag een offerte aan</span><span lang="en">book a demo or request a quote</span></a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!--FOOTER-->
+
+<script src="/assets/medu-gallery.js?v=43" defer></script>
+</body>
+</html>

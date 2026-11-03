@@ -1,3 +1,18 @@
+# NEXT — prijzenpagina (03-11-2026)
+
+## KLAAR (met bewijs)
+- Scan na PR #6: 61,3 → 68,4 (screenshot Tim).
+- Branch `feature/pricing`: `/pricing.html` (NL+EN), prijzen in `lib/pricing.mjs` (per gebruiker/jaar, excl. btw: R&AED €25, ABCDE €100, ECG €75, ALS €50; bron: shop learn.medu.game, huidige prijs zonder doorgestreepte). Course.offers + OfferCatalog in JSON-LD, FAQ "Wat kost" bijgewerkt, nav + footer "prijzen", llms.txt/agents.md. Build-assert: pagina toont dezelfde bedragen als `lib/pricing.mjs`.
+- Hamburger-breekpunt 900 → 1180 px + nowrap: bij 1024 px brak de topbar al (ook live), met 6 items erger. Gemeten 1181/1280/1440: één regel, CTA 46 px; ≤1180 hamburger. CSS v=43. Tests 30/30.
+
+## ONGEVERIFIEERD
+- Score-effect pricing: pas na merge + rescan.
+
+## VOLGENDE STAP
+PR mergen (= productie-deploy), dan rescan op https://getdedica.com/score/medu.game.
+
+---
+
 # NEXT — agent-readiness (getdedica-scan, 03-11-2026)
 
 ## KLAAR (met bewijs)
@@ -7,15 +22,16 @@
 - `d1a1d5a`: demo-pagina = "Demo & contact" met `#contact`-sectie, ContactPage-schema, footer-link. 404 en contactsectie bekeken in Playwright op 390 px.
 - Bekend: de directe sprong naar `#contact` landt te hoog, omdat de meetergo-embed na het laden groeit. Na het laden zit de kop netjes onder de topbar.
 
+- **LIVE:** PR #6 gemerged (`83eb2fd`), deploy-run `41635906081` exit 0. curl: llms.txt 200 text/plain, agents.md + index.md 200 text/markdown, onbekend pad 404 met eigen pagina, og:title "Demo &amp; contact" (enkel ge-escaped).
+
 ## ONGEVERIFIEERD
-- Content-Type van `/index.md`, `/agents.md` op GitHub Pages (`text/markdown` verwacht). Pas na deploy te meten.
 - Score-effect: pas na een rescan op getdedica.com/score/medu.game.
 
 ## OPEN (beslissing Tim)
 - Prijzen publiek of niet (`discoverable-pricing`, +20 volgens de scan).
 
 ## VOLGENDE STAP
-`git push -u origin feature/agent-readiness && gh pr create --base master`
+Rescan op https://getdedica.com/score/medu.game (was 61,3).
 
 ---
 
