@@ -1,3 +1,19 @@
+# NEXT — privacyverklaring: Hostinger → OVHcloud (03-11-2026)
+
+## KLAAR (met bewijs)
+- Moodle (learn.medu.game) verhuisd naar OVHcloud (Frankfurt) op 03-11; de privacyverklaring §subverwerkers (NL+EN)
+  noemt nu "OVHcloud – hosting van de LMS-omgeving (learn.medu.game), in de EU (Frankfurt, Duitsland)", datum 3 november 2026.
+  PR #10, merge db8438f, deploy-run 41652639040 geslaagd. Live gemeten: `curl https://medu.game/privacy` en `/en/privacy`
+  → 0× "hostinger", 1× "OVHcloud</strong>".
+
+## ONGEVERIFIEERD
+- Niets anders op de site noemt Hostinger (`grep -ri hostinger src/` → alleen deze regel, nu weg); de rest van de privacytekst niet herlezen.
+
+## VOLGENDE STAP
+Niets verplicht. Na de ontmanteling van Hostinger (≥ 17-11) hoeft hier niets meer; de bron is de GDPR-map (`subverwerkers.md`).
+
+---
+
 # NEXT — agent-readiness afgerond (03-11-2026): 61,3 → 90,7 "Agent-ready"
 
 ## KLAAR (met bewijs)
