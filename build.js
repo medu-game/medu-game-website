@@ -9,6 +9,7 @@ import { buildSitemap } from './lib/sitemap.mjs';
 import { applyLangAttrs } from './lib/attrs.mjs';
 import { buildSchema } from './lib/schema.mjs';
 import { imageSize } from './lib/imagesize.mjs';
+import { PRICES, eur } from './lib/pricing.mjs';
 import { buildLlmsTxt, buildAgentsMd, buildIndexMd, build404 } from './lib/agentfiles.mjs';
 
 const SRC = 'src';
@@ -30,6 +31,7 @@ const NAV = `<nav class="topnav" id="topnav">
           <a href="/modules/als.html">ALS</a>
         </div>
       </div>
+      <a href="/pricing.html"><span lang="nl">prijzen</span><span lang="en">pricing</span></a>
       <a href="/#ervaringen"><span lang="nl">ervaringen</span><span lang="en">testimonials</span></a>
       <a href="/#faq">faq</a>
     </nav>`;
@@ -55,6 +57,7 @@ const FOOTER = `<footer class="site-footer">
       <nav class="footer-col" aria-label="meer" data-aria-label-en="more">
         <span class="lbl"><span lang="nl">meer</span><span lang="en">more</span></span>
         <a href="https://learn.medu.game/login/index.php"><span lang="nl">inloggen</span><span lang="en">log in</span></a>
+        <a href="/pricing.html"><span lang="nl">prijzen</span><span lang="en">pricing</span></a>
         <a href="/demo.html#contact">contact</a>
         <a href="/team.html">team</a>
         <a href="/privacy.html"><span lang="nl">privacybeleid</span><span lang="en">privacy policy</span></a>
@@ -122,6 +125,13 @@ function main() {
       const file = join(SRC, p.replace(/^\//, ''));
       assert(existsSync(file), `${relPath}: og-image not found: ${p}`);
       meta.ogDims[p] = imageSize(file);
+    }
+
+    // pricing.html must show exactly the amounts in lib/pricing.mjs (also used in JSON-LD)
+    if (relPath === 'pricing.html') {
+      for (const [mod, amount] of Object.entries(PRICES)) {
+        assert(raw.includes(`data-price="${mod}">${eur(amount)}<`), `pricing.html: price for ${mod} is not ${eur(amount)}`);
+      }
     }
 
     const withNav = raw.replace('<!--NAV-->', NAV).replace('<!--FOOTER-->', FOOTER);
