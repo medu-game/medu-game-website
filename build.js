@@ -10,7 +10,7 @@ import { applyLangAttrs } from './lib/attrs.mjs';
 import { buildSchema } from './lib/schema.mjs';
 import { imageSize } from './lib/imagesize.mjs';
 import { PRICES, eur } from './lib/pricing.mjs';
-import { buildLlmsTxt, buildAgentsMd, buildIndexMd, build404 } from './lib/agentfiles.mjs';
+import { buildLlmsTxt, buildAgentsMd, buildIndexMd, buildPricingMd, build404 } from './lib/agentfiles.mjs';
 
 const SRC = 'src';
 const DIST = 'dist';
@@ -181,6 +181,7 @@ function main() {
   write(join(DIST, 'llms.txt'), buildLlmsTxt(metas));
   write(join(DIST, 'agents.md'), buildAgentsMd(metas));
   write(join(DIST, 'index.md'), buildIndexMd(metas));
+  write(join(DIST, 'pricing.md'), buildPricingMd());
   write(join(DIST, '404.html'), build404(metas));
   console.log(`Built ${pages.length} pages × ${LANGS.length} languages → ${DIST}/`);
 }
