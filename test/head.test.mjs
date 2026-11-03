@@ -37,3 +37,13 @@ test('applyHead sets lang, title, strips data-*, injects SEO', () => {
   assert.match(out, /name="twitter:card" content="summary_large_image"/);
   assert.match(out, /name="theme-color" content="#000048"/);
 });
+
+test('entity-encoded meta is decoded once and escaped once per output', () => {
+  const src = '<html lang="nl" data-title-nl="A &amp; B | Medu.game" data-title-en="A &amp; B | Medu.game" data-desc-nl="d" data-desc-en="d" data-og-image="/x.png"><head><title>x</title></head></html>';
+  const meta = parseMeta(src);
+  assert.equal(meta.titleEn, 'A & B | Medu.game');
+  const out = applyHead(src, { lang: 'en', relPath: 'demo.html', meta });
+  assert.match(out, /<title>A &amp; B \| Medu\.game<\/title>/);
+  assert.match(out, /property="og:title" content="A &amp; B \| Medu\.game"/);
+  assert.doesNotMatch(out, /&amp;amp;/);
+});
