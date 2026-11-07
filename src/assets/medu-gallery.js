@@ -273,3 +273,78 @@
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
   else init();
 })();
+
+/* ── WebMCP: read-only site tools for in-browser AI agents ─────────────────
+ * Registers tools with document.modelContext (navigator.modelContext on older
+ * Chrome builds) when the browser supports it; a no-op everywhere else. The
+ * tools only read the site's own agent files and navigate between pages — no
+ * forms are submitted and nothing is sent anywhere. Descriptions are for agents
+ * (English); user-facing copy stays in the HTML. */
+(function () {
+  "use strict";
+  var mc = document.modelContext || navigator.modelContext;
+  if (!mc || typeof mc.registerTool !== "function") return;
+
+  // Site root incl. any preview base path, derived from this script's own URL.
+  var me = document.currentScript && document.currentScript.src;
+  var root = me ? me.replace(/\/assets\/medu-gallery\.js.*$/, "") : location.origin;
+  var en = document.documentElement.lang === "en";
+  var PAGES = {
+    home: "", pricing: "pricing.html", demo: "demo.html", team: "team.html",
+    privacy: "privacy.html", terms: "terms.html",
+    "module-resuscitation-aed": "modules/reanimatie-aed.html", "module-abcde": "modules/abcde.html",
+    "module-ecg": "modules/ecg.html", "module-als": "modules/als.html"
+  };
+  function pageUrl(key, lang) {
+    return root + "/" + ((lang || (en ? "en" : "nl")) === "en" ? "en/" : "") + PAGES[key];
+  }
+  function text(path) {
+    return fetch(root + path).then(function (r) {
+      if (!r.ok) throw new Error("HTTP " + r.status + " for " + path);
+      return r.text();
+    }).then(function (t) { return { content: [{ type: "text", text: t }] }; });
+  }
+
+  var ctrl = typeof AbortController === "function" ? new AbortController() : null;
+  var opts = ctrl ? { signal: ctrl.signal } : undefined;
+  window.addEventListener("pagehide", function () { if (ctrl) ctrl.abort(); });
+
+  [
+    {
+      name: "get_site_overview",
+      description: "Get an overview of Medu.game (game-based clinical training for healthcare education): modules, platform facts, languages, LMS integrations and links. Returns markdown.",
+      inputSchema: { type: "object", properties: {} },
+      execute: function () { return text("/llms.txt"); }
+    },
+    {
+      name: "get_pricing",
+      description: "Get Medu.game prices per module, per user per year, in EUR excluding VAT. Returns a markdown table.",
+      inputSchema: { type: "object", properties: {} },
+      execute: function () { return text("/pricing.md"); }
+    },
+    {
+      name: "open_page",
+      description: "Navigate the browser to a page of medu.game, e.g. 'demo' to book a demo or get a quote, 'pricing' for prices, or a module page.",
+      inputSchema: {
+        type: "object",
+        properties: {
+          page: { type: "string", enum: Object.keys(PAGES), description: "Which page to open." },
+          language: { type: "string", enum: ["nl", "en"], description: "Page language; defaults to the current page's language." }
+        },
+        required: ["page"]
+      },
+      execute: function (args) {
+        var key = args && args.page;
+        if (!Object.prototype.hasOwnProperty.call(PAGES, key)) throw new Error("Unknown page: " + key);
+        var url = pageUrl(key, args.language);
+        setTimeout(function () { location.href = url; }, 0);
+        return { content: [{ type: "text", text: "Opening " + url }] };
+      }
+    }
+  ].forEach(function (tool) {
+    try {
+      var p = mc.registerTool(tool, opts);
+      if (p && typeof p.catch === "function") p.catch(function () {});
+    } catch (e) { /* unsupported shape in this browser build: ignore */ }
+  });
+})();

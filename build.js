@@ -10,7 +10,11 @@ import { applyLangAttrs } from './lib/attrs.mjs';
 import { buildSchema } from './lib/schema.mjs';
 import { imageSize } from './lib/imagesize.mjs';
 import { PRICES, eur } from './lib/pricing.mjs';
-import { buildLlmsTxt, buildAgentsMd, buildIndexMd, buildPricingMd, buildArd, build404 } from './lib/agentfiles.mjs';
+import { buildLlmsTxt, buildAgentsMd, buildIndexMd, buildPricingMd, buildArd, build404, buildSkillMd, buildSkillsIndex, SKILL_NAME } from './lib/agentfiles.mjs';
+import { createHash } from 'node:crypto';
+
+// Markdown versions of pages, advertised with <link rel="alternate" type="text/markdown">
+const MARKDOWN_ALT = { 'index.html': '/index.md', 'pricing.html': '/pricing.md' };
 
 const SRC = 'src';
 const DIST = 'dist';
@@ -104,7 +108,9 @@ function main() {
   // assets verbatim
   cpSync(join(SRC, 'assets'), join(DIST, 'assets'), { recursive: true });
   // robots.txt generated with the env-aware sitemap URL
-  write(join(DIST, 'robots.txt'), `User-agent: *\nAllow: /\n\nSitemap: ${SITE}${BASE}/sitemap.xml\nAgentmap: ${SITE}${BASE}/.well-known/ard.json\n`);
+  // Content-Signal (contentsignals.org): search and answering with AI (ai-input) yes,
+  // model training no. Change the values here if that policy changes.
+  write(join(DIST, 'robots.txt'), `# Content signals: search = search indexing, ai-input = use in AI answers (RAG/grounding),\n# ai-train = training AI models. See https://contentsignals.org/\nUser-agent: *\nContent-Signal: search=yes, ai-input=yes, ai-train=no\nAllow: /\n\nSitemap: ${SITE}${BASE}/sitemap.xml\nAgentmap: ${SITE}${BASE}/.well-known/ard.json\n`);
   // CNAME only for the production (apex) build — never on the preview subpath
   if (!IS_PREVIEW && existsSync(join(SRC, 'CNAME'))) cpSync(join(SRC, 'CNAME'), join(DIST, 'CNAME'));
 
@@ -145,6 +151,9 @@ function main() {
       // set html.js before first paint so JS-only controls don't pop in late
       html = html.replace('</head>', `<script>document.documentElement.classList.add('js')</script>\n</head>`);
       html = html.replace('</head>', `<link rel="ard" type="application/json" href="/.well-known/ard.json">\n</head>`);
+      // HTML equivalents of Link response headers (GitHub Pages cannot set headers)
+      const md = MARKDOWN_ALT[relPath];
+      html = html.replace('</head>', `<link rel="describedby" type="text/plain" href="/llms.txt">\n${md ? `<link rel="alternate" type="text/markdown" href="${md}">\n` : ''}</head>`);
       html = html.replace('</head>', `${buildSchema({ relPath, lang: code, meta })}\n</head>`);
 
       // per-output assertions
@@ -185,6 +194,11 @@ function main() {
   write(join(DIST, 'pricing.md'), buildPricingMd());
   write(join(DIST, '.well-known', 'ard.json'), buildArd());
   write(join(DIST, '404.html'), build404(metas));
+  // Agent Skills Discovery index (RFC v0.2.0) + the skill it lists
+  const skillMd = buildSkillMd(metas);
+  write(join(DIST, '.well-known', 'agent-skills', SKILL_NAME, 'SKILL.md'), skillMd);
+  write(join(DIST, '.well-known', 'agent-skills', 'index.json'),
+    buildSkillsIndex(skillMd, (t) => createHash('sha256').update(t).digest('hex')));
   console.log(`Built ${pages.length} pages × ${LANGS.length} languages → ${DIST}/`);
 }
 

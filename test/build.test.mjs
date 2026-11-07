@@ -3,6 +3,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
 import { readFileSync, existsSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 
 test('full build produces single-language pages with SEO', () => {
   execFileSync('node', ['build.js'], { stdio: 'inherit' });
@@ -44,6 +45,23 @@ test('full build produces single-language pages with SEO', () => {
   }
   assert.match(nl, /<link rel="ard" type="application\/json" href="\/\.well-known\/ard\.json">/);
   assert.match(readFileSync('dist/robots.txt', 'utf8'), /Agentmap: https:\/\/medu\.game\/\.well-known\/ard\.json/);
+  // Content signals in robots.txt
+  assert.match(readFileSync('dist/robots.txt', 'utf8'), /User-agent: \*\nContent-Signal: search=yes, ai-input=yes, ai-train=no\n/);
+  // HTML link equivalents of Link headers
+  assert.match(nl, /<link rel="describedby" type="text\/plain" href="\/llms\.txt">/);
+  assert.match(en, /<link rel="alternate" type="text\/markdown" href="\/index\.md">/);
+  // Agent Skills Discovery index: digest matches the published SKILL.md
+  const skills = JSON.parse(readFileSync('dist/.well-known/agent-skills/index.json', 'utf8'));
+  assert.equal(skills.$schema, 'https://schemas.agentskills.io/discovery/0.2.0/schema.json');
+  for (const s of skills.skills) {
+    assert.match(s.name, /^[a-z0-9-]+$/);
+    assert.equal(s.type, 'skill-md');
+    assert.ok(s.description);
+    const file = 'dist' + new URL(s.url).pathname;
+    const hex = createHash('sha256').update(readFileSync(file)).digest('hex');
+    assert.equal(s.digest, `sha256:${hex}`);
+    assert.match(readFileSync(file, 'utf8'), new RegExp(`^---\nname: ${s.name}\ndescription: `));
+  }
   // Organization carries a description
   assert.match(en, /"@type":"Organization"[^}]*"description":"Medu\.game is the game-based/);
 
